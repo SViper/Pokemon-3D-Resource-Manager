@@ -1,0 +1,9 @@
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Release\Pokémon 3D Resource Manager.exe
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Release\Pokémon 3D Resource Manager.pdb
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Release\Pokémon 3D Resource Manager.xml
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon3D.Resources.resources
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon3D.FileCheck.resources
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon 3D Resource Manager.vbproj.GenerateResource.Cache
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon 3D Resource Manager.exe
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon 3D Resource Manager.xml
+C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon 3D Resource Manager.pdb

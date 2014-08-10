@@ -1,0 +1,9 @@
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\bin\Debug\Pokémon 3D.exe
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\bin\Debug\Pokémon 3D.pdb
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\bin\Debug\Pokémon 3D.xml
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\obj\x86\Debug\Pokémon3D.Resources.resources
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\obj\x86\Debug\Pokémon3D.FileCheck.resources
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\obj\x86\Debug\WindowsApplication1.vbproj.GenerateResource.Cache
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\obj\x86\Debug\Pokémon 3D.exe
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\obj\x86\Debug\Pokémon 3D.xml
+C:\Users\Xiong\AppData\Local\Temporary Projects\WindowsApplication1\obj\x86\Debug\Pokémon 3D.pdb
