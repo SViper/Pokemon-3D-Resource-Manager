@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RichTextBox1.Text" xml:space="preserve">
-    <value>Copyright:
-The code for the Pokémon 3D Resource Manger is copyrighted to the creators.
-This Program is not a replacement of Pokémon 3D Launcher
-
-You are allowed to use the source code in git (https://github.com/jianmingyong/Pokemon-3D-Resource-Manager) to recreate this program.
-You are not allowed to add any code that will manipulate P3D Launcher.
-
-I am NOT responsible for any additional codes that is not made by jianmingtong.
-
-// The Dialga team</value>
-  </data>
-  <metadata name="FolderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

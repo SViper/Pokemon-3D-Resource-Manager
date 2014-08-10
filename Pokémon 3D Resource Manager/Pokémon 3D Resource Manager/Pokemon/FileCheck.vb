@@ -7,6 +7,10 @@ Public Class FileCheck
 
     Private Sub InstalledContents_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles InstalledContents.SelectedIndexChanged
         Dim str1 = InstalledContents.GetItemText(InstalledContents.SelectedItem)
+        NewVersionInfo.ResetText()
+        Button2.Enabled = True
+        Button4.Enabled = True
+        Button5.Enabled = True
         ShowInfo(str1)
     End Sub
 
@@ -46,16 +50,30 @@ Public Class FileCheck
             ShowLog("Pokémon3D Launcher Found.")
         End If
         InstalledContents.Items.Clear()
-        If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\")) Then
-            If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\Pokémon Universal 3D")) Then
-                InstalledContents.Items.Add("Pokémon Universal 3D")
-                ShowLog("Found Pokémon Universal 3D")
+        InstalledContents.ResetText()
+        InfoTextBox.Clear()
+        VersionInfo.ResetText()
+        NewVersionInfo.ResetText()
+        Dim client As WebClient = New WebClient()
+        Dim DownloadedContent As String = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Supported%20Files.txt")
+        ShowLog("Get Supported Content From Server" + vbNewLine + DownloadedContent)
+        Dim CurrentIndex As Integer = 0
+        Dim SupportedContentPack As String = DownloadedContent
+        Do While CurrentIndex < SupportedContentPack.LastIndexOf("|")
+            If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\")) Then
+                Dim CurrentContentPack As String = Functions.GetSplit(SupportedContentPack, CurrentIndex, "|")
+                If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\" & CurrentContentPack) And Not InstalledContents.Items.Contains(CurrentContentPack)) Then
+                    InstalledContents.Items.Add(CurrentContentPack)
+                    ShowLog("Found " + CurrentContentPack)
+                End If
+                CurrentIndex = CurrentIndex + 1
+            Else
+                Exit Do
             End If
-            If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\HGSS Music Pack HD")) Then
-                InstalledContents.Items.Add("HGSS Music Pack HD")
-                ShowLog("Found HGSS Music Pack HD")
-            End If
-        End If
+        Loop
+        Button2.Enabled = False
+        Button4.Enabled = False
+        Button5.Enabled = False
     End Sub
 
     Sub PlaySystemSound()
@@ -65,21 +83,25 @@ Public Class FileCheck
 
     Private Sub Button2_Click(sender As System.Object, e As System.EventArgs) Handles Button2.Click
         Dim client As WebClient = New WebClient()
-        Dim DownloadedContent As String = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Content-Pack-Sources/master/version.txt")
-        If (DownloadedContent.Contains(InstalledContents.Text) And Not InstalledContents.Text = "") Then
-            Dim TrimContent As String = Functions.GetSplit(DownloadedContent.Substring(DownloadedContent.IndexOf(InstalledContents.Text)), 1, "=")
-            Dim newversion As String = TrimContent.Remove(0, 1)
-            Dim oldversion As String = VersionInfo.Text
+        Dim DownloadedContent As String = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Resource%20Files.txt")
+        ShowLog("Get Version From Server" + vbNewLine + DownloadedContent)
+        If (DownloadedContent.Contains(InstalledContents.Text)) Then
+            Dim newversion As String = Functions.GetSplit(DownloadedContent.Substring(DownloadedContent.IndexOf(InstalledContents.Text)), 1, "|")
+            Dim oldversion As String = VersionInfo.Text.Remove(VersionInfo.Text.Length.ToString - 1)
             NewVersionInfo.Text = newversion
             ShowLog("Comparing Version for " + InstalledContents.Text)
-            ShowLog("Local File: " + oldversion.Remove(oldversion.Length.ToString - 1))
+            ShowLog("Local File: " + oldversion)
             ShowLog("Server File: " + newversion)
             If (oldversion = newversion) Then
+                PlaySystemSound()
                 MsgBox("No new update available.")
             Else
+                PlaySystemSound()
                 MsgBox("There is update available for this Content Packs / GameModes.")
             End If
         Else
+            PlaySystemSound()
+            MsgBox("Could not retrive from server.")
             NewVersionInfo.Text = "Could not retrive from server"
             ShowLog("Could not retrive from server")
         End If
@@ -90,5 +112,22 @@ Public Class FileCheck
             Shell(TextBox1.Text.ToString & "\Pokémon3D.exe", AppWinStyle.NormalFocus)
             Close()
         End If
+    End Sub
+
+    Private Sub Button4_Click(sender As System.Object, e As System.EventArgs) Handles Button4.Click
+
+    End Sub
+
+    Private Sub Button5_Click(sender As System.Object, e As System.EventArgs) Handles Button5.Click
+        PlaySystemSound()
+        Uninstall.UninstallContentname(InstalledContents.Text)
+        If (Uninstall.ShowDialog() = Windows.Forms.DialogResult.OK) Then
+            My.Computer.FileSystem.DeleteDirectory(TextBox1.Text & "\Pokemon\ContentPacks\" & InstalledContents.Text, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin)
+            ResourceCheck(TextBox1.Text)
+        End If
+    End Sub
+
+    Private Sub Button6_Click(sender As System.Object, e As System.EventArgs) Handles Button6.Click
+        ResourceCheck(TextBox1.Text)
     End Sub
 End Class

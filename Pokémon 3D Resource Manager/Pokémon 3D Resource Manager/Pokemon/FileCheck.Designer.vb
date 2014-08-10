@@ -28,6 +28,10 @@ Partial Class FileCheck
         Me.InstalledContents = New System.Windows.Forms.ComboBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.InstalledContent = New System.Windows.Forms.TabPage()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.NewVersionInfo = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -40,12 +44,14 @@ Partial Class FileCheck
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Logger = New System.Windows.Forms.TabPage()
+        Me.About = New System.Windows.Forms.TabPage()
+        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.InstalledContent.SuspendLayout()
         Me.Settings.SuspendLayout()
         Me.Logger.SuspendLayout()
+        Me.About.SuspendLayout()
         Me.SuspendLayout()
         '
         'Log
@@ -60,7 +66,7 @@ Partial Class FileCheck
         Me.Log.Name = "Log"
         Me.Log.ReadOnly = True
         Me.Log.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.Log.Size = New System.Drawing.Size(485, 290)
+        Me.Log.Size = New System.Drawing.Size(540, 303)
         Me.Log.TabIndex = 0
         Me.Log.Text = ""
         '
@@ -69,9 +75,9 @@ Partial Class FileCheck
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(6, 13)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(188, 13)
+        Me.Label1.Size = New System.Drawing.Size(122, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Installed Content Packs / GameMode:"
+        Me.Label1.Text = "Installed Content Packs:"
         '
         'InstalledContents
         '
@@ -80,7 +86,7 @@ Partial Class FileCheck
         Me.InstalledContents.FormattingEnabled = True
         Me.InstalledContents.Location = New System.Drawing.Point(9, 29)
         Me.InstalledContents.Name = "InstalledContents"
-        Me.InstalledContents.Size = New System.Drawing.Size(482, 21)
+        Me.InstalledContents.Size = New System.Drawing.Size(456, 21)
         Me.InstalledContents.TabIndex = 3
         '
         'TabControl1
@@ -91,14 +97,18 @@ Partial Class FileCheck
         Me.TabControl1.Controls.Add(Me.InstalledContent)
         Me.TabControl1.Controls.Add(Me.Settings)
         Me.TabControl1.Controls.Add(Me.Logger)
+        Me.TabControl1.Controls.Add(Me.About)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(505, 328)
+        Me.TabControl1.Size = New System.Drawing.Size(560, 341)
         Me.TabControl1.TabIndex = 4
         '
         'InstalledContent
         '
+        Me.InstalledContent.Controls.Add(Me.Button6)
+        Me.InstalledContent.Controls.Add(Me.Button5)
+        Me.InstalledContent.Controls.Add(Me.Button4)
         Me.InstalledContent.Controls.Add(Me.Button3)
         Me.InstalledContent.Controls.Add(Me.NewVersionInfo)
         Me.InstalledContent.Controls.Add(Me.Label5)
@@ -112,10 +122,46 @@ Partial Class FileCheck
         Me.InstalledContent.Location = New System.Drawing.Point(4, 22)
         Me.InstalledContent.Name = "InstalledContent"
         Me.InstalledContent.Padding = New System.Windows.Forms.Padding(3)
-        Me.InstalledContent.Size = New System.Drawing.Size(497, 302)
+        Me.InstalledContent.Size = New System.Drawing.Size(552, 315)
         Me.InstalledContent.TabIndex = 0
         Me.InstalledContent.Text = "Installed Content"
         Me.InstalledContent.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(471, 27)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(75, 23)
+        Me.Button6.TabIndex = 15
+        Me.Button6.Text = "Refresh"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(135, 286)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(125, 23)
+        Me.Button5.TabIndex = 14
+        Me.Button5.Text = "Uninstall / Remove"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(266, 286)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(125, 23)
+        Me.Button4.TabIndex = 13
+        Me.Button4.Text = "Reinstall / Update"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(421, 286)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(125, 23)
+        Me.Button3.TabIndex = 12
+        Me.Button3.Text = "Open Pokémon 3D "
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'NewVersionInfo
         '
@@ -137,9 +183,9 @@ Partial Class FileCheck
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(9, 273)
+        Me.Button2.Location = New System.Drawing.Point(9, 286)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(185, 23)
+        Me.Button2.Size = New System.Drawing.Size(120, 23)
         Me.Button2.TabIndex = 9
         Me.Button2.Text = "Check For update" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.Button2.UseVisualStyleBackColor = True
@@ -173,14 +219,13 @@ Partial Class FileCheck
         '
         'InfoTextBox
         '
-        Me.InfoTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.InfoTextBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.InfoTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.InfoTextBox.Location = New System.Drawing.Point(9, 56)
         Me.InfoTextBox.Name = "InfoTextBox"
         Me.InfoTextBox.ReadOnly = True
-        Me.InfoTextBox.Size = New System.Drawing.Size(482, 150)
+        Me.InfoTextBox.Size = New System.Drawing.Size(537, 147)
         Me.InfoTextBox.TabIndex = 4
         Me.InfoTextBox.Text = ""
         '
@@ -192,7 +237,7 @@ Partial Class FileCheck
         Me.Settings.Location = New System.Drawing.Point(4, 22)
         Me.Settings.Name = "Settings"
         Me.Settings.Padding = New System.Windows.Forms.Padding(3)
-        Me.Settings.Size = New System.Drawing.Size(497, 302)
+        Me.Settings.Size = New System.Drawing.Size(552, 315)
         Me.Settings.TabIndex = 2
         Me.Settings.Text = "Settings"
         Me.Settings.UseVisualStyleBackColor = True
@@ -229,27 +274,42 @@ Partial Class FileCheck
         Me.Logger.Location = New System.Drawing.Point(4, 22)
         Me.Logger.Name = "Logger"
         Me.Logger.Padding = New System.Windows.Forms.Padding(3)
-        Me.Logger.Size = New System.Drawing.Size(497, 302)
+        Me.Logger.Size = New System.Drawing.Size(552, 315)
         Me.Logger.TabIndex = 1
         Me.Logger.Text = "Logger"
         Me.Logger.UseVisualStyleBackColor = True
         '
-        'Button3
+        'About
         '
-        Me.Button3.Location = New System.Drawing.Point(366, 273)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(125, 23)
-        Me.Button3.TabIndex = 12
-        Me.Button3.Text = "Open Pokémon 3D "
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.About.Controls.Add(Me.RichTextBox1)
+        Me.About.Location = New System.Drawing.Point(4, 22)
+        Me.About.Name = "About"
+        Me.About.Padding = New System.Windows.Forms.Padding(3)
+        Me.About.Size = New System.Drawing.Size(552, 315)
+        Me.About.TabIndex = 3
+        Me.About.Text = "About"
+        Me.About.UseVisualStyleBackColor = True
+        '
+        'RichTextBox1
+        '
+        Me.RichTextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RichTextBox1.Location = New System.Drawing.Point(3, 6)
+        Me.RichTextBox1.Name = "RichTextBox1"
+        Me.RichTextBox1.ReadOnly = True
+        Me.RichTextBox1.Size = New System.Drawing.Size(543, 303)
+        Me.RichTextBox1.TabIndex = 0
+        Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
         '
         'FileCheck
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(529, 349)
+        Me.ClientSize = New System.Drawing.Size(584, 362)
         Me.Controls.Add(Me.TabControl1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(600, 400)
         Me.Name = "FileCheck"
         Me.Text = "Pokémon 3D Resource Manager"
         Me.TabControl1.ResumeLayout(False)
@@ -258,6 +318,7 @@ Partial Class FileCheck
         Me.Settings.ResumeLayout(False)
         Me.Settings.PerformLayout()
         Me.Logger.ResumeLayout(False)
+        Me.About.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -280,5 +341,10 @@ Partial Class FileCheck
     Friend WithEvents NewVersionInfo As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents About As System.Windows.Forms.TabPage
+    Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
+    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents Button6 As System.Windows.Forms.Button
 
 End Class

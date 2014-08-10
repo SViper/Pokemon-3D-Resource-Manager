@@ -93,6 +93,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Uninstall.Designer.vb">
+      <DependentUpon>Uninstall.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Uninstall.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Pokemon\Function.vb" />
     <Compile Include="Pokemon\Settings.vb" />
     <Compile Include="Pokemon\FileCheck.vb">
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pokemon\FileCheck.resx">
       <DependentUpon>FileCheck.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uninstall.resx">
+      <DependentUpon>Uninstall.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
