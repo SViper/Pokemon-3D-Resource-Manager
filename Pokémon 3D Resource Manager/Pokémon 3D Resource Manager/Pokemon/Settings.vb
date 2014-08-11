@@ -1,4 +1,5 @@
 ﻿Public Class AppSettings
+
     Public Shared Sub GetSetting(ByVal Status As String, ByVal Setting As String)
         If (Status = "True" And Not Setting = "") Then
             FileCheck.ShowLog("Get Application Settings.")

@@ -1,24 +1,35 @@
 ﻿Imports System.Net
 
 Public Class FileCheck
+    Private client As WebClient = New WebClient()
+
     Private Sub FileCheck_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         AppSettings.CheckSetting()
     End Sub
 
-    Private Sub InstalledContents_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles InstalledContents.SelectedIndexChanged
-        Dim str1 = InstalledContents.GetItemText(InstalledContents.SelectedItem)
-        NewVersionInfo.ResetText()
-        Button2.Enabled = True
-        Button4.Enabled = True
-        Button5.Enabled = True
-        ShowInfo(str1)
+    Private Sub InstalledContents_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles InstalledContentPacksName.SelectedIndexChanged
+        Dim str1 = InstalledContentPacksName.GetItemText(InstalledContentPacksName.SelectedItem)
+        ContentPackNewVersionInfo.ResetText()
+        ContentPackCheckForUpdateButton.Enabled = True
+        ContentPackUpdateButton.Enabled = True
+        ContentPackRemoveButton.Enabled = True
+        ShowInfo(str1, "Content Pack")
     End Sub
 
-    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles Button1.Click
+    Private Sub InstalledGameModesName_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles InstalledGameModesName.SelectedIndexChanged
+        Dim str1 = InstalledGameModesName.GetItemText(InstalledGameModesName.SelectedItem)
+        GameModeNewVersionInfo.ResetText()
+        GameModeCheckForUpdateButton.Enabled = True
+        GameModeUpdateButton.Enabled = True
+        GameModeRemoveButton.Enabled = True
+        ShowInfo(str1, "GameMode")
+    End Sub
+
+    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles SettingSearchButton.Click
         FolderBrowserDialog1.ShowDialog()
-        TextBox1.Text = FolderBrowserDialog1.SelectedPath()
-        ShowLog("Game Directory Points to: " + TextBox1.Text)
-        AppSettings.ChangeSetting(TextBox1.Text)
+        GameDirectory.Text = FolderBrowserDialog1.SelectedPath()
+        ShowLog("Game Directory Points to: " + GameDirectory.Text)
+        AppSettings.ChangeSetting(GameDirectory.Text)
     End Sub
 
     Public Sub ShowLog(ByVal strlog As String)
@@ -29,51 +40,92 @@ Public Class FileCheck
         End If
     End Sub
 
-    Public Sub ShowInfo(ByVal Selectindex As String)
-        Dim info As String = System.IO.File.ReadAllText(TextBox1.Text & "\Pokemon\ContentPacks\" + Selectindex + "\info.dat")
-        InfoTextBox.Text = info
-        VersionInfo.Text = Functions.GetSplit(InfoTextBox.Text, 0, "jianmingyong")
+    Public Sub ShowInfo(ByVal Selectitem As String, ByVal Resource As String)
+        If (Resource.ToString = "Content Pack") Then
+            Dim info As String = System.IO.File.ReadAllText(GameDirectory.Text & "\Pokemon\ContentPacks\" + Selectitem + "\info.dat")
+            ContentPackInfo.Text = info
+            ContentPackVersionInfo.Text = Functions.GetSplit(ContentPackInfo.Text, 0, "jianmingyong")
+            ContentPackVersionInfo.Text = ContentPackVersionInfo.Text.Remove(ContentPackVersionInfo.Text.Length - 1)
+        ElseIf (Resource.ToString = "GameMode") Then
+            Dim info As String = System.IO.File.ReadAllText(GameDirectory.Text & "\Pokemon\GameModes\" + Selectitem + "\GameMode.dat")
+            GameModeInfo.Text = info
+            Dim getstringofversion As String = GameModeInfo.Text.Substring(GameModeInfo.Text.IndexOf("Version|"))
+            GameModeVersionInfo.Text = getstringofversion.Remove(getstringofversion.IndexOf("Author"))
+            GameModeVersionInfo.Text = GameModeVersionInfo.Text.Remove(0, 8)
+            GameModeVersionInfo.Text = GameModeVersionInfo.Text.Remove(GameModeVersionInfo.Text.Length - 1)
+        End If
     End Sub
 
     Public Sub Getdirectory(ByVal Directory As String)
-        TextBox1.SelectedText = Directory
+        GameDirectory.SelectedText = Directory
         ResourceCheck(Directory)
     End Sub
 
+    Private Sub Reset()
+        InstalledContentPacksName.Items.Clear()
+        InstalledContentPacksName.ResetText()
+        ContentPackInfo.Clear()
+        ContentPackVersionInfo.ResetText()
+        ContentPackNewVersionInfo.ResetText()
+        InstalledGameModesName.Items.Clear()
+        InstalledGameModesName.ResetText()
+        GameModeInfo.Clear()
+        GameModeVersionInfo.ResetText()
+        GameModeNewVersionInfo.ResetText()
+        ContentPackCheckForUpdateButton.Enabled = False
+        ContentPackUpdateButton.Enabled = False
+        ContentPackRemoveButton.Enabled = False
+        GameModeCheckForUpdateButton.Enabled = False
+        GameModeUpdateButton.Enabled = False
+        GameModeRemoveButton.Enabled = False
+    End Sub
+
     Public Sub ResourceCheck(ByVal Directory As String)
+        Reset()
         If (Not System.IO.File.Exists(Directory & "\Pokemon\Pokemon.exe")) Then
             PlaySystemSound()
             MsgBox("Error: Pokémon 3D Application file does not exist." + vbNewLine + "Please locate the Pokémon3D launcher folder in the setting.")
             ShowLog("Error: Pokémon 3D Application file does not exist.")
             ShowLog("Please locate the Pokémon3D launcher folder in the setting.")
-        Else
-            ShowLog("Pokémon3D Launcher Found.")
         End If
-        InstalledContents.Items.Clear()
-        InstalledContents.ResetText()
-        InfoTextBox.Clear()
-        VersionInfo.ResetText()
-        NewVersionInfo.ResetText()
-        Dim client As WebClient = New WebClient()
-        Dim DownloadedContent As String = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Supported%20Files.txt")
-        ShowLog("Get Supported Content From Server" + vbNewLine + DownloadedContent)
-        Dim CurrentIndex As Integer = 0
-        Dim SupportedContentPack As String = DownloadedContent
-        Do While CurrentIndex < SupportedContentPack.LastIndexOf("|")
-            If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\")) Then
-                Dim CurrentContentPack As String = Functions.GetSplit(SupportedContentPack, CurrentIndex, "|")
-                If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\" & CurrentContentPack) And Not InstalledContents.Items.Contains(CurrentContentPack)) Then
-                    InstalledContents.Items.Add(CurrentContentPack)
-                    ShowLog("Found " + CurrentContentPack)
+        Try
+            Dim DownloadedContent As String = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Supported%20Files.txt")
+            ShowLog("Get Supported Content From Server" + vbNewLine + DownloadedContent)
+            Dim CurrentIndex As Integer = 1
+            Dim SupportedContentPack As String = ""
+            Dim SupportedGameMode As String = ""
+            Do While Not SupportedContentPack.Contains("EndContentPacks")
+                SupportedContentPack = Functions.GetSplit(DownloadedContent, CurrentIndex, "|")
+                If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\") And Not SupportedContentPack.Contains("EndContentPacks")) Then
+                    If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\" & SupportedContentPack) And Not InstalledContentPacksName.Items.Contains(SupportedContentPack)) Then
+                        InstalledContentPacksName.Items.Add(SupportedContentPack)
+                        ShowLog("Found " + SupportedContentPack)
+                    End If
+                    CurrentIndex = CurrentIndex + 1
+                Else
+                    Exit Do
                 End If
-                CurrentIndex = CurrentIndex + 1
-            Else
-                Exit Do
-            End If
-        Loop
-        Button2.Enabled = False
-        Button4.Enabled = False
-        Button5.Enabled = False
+            Loop
+            CurrentIndex = 1
+            Dim splitSupportedGameMode As String = ""
+            Do While Not splitSupportedGameMode.Contains("EndGameMode")
+                SupportedGameMode = DownloadedContent.Substring(DownloadedContent.IndexOf("GameMode"))
+                splitSupportedGameMode = Functions.GetSplit(SupportedGameMode, CurrentIndex, "|")
+                If (System.IO.Directory.Exists(Directory & "\Pokemon\GameModes\") And Not splitSupportedGameMode.Contains("EndGameMode")) Then
+                    If (System.IO.Directory.Exists(Directory & "\Pokemon\GameModes\" & splitSupportedGameMode) And Not InstalledGameModesName.Items.Contains(splitSupportedGameMode)) Then
+                        InstalledGameModesName.Items.Add(splitSupportedGameMode)
+                        ShowLog("Found " + splitSupportedGameMode)
+                    End If
+                    CurrentIndex = CurrentIndex + 1
+                Else
+                    Exit Do
+                End If
+            Loop
+        Catch ex As Exception
+            PlaySystemSound()
+            MsgBox(ex.Message.ToString)
+            ShowLog(ex.Message.ToString)
+        End Try
     End Sub
 
     Sub PlaySystemSound()
@@ -81,53 +133,141 @@ Public Class FileCheck
             System.Media.SystemSounds.Asterisk)
     End Sub
 
-    Private Sub Button2_Click(sender As System.Object, e As System.EventArgs) Handles Button2.Click
-        Dim client As WebClient = New WebClient()
-        Dim DownloadedContent As String = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Resource%20Files.txt")
-        ShowLog("Get Version From Server" + vbNewLine + DownloadedContent)
-        If (DownloadedContent.Contains(InstalledContents.Text)) Then
-            Dim newversion As String = Functions.GetSplit(DownloadedContent.Substring(DownloadedContent.IndexOf(InstalledContents.Text)), 1, "|")
-            Dim oldversion As String = VersionInfo.Text.Remove(VersionInfo.Text.Length.ToString - 1)
-            NewVersionInfo.Text = newversion
-            ShowLog("Comparing Version for " + InstalledContents.Text)
-            ShowLog("Local File: " + oldversion)
-            ShowLog("Server File: " + newversion)
-            If (oldversion = newversion) Then
-                PlaySystemSound()
-                MsgBox("No new update available.")
+    Private Sub Button2_Click(sender As System.Object, e As System.EventArgs) Handles ContentPackCheckForUpdateButton.Click
+        Try
+            Dim DownloadedContent As String = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Content%20Pack%20Resource%20Files.txt")
+            ShowLog("Get Version From Server" + vbNewLine + DownloadedContent)
+            If (DownloadedContent.Contains(InstalledContentPacksName.SelectedItem)) Then
+                Dim newversion As String = Functions.GetSplit(DownloadedContent.Substring(DownloadedContent.IndexOf(InstalledContentPacksName.SelectedItem)), 1, "|")
+                Dim oldversion As String = ContentPackVersionInfo.Text
+                ContentPackNewVersionInfo.Text = newversion
+                ShowLog("Comparing Version for " + InstalledContentPacksName.Text)
+                ShowLog("Local File: " + oldversion)
+                ShowLog("Server File: " + newversion)
+                If (oldversion = newversion) Then
+                    PlaySystemSound()
+                    MsgBox("No new update available.")
+                Else
+                    PlaySystemSound()
+                    MsgBox("There is update available for this Content Pack.")
+                End If
             Else
                 PlaySystemSound()
-                MsgBox("There is update available for this Content Packs / GameModes.")
+                MsgBox("Could not retrive from server.")
+                ContentPackNewVersionInfo.Text = "Could not retrive from server"
+                ShowLog("Could not retrive from server")
             End If
+        Catch ex As Exception
+            PlaySystemSound()
+            MsgBox(ex.Message.ToString)
+            ShowLog(ex.Message.ToString)
+        End Try
+    End Sub
+
+    Private Sub GameModeCheckForUpdateButton_Click(sender As System.Object, e As System.EventArgs) Handles GameModeCheckForUpdateButton.Click
+        Try
+            Dim DownloadedContent As String = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/GameMode%20Resource%20Files.txt")
+            ShowLog("Get Version From Server" + vbNewLine + DownloadedContent)
+            If (DownloadedContent.Contains(InstalledGameModesName.SelectedItem)) Then
+                Dim newversion As String = Functions.GetSplit(DownloadedContent.Substring(DownloadedContent.IndexOf(InstalledGameModesName.SelectedItem)), 1, "|")
+                Dim oldversion As String = GameModeVersionInfo.Text
+                GameModeNewVersionInfo.Text = newversion
+                ShowLog("Comparing Version for " + InstalledGameModesName.SelectedItem)
+                ShowLog("Local File: " + oldversion)
+                ShowLog("Server File: " + newversion)
+                If (oldversion = newversion) Then
+                    PlaySystemSound()
+                    MsgBox("No new update available.")
+                Else
+                    PlaySystemSound()
+                    MsgBox("There is update available for this GameMode.")
+                End If
+            Else
+                PlaySystemSound()
+                MsgBox("Could not retrive from server.")
+                ContentPackNewVersionInfo.Text = "Could not retrive from server"
+                ShowLog("Could not retrive from server")
+            End If
+        Catch ex As Exception
+            PlaySystemSound()
+            MsgBox(ex.Message.ToString)
+            ShowLog(ex.Message.ToString)
+        End Try
+    End Sub
+
+#Region "Open P3D Game"
+    Private Sub OpenP3DGame_Click(sender As System.Object, e As System.EventArgs) Handles OpenP3DGame.Click
+        If (System.IO.File.Exists(GameDirectory.Text.ToString & "\Pokémon3D.exe")) Then
+            Shell(GameDirectory.Text.ToString & "\Pokémon3D.exe", AppWinStyle.NormalFocus)
+            Close()
         Else
             PlaySystemSound()
-            MsgBox("Could not retrive from server.")
-            NewVersionInfo.Text = "Could not retrive from server"
-            ShowLog("Could not retrive from server")
+            MsgBox("You do not have Pokémon3D.exe installed or you have renamed the launcher.")
+            ShowLog("You do not have Pokémon3D.exe installed or you have renamed the launcher.")
         End If
     End Sub
 
-    Private Sub Button3_Click(sender As System.Object, e As System.EventArgs) Handles Button3.Click
-        If (System.IO.File.Exists(TextBox1.Text.ToString & "\Pokémon3D.exe")) Then
-            Shell(TextBox1.Text.ToString & "\Pokémon3D.exe", AppWinStyle.NormalFocus)
+    Private Sub OpenP3DGame1_Click(sender As System.Object, e As System.EventArgs) Handles OpenP3DGame1.Click
+        If (System.IO.File.Exists(GameDirectory.Text.ToString & "\Pokémon3D.exe")) Then
+            Shell(GameDirectory.Text.ToString & "\Pokémon3D.exe", AppWinStyle.NormalFocus)
             Close()
+        Else
+            PlaySystemSound()
+            MsgBox("You do not have Pokémon3D.exe installed or you have renamed the launcher.")
+            ShowLog("You do not have Pokémon3D.exe installed or you have renamed the launcher.")
         End If
     End Sub
+#End Region
 
-    Private Sub Button4_Click(sender As System.Object, e As System.EventArgs) Handles Button4.Click
-
-    End Sub
-
-    Private Sub Button5_Click(sender As System.Object, e As System.EventArgs) Handles Button5.Click
+#Region "Remove Button"
+    Private Sub ContentPackRemoveButton_Click(sender As System.Object, e As System.EventArgs) Handles ContentPackRemoveButton.Click
         PlaySystemSound()
-        Uninstall.UninstallContentname(InstalledContents.Text)
+        Uninstall.UninstallContentname(InstalledContentPacksName.SelectedItem)
         If (Uninstall.ShowDialog() = Windows.Forms.DialogResult.OK) Then
-            My.Computer.FileSystem.DeleteDirectory(TextBox1.Text & "\Pokemon\ContentPacks\" & InstalledContents.Text, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin)
-            ResourceCheck(TextBox1.Text)
+            Try
+                My.Computer.FileSystem.DeleteDirectory(GameDirectory.Text & "\Pokemon\ContentPacks\" & InstalledContentPacksName.SelectedItem, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin)
+                ResourceCheck(GameDirectory.Text)
+            Catch ex As Exception
+                PlaySystemSound()
+                MsgBox(ex.Message.ToString)
+                ShowLog(ex.Message.ToString)
+            End Try
         End If
     End Sub
 
-    Private Sub Button6_Click(sender As System.Object, e As System.EventArgs) Handles Button6.Click
-        ResourceCheck(TextBox1.Text)
+    Private Sub GameModeRemoveButton_Click(sender As System.Object, e As System.EventArgs) Handles GameModeRemoveButton.Click
+        PlaySystemSound()
+        Uninstall.UninstallContentname(InstalledGameModesName.SelectedItem)
+        If (Uninstall.ShowDialog() = Windows.Forms.DialogResult.OK) Then
+            Try
+                My.Computer.FileSystem.DeleteDirectory(GameDirectory.Text & "\Pokemon\GameModes\" & InstalledGameModesName.SelectedItem, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin)
+                ResourceCheck(GameDirectory.Text)
+            Catch ex As Exception
+                PlaySystemSound()
+                MsgBox(ex.Message.ToString)
+                ShowLog(ex.Message.ToString)
+            End Try
+        End If
+    End Sub
+#End Region
+
+#Region "Refresh Button"
+    Private Sub Button6_Click(sender As System.Object, e As System.EventArgs) Handles RefreshButton.Click
+        ResourceCheck(GameDirectory.Text)
+    End Sub
+
+    Private Sub GameModeRefreshButton_Click(sender As System.Object, e As System.EventArgs) Handles GameModeRefreshButton.Click
+        ResourceCheck(GameDirectory.Text)
+    End Sub
+#End Region
+
+    Private Sub ContentPackUpdateButton_Click(sender As System.Object, e As System.EventArgs) Handles ContentPackUpdateButton.Click
+        Downloader.DownloadContentname("ContentPacks", InstalledContentPacksName.SelectedItem, ContentPackVersionInfo.Text, ContentPackNewVersionInfo.Text, GameDirectory.Text)
+        Downloader.Show()
+    End Sub
+
+    Private Sub GameModeUpdateButton_Click(sender As System.Object, e As System.EventArgs) Handles GameModeUpdateButton.Click
+        Downloader.DownloadContentname("GameModes", InstalledGameModesName.SelectedItem, GameModeVersionInfo.Text, GameModeNewVersionInfo.Text, GameDirectory.Text)
+        Downloader.Show()
     End Sub
 End Class
