@@ -1,2 +1,2 @@
-﻿ContentPacks|Pokémon Universal 3D|HGSS Music Pack HD|Pokémon FireRed LeafGreen Font|
-GameMode|Pokémon Universal 3D
+﻿ContentPacks|Pokémon Universal 3D|HGSS Music Pack HD|Pokémon FireRed LeafGreen Font|EndContentPacks
+GameMode|Pokémon Universal 3D|EndGameMode
