@@ -22,3 +22,4 @@ C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manage
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Debug\UnRARNET.dll
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Debug\UnRARNET.pdb
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Debug\UnRARNET.xml
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Debug\Ionic.Zip.dll

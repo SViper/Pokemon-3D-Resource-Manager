@@ -1,4 +1,11 @@
 ﻿Public Class Functions
+
+    Public Shared Sub ReturnError(ByVal e As String)
+        FileCheck.PlaySystemSound()
+        MsgBox(e)
+        FileCheck.ShowLog(e)
+    End Sub
+
     Public Shared Function GetSplit(ByVal fullString As String, ByVal valueIndex As Int32, ByVal seperator As String) As String
         If (valueIndex = 0) Then
             Return fullString.Remove(fullString.IndexOf(seperator))
@@ -16,4 +23,10 @@
         End If
         Return fullString
     End Function
+
+    Public Shared Sub LogError(ByVal e As String)
+        FileCheck.PlaySystemSound()
+        MsgBox(e)
+        FileCheck.ShowLog(e)
+    End Sub
 End Class

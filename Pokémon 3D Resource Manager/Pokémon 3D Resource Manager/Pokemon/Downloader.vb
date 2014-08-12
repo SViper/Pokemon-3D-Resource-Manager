@@ -97,10 +97,8 @@ Public Class Downloader
                 System.IO.File.Delete(Me.DownloadLocation + Me.DownloadFileName)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
             Catch ex As Exception
-                FileCheck.PlaySystemSound()
-                MsgBox(ex.Message)
-                StatusText.AppendText(vbNewLine + ex.Message.ToString)
-                FileCheck.ShowLog(ex.Message.ToString)
+                Me.Cursor = Cursors.Default
+                Functions.LogError(ex.Message)
             End Try
         ElseIf (Me.DownloadFileName.Contains(".zip") Or Me.DownloadFileName.Contains(".ZIP")) Then
             Try
@@ -114,19 +112,16 @@ Public Class Downloader
                 System.IO.File.Delete(Me.DownloadLocation + Me.DownloadFileName)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
             Catch ex As Exception
-                FileCheck.PlaySystemSound()
-                MsgBox(ex.Message)
-                StatusText.AppendText(vbNewLine + ex.Message.ToString)
-                FileCheck.ShowLog(ex.Message.ToString)
+                Me.Cursor = Cursors.Default
+                Functions.LogError(ex.Message)
             End Try
         Else
-            MsgBox("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
-            StatusText.AppendText(vbNewLine + "The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
-            FileCheck.ShowLog("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
+            Functions.LogError("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
         End If
         Me.Cursor = Cursors.Default
-        OK_Button.Enabled = True
-        Cancel_Button.Enabled = True
+        FileCheck.PlaySystemSound()
+        MsgBox("Download Completed!")
+        Me.Close()
     End Sub
 
 End Class

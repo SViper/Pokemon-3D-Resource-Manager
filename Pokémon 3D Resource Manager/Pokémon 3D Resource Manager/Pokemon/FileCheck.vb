@@ -1,4 +1,5 @@
 ﻿Imports System.Net
+Imports System.IO
 
 Public Class FileCheck
     Private client As WebClient = New WebClient()
@@ -6,6 +7,40 @@ Public Class FileCheck
     Private Sub FileCheck_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         AppSettings.CheckSetting()
     End Sub
+
+#Region "Init CheckList"
+    ' This is the Init Checklist.
+    ' => Check Directory
+    ' => Check .dll and .exe
+    ' => Check Settings
+    ' => Validate Program version
+
+    ' Imports'
+    ' System.IO
+
+    ' Variable '
+    Private ApplicationDirectory As String = Pokémon3D.My.Application.Info.DirectoryPath
+    Private P3DDirectory As String = ApplicationDirectory + "\Pokemon"
+    Private ApplicationVersion As String = Pokémon3D.My.Application.Info.Version.ToString
+    Private ApplicationSelfCheckVersion As Boolean = True
+
+    Private Sub CheckSetting()
+        If (Not File.Exists(ApplicationDirectory + "\Settings.dat")) Then
+            ShowLog("Setting File Not Found.")
+            ShowLog("Application attempt to generate a new one")
+            Dim Settingstr1 As String = "[Setting]"
+            Dim Settingstr2 As String = "P3D Launcher Directory = " + ApplicationDirectory
+            Dim Settingstr3 As String = "P3D Content Directory = " + P3DDirectory
+            Dim Settingstr4 As String = "Application Check Update = " + ApplicationSelfCheckVersion
+            File.WriteAllText(ApplicationDirectory + "\Settings.dat", Settingstr1 + vbNewLine + Settingstr2 + vbNewLine + Settingstr3 + vbNewLine + Settingstr4)
+            ShowLog("Setting File Created at: " + ApplicationDirectory + "\Settings.dat")
+        Else
+            ShowLog("Setting File is found.")
+            ShowLog("Application attempt to check the setting required")
+            Dim SettingMain As String = File.ReadAllText(ApplicationDirectory + "\Settings.dat")
+        End If
+    End Sub
+#End Region
 
     Private Sub InstalledContents_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles InstalledContentPacksName.SelectedIndexChanged
         Dim str1 = InstalledContentPacksName.GetItemText(InstalledContentPacksName.SelectedItem)
@@ -41,18 +76,22 @@ Public Class FileCheck
     End Sub
 
     Public Sub ShowInfo(ByVal Selectitem As String, ByVal Resource As String)
-        If (Resource.ToString = "Content Pack") Then
+        If (Resource.ToString = "Content Pack" And System.IO.File.Exists(GameDirectory.Text & "\Pokemon\ContentPacks\" + Selectitem + "\info.dat")) Then
             Dim info As String = System.IO.File.ReadAllText(GameDirectory.Text & "\Pokemon\ContentPacks\" + Selectitem + "\info.dat")
             ContentPackInfo.Text = info
             ContentPackVersionInfo.Text = Functions.GetSplit(ContentPackInfo.Text, 0, "jianmingyong")
             ContentPackVersionInfo.Text = ContentPackVersionInfo.Text.Remove(ContentPackVersionInfo.Text.Length - 1)
-        ElseIf (Resource.ToString = "GameMode") Then
+        ElseIf (Resource.ToString = "GameMode" And System.IO.File.Exists(GameDirectory.Text & "\Pokemon\GameModes\" + Selectitem + "\GameMode.dat")) Then
             Dim info As String = System.IO.File.ReadAllText(GameDirectory.Text & "\Pokemon\GameModes\" + Selectitem + "\GameMode.dat")
             GameModeInfo.Text = info
             Dim getstringofversion As String = GameModeInfo.Text.Substring(GameModeInfo.Text.IndexOf("Version|"))
             GameModeVersionInfo.Text = getstringofversion.Remove(getstringofversion.IndexOf("Author"))
             GameModeVersionInfo.Text = GameModeVersionInfo.Text.Remove(0, 8)
             GameModeVersionInfo.Text = GameModeVersionInfo.Text.Remove(GameModeVersionInfo.Text.Length - 1)
+        ElseIf (Resource.ToString = "Content Pack" And Not System.IO.File.Exists(GameDirectory.Text & "\Pokemon\ContentPacks\" + Selectitem + "\info.dat")) Then
+            ContentPackInfo.Text = "The ContentPackd info file does not exist"
+        ElseIf (Resource.ToString = "GameMode" And Not System.IO.File.Exists(GameDirectory.Text & "\Pokemon\GameModes\" + Selectitem + "\GameMode.dat")) Then
+            ContentPackInfo.Text = "The GameModes info file does not exist"
         End If
     End Sub
 
@@ -83,10 +122,11 @@ Public Class FileCheck
     Public Sub ResourceCheck(ByVal Directory As String)
         Reset()
         If (Not System.IO.File.Exists(Directory & "\Pokemon\Pokemon.exe")) Then
-            PlaySystemSound()
-            MsgBox("Error: Pokémon 3D Application file does not exist." + vbNewLine + "Please locate the Pokémon3D launcher folder in the setting.")
-            ShowLog("Error: Pokémon 3D Application file does not exist.")
-            ShowLog("Please locate the Pokémon3D launcher folder in the setting.")
+            Functions.LogError("Error: Pokémon 3D Application file does not exist." + vbNewLine + "Please locate the Pokémon3D launcher folder in the setting.")
+        ElseIf (Not System.IO.File.Exists(Pokémon3D.My.Application.Info.DirectoryPath & "\unrar.dll")) Then
+            Functions.LogError("Error: unrar.dll does not exist in the application Folder." + vbNewLine + "Extraction for RAR Files will fail.")
+        ElseIf (Not System.IO.File.Exists(Pokémon3D.My.Application.Info.DirectoryPath & "\unrar64.dll")) Then
+            Functions.LogError("Error: unrar.dll does not exist in the application Folder." + vbNewLine + "Extraction for RAR Files will fail.")
         End If
         Try
             Dim DownloadedContent As String = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Supported%20Files.txt")
@@ -96,11 +136,9 @@ Public Class FileCheck
             Dim SupportedGameMode As String = ""
             Do While Not SupportedContentPack.Contains("EndContentPacks")
                 SupportedContentPack = Functions.GetSplit(DownloadedContent, CurrentIndex, "|")
-                If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\") And Not SupportedContentPack.Contains("EndContentPacks")) Then
-                    If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\" & SupportedContentPack) And Not InstalledContentPacksName.Items.Contains(SupportedContentPack)) Then
+                If (System.IO.Directory.Exists(Directory & "\Pokemon\ContentPacks\") And Not SupportedContentPack.Contains("EndContentPacks") And Not InstalledContentPacksName.Items.Contains(SupportedContentPack)) Then
                         InstalledContentPacksName.Items.Add(SupportedContentPack)
                         ShowLog("Found " + SupportedContentPack)
-                    End If
                     CurrentIndex = CurrentIndex + 1
                 Else
                     Exit Do
@@ -111,20 +149,16 @@ Public Class FileCheck
             Do While Not splitSupportedGameMode.Contains("EndGameMode")
                 SupportedGameMode = DownloadedContent.Substring(DownloadedContent.IndexOf("GameMode"))
                 splitSupportedGameMode = Functions.GetSplit(SupportedGameMode, CurrentIndex, "|")
-                If (System.IO.Directory.Exists(Directory & "\Pokemon\GameModes\") And Not splitSupportedGameMode.Contains("EndGameMode")) Then
-                    If (System.IO.Directory.Exists(Directory & "\Pokemon\GameModes\" & splitSupportedGameMode) And Not InstalledGameModesName.Items.Contains(splitSupportedGameMode)) Then
+                If (System.IO.Directory.Exists(Directory & "\Pokemon\GameModes\") And Not splitSupportedGameMode.Contains("EndGameMode") And Not InstalledGameModesName.Items.Contains(splitSupportedGameMode)) Then
                         InstalledGameModesName.Items.Add(splitSupportedGameMode)
                         ShowLog("Found " + splitSupportedGameMode)
-                    End If
                     CurrentIndex = CurrentIndex + 1
                 Else
                     Exit Do
                 End If
             Loop
         Catch ex As Exception
-            PlaySystemSound()
-            MsgBox(ex.Message.ToString)
-            ShowLog(ex.Message.ToString)
+            Functions.LogError(ex.Message)
         End Try
     End Sub
 
@@ -189,9 +223,7 @@ Public Class FileCheck
                 ShowLog("Could not retrive from server")
             End If
         Catch ex As Exception
-            PlaySystemSound()
-            MsgBox(ex.Message.ToString)
-            ShowLog(ex.Message.ToString)
+            Functions.LogError(ex.Message)
         End Try
     End Sub
 
@@ -228,9 +260,7 @@ Public Class FileCheck
                 My.Computer.FileSystem.DeleteDirectory(GameDirectory.Text & "\Pokemon\ContentPacks\" & InstalledContentPacksName.SelectedItem, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin)
                 ResourceCheck(GameDirectory.Text)
             Catch ex As Exception
-                PlaySystemSound()
-                MsgBox(ex.Message.ToString)
-                ShowLog(ex.Message.ToString)
+                Functions.LogError(ex.Message)
             End Try
         End If
     End Sub
@@ -243,9 +273,7 @@ Public Class FileCheck
                 My.Computer.FileSystem.DeleteDirectory(GameDirectory.Text & "\Pokemon\GameModes\" & InstalledGameModesName.SelectedItem, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin)
                 ResourceCheck(GameDirectory.Text)
             Catch ex As Exception
-                PlaySystemSound()
-                MsgBox(ex.Message.ToString)
-                ShowLog(ex.Message.ToString)
+                Functions.LogError(ex.Message)
             End Try
         End If
     End Sub
