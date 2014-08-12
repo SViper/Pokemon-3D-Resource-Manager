@@ -1,0 +1,8 @@
+C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\bin\UnRARNET.dll
+C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\bin\UnRARNET.pdb
+C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\bin\UnRARNET.xml
+C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\RARNET.pwDlg.resources
+C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\UnRARNET.vbproj.GenerateResource.Cache
+C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\UnRARNET.dll
+C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\UnRARNET.xml
+C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\UnRARNET.pdb

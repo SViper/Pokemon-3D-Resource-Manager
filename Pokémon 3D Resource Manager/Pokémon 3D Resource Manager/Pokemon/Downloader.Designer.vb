@@ -103,7 +103,7 @@ Partial Class Downloader
         '
         Me.VersionInfo.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.VersionInfo.AutoSize = True
-        Me.VersionInfo.Location = New System.Drawing.Point(100, 29)
+        Me.VersionInfo.Location = New System.Drawing.Point(100, 31)
         Me.VersionInfo.Name = "VersionInfo"
         Me.VersionInfo.Size = New System.Drawing.Size(39, 13)
         Me.VersionInfo.TabIndex = 7
@@ -113,7 +113,7 @@ Partial Class Downloader
         '
         Me.TextBox3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.TextBox3.AutoSize = True
-        Me.TextBox3.Location = New System.Drawing.Point(9, 5)
+        Me.TextBox3.Location = New System.Drawing.Point(9, 6)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(78, 13)
         Me.TextBox3.TabIndex = 0
@@ -123,7 +123,7 @@ Partial Class Downloader
         '
         Me.ContentName.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.ContentName.AutoSize = True
-        Me.ContentName.Location = New System.Drawing.Point(100, 5)
+        Me.ContentName.Location = New System.Drawing.Point(100, 6)
         Me.ContentName.Name = "ContentName"
         Me.ContentName.Size = New System.Drawing.Size(39, 13)
         Me.ContentName.TabIndex = 3
@@ -133,7 +133,7 @@ Partial Class Downloader
         '
         Me.TextBox2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.TextBox2.AutoSize = True
-        Me.TextBox2.Location = New System.Drawing.Point(9, 56)
+        Me.TextBox2.Location = New System.Drawing.Point(9, 57)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(79, 13)
@@ -144,7 +144,7 @@ Partial Class Downloader
         '
         Me.NewVersionInfo.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.NewVersionInfo.AutoSize = True
-        Me.NewVersionInfo.Location = New System.Drawing.Point(100, 55)
+        Me.NewVersionInfo.Location = New System.Drawing.Point(100, 56)
         Me.NewVersionInfo.Name = "NewVersionInfo"
         Me.NewVersionInfo.Size = New System.Drawing.Size(39, 13)
         Me.NewVersionInfo.TabIndex = 7
@@ -154,7 +154,7 @@ Partial Class Downloader
         '
         Me.TextBox1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.TextBox1.AutoSize = True
-        Me.TextBox1.Location = New System.Drawing.Point(11, 31)
+        Me.TextBox1.Location = New System.Drawing.Point(11, 32)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(74, 13)
@@ -180,10 +180,10 @@ Partial Class Downloader
         '
         'StatusText
         '
-        Me.StatusText.Location = New System.Drawing.Point(24, 150)
+        Me.StatusText.Location = New System.Drawing.Point(15, 150)
         Me.StatusText.Name = "StatusText"
         Me.StatusText.ReadOnly = True
-        Me.StatusText.Size = New System.Drawing.Size(396, 52)
+        Me.StatusText.Size = New System.Drawing.Size(405, 52)
         Me.StatusText.TabIndex = 5
         Me.StatusText.Text = ""
         '
@@ -202,7 +202,9 @@ Partial Class Downloader
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TextName)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(450, 300)
+        Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(450, 300)
         Me.Name = "Downloader"
         Me.ShowInTaskbar = False

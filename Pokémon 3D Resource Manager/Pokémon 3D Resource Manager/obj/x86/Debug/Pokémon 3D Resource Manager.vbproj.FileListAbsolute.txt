@@ -18,5 +18,7 @@ C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manage
 C:\Users\Xiong\documents\visual studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Debug\Pokémon 3D Resource Manager.vbproj.GenerateResource.Cache
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Debug\Pokémon3D.Uninstall.resources
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Debug\Pokémon3D.Downloader.resources
-C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Debug\SharpCompress.dll
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Debug\Pokémon 3D Resource Manager.vbprojResolveAssemblyReference.cache
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Debug\UnRARNET.dll
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Debug\UnRARNET.pdb
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Debug\UnRARNET.xml

@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports System.Net
-Imports SharpCompress.Archive
-Imports SharpCompress.Common
+Imports RARNET
+Imports Ionic.Zip
 
 Public Class Downloader
 
@@ -11,6 +11,7 @@ Public Class Downloader
     Private DownloadLocation As String
     Private DownloadURL As String
     Private DownloadFileName As String
+    Dim d As Decompressor
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
         Try
@@ -84,21 +85,46 @@ Public Class Downloader
     End Sub
 
     Private Sub extractfile()
-        Dim archive As IArchive = ArchiveFactory.Open(Me.DownloadLocation + Me.DownloadFileName)
-        For Each entry In archive.Entries
+        Me.Cursor = Cursors.WaitCursor
+        StatusText.AppendText(vbNewLine + "Extracting Files...")
+        If (Me.DownloadFileName.Contains(".rar") Or Me.DownloadFileName.Contains(".RAR")) Then
             Try
-                StatusText.AppendText(vbNewLine + "Extracting Files: " + entry.FilePath)
-                'If (Not System.IO.Directory.Exists(entry.FilePath) And entry.IsDirectory) Then
-                'System.IO.Directory.CreateDirectory(entry.FilePath)
-                'End If
-                If (entry.IsDirectory = True And Not System.IO.Directory.Exists(entry.FilePath) And Not System.IO.File.Exists(entry.FilePath)) Then
-                    entry.WriteToDirectory(entry.FilePath, ExtractOptions.ExtractFullPath Or ExtractOptions.Overwrite)
-                End If
+                d = New Decompressor(Me.DownloadLocation + Me.DownloadFileName)
+                For Each r As Decompressor.RAREntry In d.RARFiles
+                    d.UnPack(r.FileName.ToString(), Me.DownloadLocation)
+                    StatusText.AppendText(vbNewLine + r.FileName.ToString)
+                Next
+                System.IO.File.Delete(Me.DownloadLocation + Me.DownloadFileName)
+                StatusText.AppendText(vbNewLine + "Extracting Completed!")
             Catch ex As Exception
-                MsgBox(ex.Message.ToString)
+                FileCheck.PlaySystemSound()
+                MsgBox(ex.Message)
                 StatusText.AppendText(vbNewLine + ex.Message.ToString)
+                FileCheck.ShowLog(ex.Message.ToString)
             End Try
-        Next
+        ElseIf (Me.DownloadFileName.Contains(".zip") Or Me.DownloadFileName.Contains(".ZIP")) Then
+            Try
+                Using zip As ZipFile = ZipFile.Read(DownloadLocation + Me.DownloadFileName)
+                    Dim e As ZipEntry
+                    For Each e In zip
+                        e.Extract(Me.DownloadLocation, ExtractExistingFileAction.OverwriteSilently)
+                        StatusText.AppendText(vbNewLine + e.FileName.ToString)
+                    Next
+                End Using
+                System.IO.File.Delete(Me.DownloadLocation + Me.DownloadFileName)
+                StatusText.AppendText(vbNewLine + "Extracting Completed!")
+            Catch ex As Exception
+                FileCheck.PlaySystemSound()
+                MsgBox(ex.Message)
+                StatusText.AppendText(vbNewLine + ex.Message.ToString)
+                FileCheck.ShowLog(ex.Message.ToString)
+            End Try
+        Else
+            MsgBox("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
+            StatusText.AppendText(vbNewLine + "The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
+            FileCheck.ShowLog("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
+        End If
+        Me.Cursor = Cursors.Default
         OK_Button.Enabled = True
         Cancel_Button.Enabled = True
     End Sub
