@@ -27,7 +27,7 @@ Partial Class FileCheck
         Me.Label1 = New System.Windows.Forms.Label()
         Me.InstalledContentPacksName = New System.Windows.Forms.ComboBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.InstalledContent = New System.Windows.Forms.TabPage()
+        Me.ContentPacks = New System.Windows.Forms.TabPage()
         Me.RefreshButton = New System.Windows.Forms.Button()
         Me.ContentPackRemoveButton = New System.Windows.Forms.Button()
         Me.ContentPackUpdateButton = New System.Windows.Forms.Button()
@@ -39,7 +39,7 @@ Partial Class FileCheck
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ContentPackInfo = New System.Windows.Forms.RichTextBox()
-        Me.InstalledGameModes = New System.Windows.Forms.TabPage()
+        Me.GameModes = New System.Windows.Forms.TabPage()
         Me.OpenP3DGame1 = New System.Windows.Forms.Button()
         Me.GameModeUpdateButton = New System.Windows.Forms.Button()
         Me.GameModeRemoveButton = New System.Windows.Forms.Button()
@@ -54,16 +54,24 @@ Partial Class FileCheck
         Me.InstalledGameModesName = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Settings = New System.Windows.Forms.TabPage()
-        Me.SettingSearchButton = New System.Windows.Forms.Button()
-        Me.GameDirectory = New System.Windows.Forms.TextBox()
+        Me.Setting_CheckGameModesUpdate = New System.Windows.Forms.CheckBox()
+        Me.Setting_CheckContentPacksUpdate = New System.Windows.Forms.CheckBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Setting_ApplicationCheckForUpdate = New System.Windows.Forms.CheckBox()
+        Me.Setting_SearchGamefilesDirectory = New System.Windows.Forms.Button()
+        Me.Setting_GamefilesDirectory = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Setting_SearchLauncherDirectory = New System.Windows.Forms.Button()
+        Me.Setting_LauncherDirectory = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Logger = New System.Windows.Forms.TabPage()
         Me.About = New System.Windows.Forms.TabPage()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.Setting_ApplicationCheckForUpdateButton = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
-        Me.InstalledContent.SuspendLayout()
-        Me.InstalledGameModes.SuspendLayout()
+        Me.ContentPacks.SuspendLayout()
+        Me.GameModes.SuspendLayout()
         Me.Settings.SuspendLayout()
         Me.Logger.SuspendLayout()
         Me.About.SuspendLayout()
@@ -110,8 +118,8 @@ Partial Class FileCheck
         Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TabControl1.Controls.Add(Me.InstalledContent)
-        Me.TabControl1.Controls.Add(Me.InstalledGameModes)
+        Me.TabControl1.Controls.Add(Me.ContentPacks)
+        Me.TabControl1.Controls.Add(Me.GameModes)
         Me.TabControl1.Controls.Add(Me.Settings)
         Me.TabControl1.Controls.Add(Me.Logger)
         Me.TabControl1.Controls.Add(Me.About)
@@ -121,28 +129,28 @@ Partial Class FileCheck
         Me.TabControl1.Size = New System.Drawing.Size(560, 341)
         Me.TabControl1.TabIndex = 4
         '
-        'InstalledContent
+        'ContentPacks
         '
-        Me.InstalledContent.Controls.Add(Me.RefreshButton)
-        Me.InstalledContent.Controls.Add(Me.ContentPackRemoveButton)
-        Me.InstalledContent.Controls.Add(Me.ContentPackUpdateButton)
-        Me.InstalledContent.Controls.Add(Me.OpenP3DGame)
-        Me.InstalledContent.Controls.Add(Me.ContentPackNewVersionInfo)
-        Me.InstalledContent.Controls.Add(Me.Label5)
-        Me.InstalledContent.Controls.Add(Me.ContentPackCheckForUpdateButton)
-        Me.InstalledContent.Controls.Add(Me.ContentPackVersionInfo)
-        Me.InstalledContent.Controls.Add(Me.Label4)
-        Me.InstalledContent.Controls.Add(Me.Label3)
-        Me.InstalledContent.Controls.Add(Me.ContentPackInfo)
-        Me.InstalledContent.Controls.Add(Me.Label1)
-        Me.InstalledContent.Controls.Add(Me.InstalledContentPacksName)
-        Me.InstalledContent.Location = New System.Drawing.Point(4, 22)
-        Me.InstalledContent.Name = "InstalledContent"
-        Me.InstalledContent.Padding = New System.Windows.Forms.Padding(3)
-        Me.InstalledContent.Size = New System.Drawing.Size(552, 315)
-        Me.InstalledContent.TabIndex = 0
-        Me.InstalledContent.Text = "Installed ContentPacks"
-        Me.InstalledContent.UseVisualStyleBackColor = True
+        Me.ContentPacks.Controls.Add(Me.RefreshButton)
+        Me.ContentPacks.Controls.Add(Me.ContentPackRemoveButton)
+        Me.ContentPacks.Controls.Add(Me.ContentPackUpdateButton)
+        Me.ContentPacks.Controls.Add(Me.OpenP3DGame)
+        Me.ContentPacks.Controls.Add(Me.ContentPackNewVersionInfo)
+        Me.ContentPacks.Controls.Add(Me.Label5)
+        Me.ContentPacks.Controls.Add(Me.ContentPackCheckForUpdateButton)
+        Me.ContentPacks.Controls.Add(Me.ContentPackVersionInfo)
+        Me.ContentPacks.Controls.Add(Me.Label4)
+        Me.ContentPacks.Controls.Add(Me.Label3)
+        Me.ContentPacks.Controls.Add(Me.ContentPackInfo)
+        Me.ContentPacks.Controls.Add(Me.Label1)
+        Me.ContentPacks.Controls.Add(Me.InstalledContentPacksName)
+        Me.ContentPacks.Location = New System.Drawing.Point(4, 22)
+        Me.ContentPacks.Name = "ContentPacks"
+        Me.ContentPacks.Padding = New System.Windows.Forms.Padding(3)
+        Me.ContentPacks.Size = New System.Drawing.Size(552, 315)
+        Me.ContentPacks.TabIndex = 0
+        Me.ContentPacks.Text = "ContentPacks"
+        Me.ContentPacks.UseVisualStyleBackColor = True
         '
         'RefreshButton
         '
@@ -246,27 +254,27 @@ Partial Class FileCheck
         Me.ContentPackInfo.TabIndex = 4
         Me.ContentPackInfo.Text = ""
         '
-        'InstalledGameModes
+        'GameModes
         '
-        Me.InstalledGameModes.Controls.Add(Me.OpenP3DGame1)
-        Me.InstalledGameModes.Controls.Add(Me.GameModeUpdateButton)
-        Me.InstalledGameModes.Controls.Add(Me.GameModeRemoveButton)
-        Me.InstalledGameModes.Controls.Add(Me.GameModeCheckForUpdateButton)
-        Me.InstalledGameModes.Controls.Add(Me.GameModeNewVersionInfo)
-        Me.InstalledGameModes.Controls.Add(Me.GameModeVersionInfo)
-        Me.InstalledGameModes.Controls.Add(Me.Label9)
-        Me.InstalledGameModes.Controls.Add(Me.Label8)
-        Me.InstalledGameModes.Controls.Add(Me.Label7)
-        Me.InstalledGameModes.Controls.Add(Me.GameModeInfo)
-        Me.InstalledGameModes.Controls.Add(Me.GameModeRefreshButton)
-        Me.InstalledGameModes.Controls.Add(Me.InstalledGameModesName)
-        Me.InstalledGameModes.Controls.Add(Me.Label6)
-        Me.InstalledGameModes.Location = New System.Drawing.Point(4, 22)
-        Me.InstalledGameModes.Name = "InstalledGameModes"
-        Me.InstalledGameModes.Size = New System.Drawing.Size(552, 315)
-        Me.InstalledGameModes.TabIndex = 4
-        Me.InstalledGameModes.Text = "Installed GameModes"
-        Me.InstalledGameModes.UseVisualStyleBackColor = True
+        Me.GameModes.Controls.Add(Me.OpenP3DGame1)
+        Me.GameModes.Controls.Add(Me.GameModeUpdateButton)
+        Me.GameModes.Controls.Add(Me.GameModeRemoveButton)
+        Me.GameModes.Controls.Add(Me.GameModeCheckForUpdateButton)
+        Me.GameModes.Controls.Add(Me.GameModeNewVersionInfo)
+        Me.GameModes.Controls.Add(Me.GameModeVersionInfo)
+        Me.GameModes.Controls.Add(Me.Label9)
+        Me.GameModes.Controls.Add(Me.Label8)
+        Me.GameModes.Controls.Add(Me.Label7)
+        Me.GameModes.Controls.Add(Me.GameModeInfo)
+        Me.GameModes.Controls.Add(Me.GameModeRefreshButton)
+        Me.GameModes.Controls.Add(Me.InstalledGameModesName)
+        Me.GameModes.Controls.Add(Me.Label6)
+        Me.GameModes.Location = New System.Drawing.Point(4, 22)
+        Me.GameModes.Name = "GameModes"
+        Me.GameModes.Size = New System.Drawing.Size(552, 315)
+        Me.GameModes.TabIndex = 4
+        Me.GameModes.Text = "GameModes"
+        Me.GameModes.UseVisualStyleBackColor = True
         '
         'OpenP3DGame1
         '
@@ -392,8 +400,16 @@ Partial Class FileCheck
         '
         'Settings
         '
-        Me.Settings.Controls.Add(Me.SettingSearchButton)
-        Me.Settings.Controls.Add(Me.GameDirectory)
+        Me.Settings.Controls.Add(Me.Setting_ApplicationCheckForUpdateButton)
+        Me.Settings.Controls.Add(Me.Setting_CheckGameModesUpdate)
+        Me.Settings.Controls.Add(Me.Setting_CheckContentPacksUpdate)
+        Me.Settings.Controls.Add(Me.Label11)
+        Me.Settings.Controls.Add(Me.Setting_ApplicationCheckForUpdate)
+        Me.Settings.Controls.Add(Me.Setting_SearchGamefilesDirectory)
+        Me.Settings.Controls.Add(Me.Setting_GamefilesDirectory)
+        Me.Settings.Controls.Add(Me.Label10)
+        Me.Settings.Controls.Add(Me.Setting_SearchLauncherDirectory)
+        Me.Settings.Controls.Add(Me.Setting_LauncherDirectory)
         Me.Settings.Controls.Add(Me.Label2)
         Me.Settings.Location = New System.Drawing.Point(4, 22)
         Me.Settings.Name = "Settings"
@@ -403,31 +419,99 @@ Partial Class FileCheck
         Me.Settings.Text = "Settings"
         Me.Settings.UseVisualStyleBackColor = True
         '
-        'SettingSearchButton
+        'Setting_CheckGameModesUpdate
         '
-        Me.SettingSearchButton.Location = New System.Drawing.Point(416, 16)
-        Me.SettingSearchButton.Name = "SettingSearchButton"
-        Me.SettingSearchButton.Size = New System.Drawing.Size(75, 23)
-        Me.SettingSearchButton.TabIndex = 2
-        Me.SettingSearchButton.Text = "Search" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        Me.SettingSearchButton.UseVisualStyleBackColor = True
+        Me.Setting_CheckGameModesUpdate.AutoSize = True
+        Me.Setting_CheckGameModesUpdate.Location = New System.Drawing.Point(9, 161)
+        Me.Setting_CheckGameModesUpdate.Name = "Setting_CheckGameModesUpdate"
+        Me.Setting_CheckGameModesUpdate.Size = New System.Drawing.Size(191, 17)
+        Me.Setting_CheckGameModesUpdate.TabIndex = 9
+        Me.Setting_CheckGameModesUpdate.Text = "Check For Update for GameModes"
+        Me.Setting_CheckGameModesUpdate.UseVisualStyleBackColor = True
         '
-        'GameDirectory
+        'Setting_CheckContentPacksUpdate
         '
-        Me.GameDirectory.Location = New System.Drawing.Point(9, 19)
-        Me.GameDirectory.Name = "GameDirectory"
-        Me.GameDirectory.ReadOnly = True
-        Me.GameDirectory.Size = New System.Drawing.Size(401, 20)
-        Me.GameDirectory.TabIndex = 1
+        Me.Setting_CheckContentPacksUpdate.AutoSize = True
+        Me.Setting_CheckContentPacksUpdate.Location = New System.Drawing.Point(9, 138)
+        Me.Setting_CheckContentPacksUpdate.Name = "Setting_CheckContentPacksUpdate"
+        Me.Setting_CheckContentPacksUpdate.Size = New System.Drawing.Size(198, 17)
+        Me.Setting_CheckContentPacksUpdate.TabIndex = 8
+        Me.Setting_CheckContentPacksUpdate.Text = "Check For Update for ContentPacks"
+        Me.Setting_CheckContentPacksUpdate.UseVisualStyleBackColor = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(6, 96)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(41, 13)
+        Me.Label11.TabIndex = 7
+        Me.Label11.Text = "Others:"
+        '
+        'Setting_ApplicationCheckForUpdate
+        '
+        Me.Setting_ApplicationCheckForUpdate.AutoSize = True
+        Me.Setting_ApplicationCheckForUpdate.Location = New System.Drawing.Point(9, 115)
+        Me.Setting_ApplicationCheckForUpdate.Name = "Setting_ApplicationCheckForUpdate"
+        Me.Setting_ApplicationCheckForUpdate.Size = New System.Drawing.Size(227, 17)
+        Me.Setting_ApplicationCheckForUpdate.TabIndex = 6
+        Me.Setting_ApplicationCheckForUpdate.Text = "Application Check For Updates on Launch"
+        Me.Setting_ApplicationCheckForUpdate.UseVisualStyleBackColor = True
+        '
+        'Setting_SearchGamefilesDirectory
+        '
+        Me.Setting_SearchGamefilesDirectory.Location = New System.Drawing.Point(471, 67)
+        Me.Setting_SearchGamefilesDirectory.Name = "Setting_SearchGamefilesDirectory"
+        Me.Setting_SearchGamefilesDirectory.Size = New System.Drawing.Size(75, 23)
+        Me.Setting_SearchGamefilesDirectory.TabIndex = 5
+        Me.Setting_SearchGamefilesDirectory.Text = "Search" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Setting_SearchGamefilesDirectory.UseVisualStyleBackColor = True
+        '
+        'Setting_GamefilesDirectory
+        '
+        Me.Setting_GamefilesDirectory.Location = New System.Drawing.Point(9, 70)
+        Me.Setting_GamefilesDirectory.Name = "Setting_GamefilesDirectory"
+        Me.Setting_GamefilesDirectory.ReadOnly = True
+        Me.Setting_GamefilesDirectory.Size = New System.Drawing.Size(456, 20)
+        Me.Setting_GamefilesDirectory.TabIndex = 4
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(6, 51)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(125, 13)
+        Me.Label10.TabIndex = 3
+        Me.Label10.Text = "P3D Gamefiles Directory:"
+        '
+        'Setting_SearchLauncherDirectory
+        '
+        Me.Setting_SearchLauncherDirectory.Location = New System.Drawing.Point(471, 22)
+        Me.Setting_SearchLauncherDirectory.Name = "Setting_SearchLauncherDirectory"
+        Me.Setting_SearchLauncherDirectory.Size = New System.Drawing.Size(75, 23)
+        Me.Setting_SearchLauncherDirectory.TabIndex = 2
+        Me.Setting_SearchLauncherDirectory.Text = "Search" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Setting_SearchLauncherDirectory.UseVisualStyleBackColor = True
+        '
+        'Setting_LauncherDirectory
+        '
+        Me.Setting_LauncherDirectory.Location = New System.Drawing.Point(9, 25)
+        Me.Setting_LauncherDirectory.Name = "Setting_LauncherDirectory"
+        Me.Setting_LauncherDirectory.ReadOnly = True
+        Me.Setting_LauncherDirectory.Size = New System.Drawing.Size(456, 20)
+        Me.Setting_LauncherDirectory.TabIndex = 1
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 3)
+        Me.Label2.Location = New System.Drawing.Point(6, 6)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(3)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(83, 13)
+        Me.Label2.Size = New System.Drawing.Size(124, 13)
         Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Game Directory:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label2.Text = "P3D Launcher Directory:"
         '
         'Logger
         '
@@ -463,6 +547,15 @@ Partial Class FileCheck
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
         '
+        'Setting_ApplicationCheckForUpdateButton
+        '
+        Me.Setting_ApplicationCheckForUpdateButton.Location = New System.Drawing.Point(346, 286)
+        Me.Setting_ApplicationCheckForUpdateButton.Name = "Setting_ApplicationCheckForUpdateButton"
+        Me.Setting_ApplicationCheckForUpdateButton.Size = New System.Drawing.Size(200, 23)
+        Me.Setting_ApplicationCheckForUpdateButton.TabIndex = 10
+        Me.Setting_ApplicationCheckForUpdateButton.Text = "Application Check For Updates"
+        Me.Setting_ApplicationCheckForUpdateButton.UseVisualStyleBackColor = True
+        '
         'FileCheck
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -474,10 +567,10 @@ Partial Class FileCheck
         Me.Name = "FileCheck"
         Me.Text = "Pokémon 3D Resource Manager"
         Me.TabControl1.ResumeLayout(False)
-        Me.InstalledContent.ResumeLayout(False)
-        Me.InstalledContent.PerformLayout()
-        Me.InstalledGameModes.ResumeLayout(False)
-        Me.InstalledGameModes.PerformLayout()
+        Me.ContentPacks.ResumeLayout(False)
+        Me.ContentPacks.PerformLayout()
+        Me.GameModes.ResumeLayout(False)
+        Me.GameModes.PerformLayout()
         Me.Settings.ResumeLayout(False)
         Me.Settings.PerformLayout()
         Me.Logger.ResumeLayout(False)
@@ -488,12 +581,12 @@ Partial Class FileCheck
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents InstalledContentPacksName As System.Windows.Forms.ComboBox
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents InstalledContent As System.Windows.Forms.TabPage
+    Friend WithEvents ContentPacks As System.Windows.Forms.TabPage
     Friend WithEvents Logger As System.Windows.Forms.TabPage
     Friend WithEvents Settings As System.Windows.Forms.TabPage
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents GameDirectory As System.Windows.Forms.TextBox
-    Friend WithEvents SettingSearchButton As System.Windows.Forms.Button
+    Friend WithEvents Setting_LauncherDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents Setting_SearchLauncherDirectory As System.Windows.Forms.Button
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Public WithEvents Log As System.Windows.Forms.RichTextBox
     Friend WithEvents ContentPackInfo As System.Windows.Forms.RichTextBox
@@ -509,7 +602,7 @@ Partial Class FileCheck
     Friend WithEvents ContentPackUpdateButton As System.Windows.Forms.Button
     Friend WithEvents ContentPackRemoveButton As System.Windows.Forms.Button
     Friend WithEvents RefreshButton As System.Windows.Forms.Button
-    Friend WithEvents InstalledGameModes As System.Windows.Forms.TabPage
+    Friend WithEvents GameModes As System.Windows.Forms.TabPage
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents InstalledGameModesName As System.Windows.Forms.ComboBox
     Friend WithEvents GameModeRefreshButton As System.Windows.Forms.Button
@@ -523,5 +616,13 @@ Partial Class FileCheck
     Friend WithEvents GameModeNewVersionInfo As System.Windows.Forms.Label
     Friend WithEvents GameModeVersionInfo As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents Setting_GamefilesDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents Setting_SearchGamefilesDirectory As System.Windows.Forms.Button
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents Setting_ApplicationCheckForUpdate As System.Windows.Forms.CheckBox
+    Friend WithEvents Setting_CheckContentPacksUpdate As System.Windows.Forms.CheckBox
+    Friend WithEvents Setting_CheckGameModesUpdate As System.Windows.Forms.CheckBox
+    Friend WithEvents Setting_ApplicationCheckForUpdateButton As System.Windows.Forms.Button
 
 End Class

@@ -1,10 +1,26 @@
-﻿Public Class Functions
+﻿Imports System.IO
 
-    Public Shared Sub ReturnError(ByVal e As String)
+Public Class Functions
+
+    Public Shared Sub ReturnError(ByVal ex As String)
         FileCheck.PlaySystemSound()
-        MsgBox(e)
-        FileCheck.ShowLog(e)
+        MsgBox(ex)
+        FileCheck.ShowLog(ex)
     End Sub
+
+    Public Shared Function GetTextFromLine(ByVal Directory As String, ByVal Line As Integer)
+        Dim CurrentReadLine As Integer = 1
+        If File.Exists(Directory) Then
+            For Each CurrentText In File.ReadAllLines(Directory)
+                If CurrentReadLine = Line Then
+                    Return CurrentText.ToString
+                Else
+                    CurrentReadLine = CurrentReadLine + 1
+                End If
+            Next
+        End If
+        Return Nothing
+    End Function
 
     Public Shared Function GetSplit(ByVal fullString As String, ByVal valueIndex As Int32, ByVal seperator As String) As String
         If (valueIndex = 0) Then

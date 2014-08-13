@@ -6,3 +6,11 @@ C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\UnRARNET.vbpr
 C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\UnRARNET.dll
 C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\UnRARNET.xml
 C:\Users\Xiong\Desktop\UnRARDLL\Examples\VB.NET\unRARNET\obj\Debug\UnRARNET.pdb
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\unRARNET\bin\UnRARNET.dll
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\unRARNET\bin\UnRARNET.pdb
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\unRARNET\bin\UnRARNET.xml
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\unRARNET\obj\Debug\RARNET.pwDlg.resources
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\unRARNET\obj\Debug\UnRARNET.vbproj.GenerateResource.Cache
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\unRARNET\obj\Debug\UnRARNET.dll
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\unRARNET\obj\Debug\UnRARNET.xml
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\unRARNET\obj\Debug\UnRARNET.pdb

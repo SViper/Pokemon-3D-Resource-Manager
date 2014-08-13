@@ -1,0 +1,7 @@
+[Setting]
+P3D Launcher Directory = C:\Users\Xiong\Documents
+P3D Gamefiles Directory = C:\Users\Xiong\Documents\Pokemon
+Application Check Update = True
+ContentPacks Check Update = True
+GameModes Check Update = True
+Version = 0.49.1.0
