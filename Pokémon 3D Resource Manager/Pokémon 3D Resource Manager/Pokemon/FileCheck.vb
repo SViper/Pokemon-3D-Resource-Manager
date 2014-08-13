@@ -9,12 +9,6 @@ Public Class FileCheck
     End Sub
 
 #Region "Init CheckList"
-    ' This is the Init Checklist.
-    ' => Check Directory
-    ' => Check .dll and .exe
-    ' => Check Settings
-    ' => Validate Program version
-
     ' Imports'
     ' System.IO
 
@@ -22,7 +16,7 @@ Public Class FileCheck
     Private ApplicationDirectory As String = Pokémon3D.My.Application.Info.DirectoryPath
     Private P3DDirectory As String = ApplicationDirectory + "\Pokemon"
     Private ApplicationVersion As String = Pokémon3D.My.Application.Info.Version.ToString
-    Private ApplicationSelfCheckVersion As Boolean = True
+    Private ApplicationSelfCheckVersion As String = "True"
 
     Private Sub CheckSetting()
         If (Not File.Exists(ApplicationDirectory + "\Settings.dat")) Then
