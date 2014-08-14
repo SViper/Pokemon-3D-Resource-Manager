@@ -1,37 +1,37 @@
 ﻿<!-- Resource Name | Content Categories | Author | Latest Version | Dependency | Compatible | Description | Folder Name | Ext | URL | Download Options -->
-PS4 Menu Buttons|Texture Pack
-Pokémon Models Pack|Texture Pack
-Horizon UI Overhaul|Texture Pack
-Pokémon 3D Models Pack ( Add-on )|Model Pack
-HQ4X Basic|Texture Pack
-Green UI|Texture Pack
-SafariUI|Texture Pack
-BlueUI|Texture Pack
-Red UI|Texture Pack
-Kira_Pro_Grafik_HD|Texture Pack
-Blue UI|Texture Pack
-Emerald Texture Pack|Texture Pack
-VideoLand|Texture Pack
-RetroPack (TexturePack & Music)|Texture & Music Pack
-RetroPack(texture only)|Texture Pack
-Pokémon Fire Red/Leaf Green Music Pack|Music Pack
-Enethil's Final Fantasy Music Pack|Music Pack
-Anime Cries|Music Pack
+PS4 Menu Buttons|Texture Pack|||||||||
+Pokémon Models Pack|Texture Pack|||||||||
+Horizon UI Overhaul|Texture Pack|||||||||
+Pokémon 3D Models Pack ( Add-on )|Model Pack|||||||||
+HQ4X Basic|Texture Pack|||||||||
+Green UI|Texture Pack|||||||||
+SafariUI|Texture Pack|||||||||
+BlueUI|Texture Pack|||||||||
+Red UI|Texture Pack|||||||||
+Kira_Pro_Grafik_HD|Texture Pack|||||||||
+Blue UI|Texture Pack|||||||||
+Emerald Texture Pack|Texture Pack|||||||||
+VideoLand|Texture Pack|||||||||
+RetroPack (TexturePack & Music)|Music Pack|||||||||
+RetroPack(texture only)|Texture Pack|||||||||
+Pokémon Fire Red/Leaf Green Music Pack|Music Pack|||||||||
+Enethil's Final Fantasy Music Pack|Music Pack|||||||||
+Anime Cries|Music Pack|||||||||
 HG/SS Music Pack HD|Music Pack|jianmingyong|v0.49.1||True|Enjoy Heart Gold, Soul Sliver, X and Y Music.|HGSS Music Pack HD|rar||
-Final Fantasy: Remastered|Music Pack
-Mixed Game Music Pack|Music Pack
-DBZ Music Pack|Music Pack
-[0.47.2] Daziman's Epic HD Music Pack|Music Pack
-Pokémon Reorchestrated Music Pack|Music Pack
-Narx221 Music pack|Music Pack
-Game Boy Advance Songs|Music Pack
-Darkfire's Music Pack|Music Pack
-Daziman's XY Music Pack|Music Pack
-Chrono trigger Music Pack|Music Pack
-Made by Fans for Fans|Music Pack
-Anime Cries - "It stinks!" - Jay Sherman|Music Pack
-Guile's Theme Goes With Everything|Music Pack
-HG/SS Music Pack [Canceled]|Music Pack
-Kira songs natural|Music Pack
-Kira Songs NES|Music Pack
-Final Fantasy V|Music Pack
+Final Fantasy: Remastered|Music Pack|||||||||
+Mixed Game Music Pack|Music Pack|||||||||
+DBZ Music Pack|Music Pack|||||||||
+[0.47.2] Daziman's Epic HD Music Pack|Music Pack|||||||||
+Pokémon Reorchestrated Music Pack|Music Pack|||||||||
+Narx221 Music pack|Music Pack|||||||||
+Game Boy Advance Songs|Music Pack|||||||||
+Darkfire's Music Pack|Music Pack|||||||||
+Daziman's XY Music Pack|Music Pack|||||||||
+Chrono trigger Music Pack|Music Pack|||||||||
+Made by Fans for Fans|Music Pack|||||||||
+Anime Cries - "It stinks!" - Jay Sherman|Music Pack|||||||||
+Guile's Theme Goes With Everything|Music Pack|||||||||
+HG/SS Music Pack [Canceled]|Music Pack|||||||||
+Kira songs natural|Music Pack|||||||||
+Kira Songs NES|Music Pack|||||||||
+Final Fantasy V|Music Pack|||||||||
