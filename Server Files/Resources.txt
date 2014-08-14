@@ -1,4 +1,5 @@
-﻿PS4 Menu Buttons|Texture Pack
+﻿<!-- Resource Name | Content Categories | Author | Latest Version | Dependency | Compatible | Description | Folder Name | Ext | URL | Download Options -->
+PS4 Menu Buttons|Texture Pack
 Pokémon Models Pack|Texture Pack
 Horizon UI Overhaul|Texture Pack
 Pokémon 3D Models Pack ( Add-on )|Model Pack
@@ -16,7 +17,7 @@ RetroPack(texture only)|Texture Pack
 Pokémon Fire Red/Leaf Green Music Pack|Music Pack
 Enethil's Final Fantasy Music Pack|Music Pack
 Anime Cries|Music Pack
-HG/SS Music Pack HD|Music Pack|HGSS Music Pack HD|
+HG/SS Music Pack HD|Music Pack|jianmingyong|v0.49.1||True|Enjoy Heart Gold, Soul Sliver, X and Y Music.|HGSS Music Pack HD|rar||
 Final Fantasy: Remastered|Music Pack
 Mixed Game Music Pack|Music Pack
 DBZ Music Pack|Music Pack
