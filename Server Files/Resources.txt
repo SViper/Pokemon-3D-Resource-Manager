@@ -1,4 +1,4 @@
-.<!-- Resource Name | Content Categories | Author | Latest Version | Dependency | Compatible | Description | Folder Name | Ext | URL | Download Options -->
+﻿<!-- Resource Name | Content Categories | Author | Latest Version | Dependency | Compatible | Description | Folder Name | Ext | URL | Download Options -->
 PS4 Menu Buttons|Texture Pack|||||||||
 Pokémon Models Pack|Texture Pack|Tornado9797|1.1.1.1||True|Revive the lost 3D models of Pokémon 3D!|Pokémon Models Pack|zip|https://dl.dropboxusercontent.com/s/4m9wy860ka1bg3m/Pok%C3%A9mon%20Models%20Pack.zip|
 Horizon UI Overhaul|Texture Pack|||||||||
