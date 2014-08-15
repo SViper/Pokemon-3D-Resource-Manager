@@ -23,39 +23,38 @@ Partial Class FileCheck
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FileCheck))
-        Me.Log = New System.Windows.Forms.RichTextBox()
+        Me.Logger_Log = New System.Windows.Forms.RichTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.InstalledContentPacksName = New System.Windows.Forms.ComboBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.ContentPacks = New System.Windows.Forms.TabPage()
-        Me.RefreshButton = New System.Windows.Forms.Button()
-        Me.ContentPackRemoveButton = New System.Windows.Forms.Button()
-        Me.ContentPackUpdateButton = New System.Windows.Forms.Button()
-        Me.OpenP3DGame = New System.Windows.Forms.Button()
-        Me.ContentPackNewVersionInfo = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.ContentPackCheckForUpdateButton = New System.Windows.Forms.Button()
-        Me.ContentPackVersionInfo = New System.Windows.Forms.Label()
+        Me.Resources1 = New System.Windows.Forms.TabPage()
+        Me.Resources_Supported = New System.Windows.Forms.ListBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Resources_Description = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Resources_Installed = New System.Windows.Forms.Label()
+        Me.Resources_Compatible = New System.Windows.Forms.Label()
+        Me.Resources_Dependency = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.ContentPackInfo = New System.Windows.Forms.RichTextBox()
-        Me.GameModes = New System.Windows.Forms.TabPage()
-        Me.OpenP3DGame1 = New System.Windows.Forms.Button()
-        Me.GameModeUpdateButton = New System.Windows.Forms.Button()
-        Me.GameModeRemoveButton = New System.Windows.Forms.Button()
-        Me.GameModeCheckForUpdateButton = New System.Windows.Forms.Button()
-        Me.GameModeNewVersionInfo = New System.Windows.Forms.Label()
-        Me.GameModeVersionInfo = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.GameModeInfo = New System.Windows.Forms.RichTextBox()
-        Me.GameModeRefreshButton = New System.Windows.Forms.Button()
-        Me.InstalledGameModesName = New System.Windows.Forms.ComboBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Resources_ContentCategory = New System.Windows.Forms.Label()
+        Me.Resources_Author = New System.Windows.Forms.Label()
+        Me.Resources_CurrentVersion = New System.Windows.Forms.Label()
+        Me.Resources_LatestVersion = New System.Windows.Forms.Label()
+        Me.Resources_Remove = New System.Windows.Forms.Button()
+        Me.Resources_Update = New System.Windows.Forms.Button()
+        Me.Resources_OpenP3D = New System.Windows.Forms.Button()
+        Me.Resources_CheckForUpdate = New System.Windows.Forms.Button()
         Me.Settings = New System.Windows.Forms.TabPage()
-        Me.Setting_CheckGameModesUpdate = New System.Windows.Forms.CheckBox()
-        Me.Setting_CheckContentPacksUpdate = New System.Windows.Forms.CheckBox()
+        Me.Setting_ResourceDataBase = New System.Windows.Forms.Button()
+        Me.Setting_ApplicationCheckForUpdateButton = New System.Windows.Forms.Button()
+        Me.Setting_CheckResourcesUpdate = New System.Windows.Forms.CheckBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Setting_ApplicationCheckForUpdate = New System.Windows.Forms.CheckBox()
         Me.Setting_SearchGamefilesDirectory = New System.Windows.Forms.Button()
@@ -68,341 +67,343 @@ Partial Class FileCheck
         Me.About = New System.Windows.Forms.TabPage()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.Setting_ApplicationCheckForUpdateButton = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
-        Me.ContentPacks.SuspendLayout()
-        Me.GameModes.SuspendLayout()
+        Me.Resources1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.Settings.SuspendLayout()
         Me.Logger.SuspendLayout()
         Me.About.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Log
+        'Logger_Log
         '
-        Me.Log.AcceptsTab = True
-        Me.Log.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.Logger_Log.AcceptsTab = True
+        Me.Logger_Log.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Log.BackColor = System.Drawing.SystemColors.Window
-        Me.Log.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.Log.Location = New System.Drawing.Point(6, 6)
-        Me.Log.Name = "Log"
-        Me.Log.ReadOnly = True
-        Me.Log.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.Log.Size = New System.Drawing.Size(540, 303)
-        Me.Log.TabIndex = 0
-        Me.Log.Text = ""
+        Me.Logger_Log.BackColor = System.Drawing.SystemColors.Window
+        Me.Logger_Log.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.Logger_Log.Location = New System.Drawing.Point(6, 6)
+        Me.Logger_Log.Name = "Logger_Log"
+        Me.Logger_Log.ReadOnly = True
+        Me.Logger_Log.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
+        Me.Logger_Log.Size = New System.Drawing.Size(540, 318)
+        Me.Logger_Log.TabIndex = 0
+        Me.Logger_Log.Text = ""
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(6, 13)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(119, 13)
+        Me.Label1.Size = New System.Drawing.Size(113, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Installed ContentPacks:"
-        '
-        'InstalledContentPacksName
-        '
-        Me.InstalledContentPacksName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.InstalledContentPacksName.FormattingEnabled = True
-        Me.InstalledContentPacksName.Location = New System.Drawing.Point(9, 29)
-        Me.InstalledContentPacksName.Name = "InstalledContentPacksName"
-        Me.InstalledContentPacksName.Size = New System.Drawing.Size(456, 21)
-        Me.InstalledContentPacksName.Sorted = True
-        Me.InstalledContentPacksName.TabIndex = 3
+        Me.Label1.Text = "Supported Resources:"
         '
         'TabControl1
         '
         Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TabControl1.Controls.Add(Me.ContentPacks)
-        Me.TabControl1.Controls.Add(Me.GameModes)
+        Me.TabControl1.Controls.Add(Me.Resources1)
         Me.TabControl1.Controls.Add(Me.Settings)
         Me.TabControl1.Controls.Add(Me.Logger)
         Me.TabControl1.Controls.Add(Me.About)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(560, 341)
+        Me.TabControl1.Size = New System.Drawing.Size(560, 356)
         Me.TabControl1.TabIndex = 4
         '
-        'ContentPacks
+        'Resources1
         '
-        Me.ContentPacks.Controls.Add(Me.RefreshButton)
-        Me.ContentPacks.Controls.Add(Me.ContentPackRemoveButton)
-        Me.ContentPacks.Controls.Add(Me.ContentPackUpdateButton)
-        Me.ContentPacks.Controls.Add(Me.OpenP3DGame)
-        Me.ContentPacks.Controls.Add(Me.ContentPackNewVersionInfo)
-        Me.ContentPacks.Controls.Add(Me.Label5)
-        Me.ContentPacks.Controls.Add(Me.ContentPackCheckForUpdateButton)
-        Me.ContentPacks.Controls.Add(Me.ContentPackVersionInfo)
-        Me.ContentPacks.Controls.Add(Me.Label4)
-        Me.ContentPacks.Controls.Add(Me.Label3)
-        Me.ContentPacks.Controls.Add(Me.ContentPackInfo)
-        Me.ContentPacks.Controls.Add(Me.Label1)
-        Me.ContentPacks.Controls.Add(Me.InstalledContentPacksName)
-        Me.ContentPacks.Location = New System.Drawing.Point(4, 22)
-        Me.ContentPacks.Name = "ContentPacks"
-        Me.ContentPacks.Padding = New System.Windows.Forms.Padding(3)
-        Me.ContentPacks.Size = New System.Drawing.Size(552, 315)
-        Me.ContentPacks.TabIndex = 0
-        Me.ContentPacks.Text = "ContentPacks"
-        Me.ContentPacks.UseVisualStyleBackColor = True
+        Me.Resources1.Controls.Add(Me.Resources_Supported)
+        Me.Resources1.Controls.Add(Me.Panel1)
+        Me.Resources1.Controls.Add(Me.Resources_Remove)
+        Me.Resources1.Controls.Add(Me.Resources_Update)
+        Me.Resources1.Controls.Add(Me.Resources_OpenP3D)
+        Me.Resources1.Controls.Add(Me.Resources_CheckForUpdate)
+        Me.Resources1.Controls.Add(Me.Label1)
+        Me.Resources1.Location = New System.Drawing.Point(4, 22)
+        Me.Resources1.Name = "Resources1"
+        Me.Resources1.Padding = New System.Windows.Forms.Padding(3)
+        Me.Resources1.Size = New System.Drawing.Size(552, 330)
+        Me.Resources1.TabIndex = 0
+        Me.Resources1.Text = "Resources"
+        Me.Resources1.UseVisualStyleBackColor = True
         '
-        'RefreshButton
+        'Resources_Supported
         '
-        Me.RefreshButton.Location = New System.Drawing.Point(471, 27)
-        Me.RefreshButton.Name = "RefreshButton"
-        Me.RefreshButton.Size = New System.Drawing.Size(75, 23)
-        Me.RefreshButton.TabIndex = 15
-        Me.RefreshButton.Text = "Refresh"
-        Me.RefreshButton.UseVisualStyleBackColor = True
+        Me.Resources_Supported.FormattingEnabled = True
+        Me.Resources_Supported.Location = New System.Drawing.Point(9, 29)
+        Me.Resources_Supported.Name = "Resources_Supported"
+        Me.Resources_Supported.Size = New System.Drawing.Size(534, 134)
+        Me.Resources_Supported.TabIndex = 20
         '
-        'ContentPackRemoveButton
+        'Panel1
         '
-        Me.ContentPackRemoveButton.Location = New System.Drawing.Point(135, 286)
-        Me.ContentPackRemoveButton.Name = "ContentPackRemoveButton"
-        Me.ContentPackRemoveButton.Size = New System.Drawing.Size(125, 23)
-        Me.ContentPackRemoveButton.TabIndex = 14
-        Me.ContentPackRemoveButton.Text = "Uninstall / Remove"
-        Me.ContentPackRemoveButton.UseVisualStyleBackColor = True
+        Me.Panel1.Controls.Add(Me.TableLayoutPanel2)
+        Me.Panel1.Controls.Add(Me.TableLayoutPanel1)
+        Me.Panel1.Location = New System.Drawing.Point(9, 189)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(537, 106)
+        Me.Panel1.TabIndex = 19
         '
-        'ContentPackUpdateButton
+        'TableLayoutPanel2
         '
-        Me.ContentPackUpdateButton.Location = New System.Drawing.Point(266, 286)
-        Me.ContentPackUpdateButton.Name = "ContentPackUpdateButton"
-        Me.ContentPackUpdateButton.Size = New System.Drawing.Size(125, 23)
-        Me.ContentPackUpdateButton.TabIndex = 13
-        Me.ContentPackUpdateButton.Text = "Reinstall / Update"
-        Me.ContentPackUpdateButton.UseVisualStyleBackColor = True
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.Resources_Description, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label4, 0, 0)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 82)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(531, 21)
+        Me.TableLayoutPanel2.TabIndex = 19
         '
-        'OpenP3DGame
+        'Resources_Description
         '
-        Me.OpenP3DGame.Location = New System.Drawing.Point(421, 286)
-        Me.OpenP3DGame.Name = "OpenP3DGame"
-        Me.OpenP3DGame.Size = New System.Drawing.Size(125, 23)
-        Me.OpenP3DGame.TabIndex = 12
-        Me.OpenP3DGame.Text = "Open Pokémon 3D "
-        Me.OpenP3DGame.UseVisualStyleBackColor = True
-        '
-        'ContentPackNewVersionInfo
-        '
-        Me.ContentPackNewVersionInfo.AutoSize = True
-        Me.ContentPackNewVersionInfo.Location = New System.Drawing.Point(104, 238)
-        Me.ContentPackNewVersionInfo.Name = "ContentPackNewVersionInfo"
-        Me.ContentPackNewVersionInfo.Size = New System.Drawing.Size(25, 13)
-        Me.ContentPackNewVersionInfo.TabIndex = 11
-        Me.ContentPackNewVersionInfo.Text = "Null"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 238)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(98, 13)
-        Me.Label5.TabIndex = 10
-        Me.Label5.Text = "Latest Version Info:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'ContentPackCheckForUpdateButton
-        '
-        Me.ContentPackCheckForUpdateButton.Location = New System.Drawing.Point(9, 286)
-        Me.ContentPackCheckForUpdateButton.Name = "ContentPackCheckForUpdateButton"
-        Me.ContentPackCheckForUpdateButton.Size = New System.Drawing.Size(120, 23)
-        Me.ContentPackCheckForUpdateButton.TabIndex = 9
-        Me.ContentPackCheckForUpdateButton.Text = "Check For update" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        Me.ContentPackCheckForUpdateButton.UseVisualStyleBackColor = True
-        '
-        'ContentPackVersionInfo
-        '
-        Me.ContentPackVersionInfo.AutoSize = True
-        Me.ContentPackVersionInfo.Location = New System.Drawing.Point(104, 225)
-        Me.ContentPackVersionInfo.Name = "ContentPackVersionInfo"
-        Me.ContentPackVersionInfo.Size = New System.Drawing.Size(25, 13)
-        Me.ContentPackVersionInfo.TabIndex = 8
-        Me.ContentPackVersionInfo.Text = "Null"
+        Me.Resources_Description.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Resources_Description.AutoSize = True
+        Me.Resources_Description.Location = New System.Drawing.Point(109, 4)
+        Me.Resources_Description.Name = "Resources_Description"
+        Me.Resources_Description.Size = New System.Drawing.Size(39, 13)
+        Me.Resources_Description.TabIndex = 32
+        Me.Resources_Description.Text = "Label7"
         '
         'Label4
         '
+        Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 225)
+        Me.Label4.Location = New System.Drawing.Point(40, 4)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(95, 13)
-        Me.Label4.TabIndex = 7
-        Me.Label4.Text = "Local Version Info:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label4.Size = New System.Drawing.Size(63, 13)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Description:"
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 4
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.Resources_Installed, 3, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Resources_Compatible, 3, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Resources_Dependency, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label14, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label15, 2, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label5, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label6, 2, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label12, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.Resources_ContentCategory, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Resources_Author, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Resources_CurrentVersion, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Resources_LatestVersion, 1, 3)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 4
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(531, 76)
+        Me.TableLayoutPanel1.TabIndex = 18
+        '
+        'Resources_Installed
+        '
+        Me.Resources_Installed.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Resources_Installed.AutoSize = True
+        Me.Resources_Installed.Location = New System.Drawing.Point(374, 41)
+        Me.Resources_Installed.Name = "Resources_Installed"
+        Me.Resources_Installed.Size = New System.Drawing.Size(39, 13)
+        Me.Resources_Installed.TabIndex = 31
+        Me.Resources_Installed.Text = "Label7"
+        '
+        'Resources_Compatible
+        '
+        Me.Resources_Compatible.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Resources_Compatible.AutoSize = True
+        Me.Resources_Compatible.Location = New System.Drawing.Point(374, 22)
+        Me.Resources_Compatible.Name = "Resources_Compatible"
+        Me.Resources_Compatible.Size = New System.Drawing.Size(39, 13)
+        Me.Resources_Compatible.TabIndex = 30
+        Me.Resources_Compatible.Text = "Label7"
+        '
+        'Resources_Dependency
+        '
+        Me.Resources_Dependency.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Resources_Dependency.AutoSize = True
+        Me.Resources_Dependency.Location = New System.Drawing.Point(374, 3)
+        Me.Resources_Dependency.Name = "Resources_Dependency"
+        Me.Resources_Dependency.Size = New System.Drawing.Size(39, 13)
+        Me.Resources_Dependency.TabIndex = 29
+        Me.Resources_Dependency.Text = "Label7"
         '
         'Label3
         '
+        Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 209)
+        Me.Label3.Location = New System.Drawing.Point(11, 3)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(3)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(40, 13)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Status:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label3.Size = New System.Drawing.Size(92, 13)
+        Me.Label3.TabIndex = 17
+        Me.Label3.Text = "Content Category:"
         '
-        'ContentPackInfo
+        'Label14
         '
-        Me.ContentPackInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ContentPackInfo.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.ContentPackInfo.Location = New System.Drawing.Point(9, 56)
-        Me.ContentPackInfo.Name = "ContentPackInfo"
-        Me.ContentPackInfo.ReadOnly = True
-        Me.ContentPackInfo.Size = New System.Drawing.Size(537, 147)
-        Me.ContentPackInfo.TabIndex = 4
-        Me.ContentPackInfo.Text = ""
+        Me.Label14.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(297, 3)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(71, 13)
+        Me.Label14.TabIndex = 22
+        Me.Label14.Text = "Dependency:"
         '
-        'GameModes
+        'Label15
         '
-        Me.GameModes.Controls.Add(Me.OpenP3DGame1)
-        Me.GameModes.Controls.Add(Me.GameModeUpdateButton)
-        Me.GameModes.Controls.Add(Me.GameModeRemoveButton)
-        Me.GameModes.Controls.Add(Me.GameModeCheckForUpdateButton)
-        Me.GameModes.Controls.Add(Me.GameModeNewVersionInfo)
-        Me.GameModes.Controls.Add(Me.GameModeVersionInfo)
-        Me.GameModes.Controls.Add(Me.Label9)
-        Me.GameModes.Controls.Add(Me.Label8)
-        Me.GameModes.Controls.Add(Me.Label7)
-        Me.GameModes.Controls.Add(Me.GameModeInfo)
-        Me.GameModes.Controls.Add(Me.GameModeRefreshButton)
-        Me.GameModes.Controls.Add(Me.InstalledGameModesName)
-        Me.GameModes.Controls.Add(Me.Label6)
-        Me.GameModes.Location = New System.Drawing.Point(4, 22)
-        Me.GameModes.Name = "GameModes"
-        Me.GameModes.Size = New System.Drawing.Size(552, 315)
-        Me.GameModes.TabIndex = 4
-        Me.GameModes.Text = "GameModes"
-        Me.GameModes.UseVisualStyleBackColor = True
+        Me.Label15.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(306, 22)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(62, 13)
+        Me.Label15.TabIndex = 23
+        Me.Label15.Text = "Compatible:"
         '
-        'OpenP3DGame1
+        'Label5
         '
-        Me.OpenP3DGame1.Location = New System.Drawing.Point(421, 286)
-        Me.OpenP3DGame1.Name = "OpenP3DGame1"
-        Me.OpenP3DGame1.Size = New System.Drawing.Size(125, 23)
-        Me.OpenP3DGame1.TabIndex = 26
-        Me.OpenP3DGame1.Text = "Open Pokémon 3D "
-        Me.OpenP3DGame1.UseVisualStyleBackColor = True
+        Me.Label5.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(62, 22)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(41, 13)
+        Me.Label5.TabIndex = 19
+        Me.Label5.Text = "Author:"
         '
-        'GameModeUpdateButton
+        'Label13
         '
-        Me.GameModeUpdateButton.Location = New System.Drawing.Point(266, 286)
-        Me.GameModeUpdateButton.Name = "GameModeUpdateButton"
-        Me.GameModeUpdateButton.Size = New System.Drawing.Size(125, 23)
-        Me.GameModeUpdateButton.TabIndex = 25
-        Me.GameModeUpdateButton.Text = "Reinstall / Update"
-        Me.GameModeUpdateButton.UseVisualStyleBackColor = True
-        '
-        'GameModeRemoveButton
-        '
-        Me.GameModeRemoveButton.Location = New System.Drawing.Point(135, 286)
-        Me.GameModeRemoveButton.Name = "GameModeRemoveButton"
-        Me.GameModeRemoveButton.Size = New System.Drawing.Size(125, 23)
-        Me.GameModeRemoveButton.TabIndex = 24
-        Me.GameModeRemoveButton.Text = "Uninstall / Remove"
-        Me.GameModeRemoveButton.UseVisualStyleBackColor = True
-        '
-        'GameModeCheckForUpdateButton
-        '
-        Me.GameModeCheckForUpdateButton.Location = New System.Drawing.Point(9, 286)
-        Me.GameModeCheckForUpdateButton.Name = "GameModeCheckForUpdateButton"
-        Me.GameModeCheckForUpdateButton.Size = New System.Drawing.Size(120, 23)
-        Me.GameModeCheckForUpdateButton.TabIndex = 23
-        Me.GameModeCheckForUpdateButton.Text = "Check For update" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        Me.GameModeCheckForUpdateButton.UseVisualStyleBackColor = True
-        '
-        'GameModeNewVersionInfo
-        '
-        Me.GameModeNewVersionInfo.AutoSize = True
-        Me.GameModeNewVersionInfo.Location = New System.Drawing.Point(104, 238)
-        Me.GameModeNewVersionInfo.Name = "GameModeNewVersionInfo"
-        Me.GameModeNewVersionInfo.Size = New System.Drawing.Size(25, 13)
-        Me.GameModeNewVersionInfo.TabIndex = 22
-        Me.GameModeNewVersionInfo.Text = "Null"
-        '
-        'GameModeVersionInfo
-        '
-        Me.GameModeVersionInfo.AutoSize = True
-        Me.GameModeVersionInfo.Location = New System.Drawing.Point(104, 225)
-        Me.GameModeVersionInfo.Name = "GameModeVersionInfo"
-        Me.GameModeVersionInfo.Size = New System.Drawing.Size(25, 13)
-        Me.GameModeVersionInfo.TabIndex = 21
-        Me.GameModeVersionInfo.Text = "Null"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 238)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(98, 13)
-        Me.Label9.TabIndex = 20
-        Me.Label9.Text = "Latest Version Info:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(6, 225)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(95, 13)
-        Me.Label8.TabIndex = 19
-        Me.Label8.Text = "Local Version Info:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(6, 209)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(40, 13)
-        Me.Label7.TabIndex = 18
-        Me.Label7.Text = "Status:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'GameModeInfo
-        '
-        Me.GameModeInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GameModeInfo.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.GameModeInfo.Location = New System.Drawing.Point(9, 56)
-        Me.GameModeInfo.Name = "GameModeInfo"
-        Me.GameModeInfo.ReadOnly = True
-        Me.GameModeInfo.Size = New System.Drawing.Size(537, 147)
-        Me.GameModeInfo.TabIndex = 17
-        Me.GameModeInfo.Text = ""
-        '
-        'GameModeRefreshButton
-        '
-        Me.GameModeRefreshButton.Location = New System.Drawing.Point(471, 27)
-        Me.GameModeRefreshButton.Name = "GameModeRefreshButton"
-        Me.GameModeRefreshButton.Size = New System.Drawing.Size(75, 23)
-        Me.GameModeRefreshButton.TabIndex = 16
-        Me.GameModeRefreshButton.Text = "Refresh"
-        Me.GameModeRefreshButton.UseVisualStyleBackColor = True
-        '
-        'InstalledGameModesName
-        '
-        Me.InstalledGameModesName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.InstalledGameModesName.FormattingEnabled = True
-        Me.InstalledGameModesName.Location = New System.Drawing.Point(9, 29)
-        Me.InstalledGameModesName.Name = "InstalledGameModesName"
-        Me.InstalledGameModesName.Size = New System.Drawing.Size(456, 21)
-        Me.InstalledGameModesName.Sorted = True
-        Me.InstalledGameModesName.TabIndex = 4
+        Me.Label13.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(21, 41)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(82, 13)
+        Me.Label13.TabIndex = 21
+        Me.Label13.Text = "Current Version:"
         '
         'Label6
         '
+        Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 13)
+        Me.Label6.Location = New System.Drawing.Point(319, 41)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(3)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(112, 13)
-        Me.Label6.TabIndex = 3
-        Me.Label6.Text = "Installed GameModes:"
+        Me.Label6.Size = New System.Drawing.Size(49, 13)
+        Me.Label6.TabIndex = 24
+        Me.Label6.Text = "Installed:"
+        '
+        'Label12
+        '
+        Me.Label12.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(26, 60)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(77, 13)
+        Me.Label12.TabIndex = 20
+        Me.Label12.Text = "Latest Version:"
+        '
+        'Resources_ContentCategory
+        '
+        Me.Resources_ContentCategory.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Resources_ContentCategory.AutoSize = True
+        Me.Resources_ContentCategory.Location = New System.Drawing.Point(109, 3)
+        Me.Resources_ContentCategory.Name = "Resources_ContentCategory"
+        Me.Resources_ContentCategory.Size = New System.Drawing.Size(39, 13)
+        Me.Resources_ContentCategory.TabIndex = 25
+        Me.Resources_ContentCategory.Text = "Label7"
+        '
+        'Resources_Author
+        '
+        Me.Resources_Author.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Resources_Author.AutoSize = True
+        Me.Resources_Author.Location = New System.Drawing.Point(109, 22)
+        Me.Resources_Author.Name = "Resources_Author"
+        Me.Resources_Author.Size = New System.Drawing.Size(39, 13)
+        Me.Resources_Author.TabIndex = 26
+        Me.Resources_Author.Text = "Label7"
+        '
+        'Resources_CurrentVersion
+        '
+        Me.Resources_CurrentVersion.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Resources_CurrentVersion.AutoSize = True
+        Me.Resources_CurrentVersion.Location = New System.Drawing.Point(109, 41)
+        Me.Resources_CurrentVersion.Name = "Resources_CurrentVersion"
+        Me.Resources_CurrentVersion.Size = New System.Drawing.Size(39, 13)
+        Me.Resources_CurrentVersion.TabIndex = 27
+        Me.Resources_CurrentVersion.Text = "Label7"
+        '
+        'Resources_LatestVersion
+        '
+        Me.Resources_LatestVersion.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.Resources_LatestVersion.AutoSize = True
+        Me.Resources_LatestVersion.Location = New System.Drawing.Point(109, 60)
+        Me.Resources_LatestVersion.Name = "Resources_LatestVersion"
+        Me.Resources_LatestVersion.Size = New System.Drawing.Size(39, 13)
+        Me.Resources_LatestVersion.TabIndex = 28
+        Me.Resources_LatestVersion.Text = "Label7"
+        '
+        'Resources_Remove
+        '
+        Me.Resources_Remove.Location = New System.Drawing.Point(135, 301)
+        Me.Resources_Remove.Name = "Resources_Remove"
+        Me.Resources_Remove.Size = New System.Drawing.Size(125, 23)
+        Me.Resources_Remove.TabIndex = 14
+        Me.Resources_Remove.Text = "Uninstall / Remove"
+        Me.Resources_Remove.UseVisualStyleBackColor = True
+        '
+        'Resources_Update
+        '
+        Me.Resources_Update.Location = New System.Drawing.Point(266, 301)
+        Me.Resources_Update.Name = "Resources_Update"
+        Me.Resources_Update.Size = New System.Drawing.Size(125, 23)
+        Me.Resources_Update.TabIndex = 13
+        Me.Resources_Update.Text = "Install / Update"
+        Me.Resources_Update.UseVisualStyleBackColor = True
+        '
+        'Resources_OpenP3D
+        '
+        Me.Resources_OpenP3D.Location = New System.Drawing.Point(421, 301)
+        Me.Resources_OpenP3D.Name = "Resources_OpenP3D"
+        Me.Resources_OpenP3D.Size = New System.Drawing.Size(125, 23)
+        Me.Resources_OpenP3D.TabIndex = 12
+        Me.Resources_OpenP3D.Text = "Open Pokémon 3D "
+        Me.Resources_OpenP3D.UseVisualStyleBackColor = True
+        '
+        'Resources_CheckForUpdate
+        '
+        Me.Resources_CheckForUpdate.Location = New System.Drawing.Point(9, 301)
+        Me.Resources_CheckForUpdate.Name = "Resources_CheckForUpdate"
+        Me.Resources_CheckForUpdate.Size = New System.Drawing.Size(120, 23)
+        Me.Resources_CheckForUpdate.TabIndex = 9
+        Me.Resources_CheckForUpdate.Text = "Check For update" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Resources_CheckForUpdate.UseVisualStyleBackColor = True
         '
         'Settings
         '
+        Me.Settings.Controls.Add(Me.Setting_ResourceDataBase)
         Me.Settings.Controls.Add(Me.Setting_ApplicationCheckForUpdateButton)
-        Me.Settings.Controls.Add(Me.Setting_CheckGameModesUpdate)
-        Me.Settings.Controls.Add(Me.Setting_CheckContentPacksUpdate)
+        Me.Settings.Controls.Add(Me.Setting_CheckResourcesUpdate)
         Me.Settings.Controls.Add(Me.Label11)
         Me.Settings.Controls.Add(Me.Setting_ApplicationCheckForUpdate)
         Me.Settings.Controls.Add(Me.Setting_SearchGamefilesDirectory)
@@ -414,30 +415,38 @@ Partial Class FileCheck
         Me.Settings.Location = New System.Drawing.Point(4, 22)
         Me.Settings.Name = "Settings"
         Me.Settings.Padding = New System.Windows.Forms.Padding(3)
-        Me.Settings.Size = New System.Drawing.Size(552, 315)
+        Me.Settings.Size = New System.Drawing.Size(552, 330)
         Me.Settings.TabIndex = 2
         Me.Settings.Text = "Settings"
         Me.Settings.UseVisualStyleBackColor = True
         '
-        'Setting_CheckGameModesUpdate
+        'Setting_ResourceDataBase
         '
-        Me.Setting_CheckGameModesUpdate.AutoSize = True
-        Me.Setting_CheckGameModesUpdate.Location = New System.Drawing.Point(9, 161)
-        Me.Setting_CheckGameModesUpdate.Name = "Setting_CheckGameModesUpdate"
-        Me.Setting_CheckGameModesUpdate.Size = New System.Drawing.Size(191, 17)
-        Me.Setting_CheckGameModesUpdate.TabIndex = 9
-        Me.Setting_CheckGameModesUpdate.Text = "Check For Update for GameModes"
-        Me.Setting_CheckGameModesUpdate.UseVisualStyleBackColor = True
+        Me.Setting_ResourceDataBase.Location = New System.Drawing.Point(6, 301)
+        Me.Setting_ResourceDataBase.Name = "Setting_ResourceDataBase"
+        Me.Setting_ResourceDataBase.Size = New System.Drawing.Size(150, 23)
+        Me.Setting_ResourceDataBase.TabIndex = 11
+        Me.Setting_ResourceDataBase.Text = "Resource DataBase"
+        Me.Setting_ResourceDataBase.UseVisualStyleBackColor = True
         '
-        'Setting_CheckContentPacksUpdate
+        'Setting_ApplicationCheckForUpdateButton
         '
-        Me.Setting_CheckContentPacksUpdate.AutoSize = True
-        Me.Setting_CheckContentPacksUpdate.Location = New System.Drawing.Point(9, 138)
-        Me.Setting_CheckContentPacksUpdate.Name = "Setting_CheckContentPacksUpdate"
-        Me.Setting_CheckContentPacksUpdate.Size = New System.Drawing.Size(198, 17)
-        Me.Setting_CheckContentPacksUpdate.TabIndex = 8
-        Me.Setting_CheckContentPacksUpdate.Text = "Check For Update for ContentPacks"
-        Me.Setting_CheckContentPacksUpdate.UseVisualStyleBackColor = True
+        Me.Setting_ApplicationCheckForUpdateButton.Location = New System.Drawing.Point(346, 301)
+        Me.Setting_ApplicationCheckForUpdateButton.Name = "Setting_ApplicationCheckForUpdateButton"
+        Me.Setting_ApplicationCheckForUpdateButton.Size = New System.Drawing.Size(200, 23)
+        Me.Setting_ApplicationCheckForUpdateButton.TabIndex = 10
+        Me.Setting_ApplicationCheckForUpdateButton.Text = "Application Check For Updates"
+        Me.Setting_ApplicationCheckForUpdateButton.UseVisualStyleBackColor = True
+        '
+        'Setting_CheckResourcesUpdate
+        '
+        Me.Setting_CheckResourcesUpdate.AutoSize = True
+        Me.Setting_CheckResourcesUpdate.Location = New System.Drawing.Point(9, 138)
+        Me.Setting_CheckResourcesUpdate.Name = "Setting_CheckResourcesUpdate"
+        Me.Setting_CheckResourcesUpdate.Size = New System.Drawing.Size(236, 17)
+        Me.Setting_CheckResourcesUpdate.TabIndex = 8
+        Me.Setting_CheckResourcesUpdate.Text = "Check For Update for Resources on Launch"
+        Me.Setting_CheckResourcesUpdate.UseVisualStyleBackColor = True
         '
         'Label11
         '
@@ -515,11 +524,11 @@ Partial Class FileCheck
         '
         'Logger
         '
-        Me.Logger.Controls.Add(Me.Log)
+        Me.Logger.Controls.Add(Me.Logger_Log)
         Me.Logger.Location = New System.Drawing.Point(4, 22)
         Me.Logger.Name = "Logger"
         Me.Logger.Padding = New System.Windows.Forms.Padding(3)
-        Me.Logger.Size = New System.Drawing.Size(552, 315)
+        Me.Logger.Size = New System.Drawing.Size(552, 330)
         Me.Logger.TabIndex = 1
         Me.Logger.Text = "Logger"
         Me.Logger.UseVisualStyleBackColor = True
@@ -530,7 +539,7 @@ Partial Class FileCheck
         Me.About.Location = New System.Drawing.Point(4, 22)
         Me.About.Name = "About"
         Me.About.Padding = New System.Windows.Forms.Padding(3)
-        Me.About.Size = New System.Drawing.Size(552, 315)
+        Me.About.Size = New System.Drawing.Size(552, 330)
         Me.About.TabIndex = 3
         Me.About.Text = "About"
         Me.About.UseVisualStyleBackColor = True
@@ -540,6 +549,7 @@ Partial Class FileCheck
         Me.RichTextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RichTextBox1.BackColor = System.Drawing.SystemColors.Window
         Me.RichTextBox1.Location = New System.Drawing.Point(3, 6)
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.ReadOnly = True
@@ -547,30 +557,27 @@ Partial Class FileCheck
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
         '
-        'Setting_ApplicationCheckForUpdateButton
-        '
-        Me.Setting_ApplicationCheckForUpdateButton.Location = New System.Drawing.Point(346, 286)
-        Me.Setting_ApplicationCheckForUpdateButton.Name = "Setting_ApplicationCheckForUpdateButton"
-        Me.Setting_ApplicationCheckForUpdateButton.Size = New System.Drawing.Size(200, 23)
-        Me.Setting_ApplicationCheckForUpdateButton.TabIndex = 10
-        Me.Setting_ApplicationCheckForUpdateButton.Text = "Application Check For Updates"
-        Me.Setting_ApplicationCheckForUpdateButton.UseVisualStyleBackColor = True
-        '
         'FileCheck
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 362)
+        Me.ClientSize = New System.Drawing.Size(584, 377)
         Me.Controls.Add(Me.TabControl1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MinimumSize = New System.Drawing.Size(600, 400)
+        Me.MaximizeBox = False
+        Me.MaximumSize = New System.Drawing.Size(600, 415)
+        Me.MinimumSize = New System.Drawing.Size(600, 415)
         Me.Name = "FileCheck"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pokémon 3D Resource Manager"
         Me.TabControl1.ResumeLayout(False)
-        Me.ContentPacks.ResumeLayout(False)
-        Me.ContentPacks.PerformLayout()
-        Me.GameModes.ResumeLayout(False)
-        Me.GameModes.PerformLayout()
+        Me.Resources1.ResumeLayout(False)
+        Me.Resources1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
         Me.Settings.ResumeLayout(False)
         Me.Settings.PerformLayout()
         Me.Logger.ResumeLayout(False)
@@ -579,50 +586,48 @@ Partial Class FileCheck
 
     End Sub
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents InstalledContentPacksName As System.Windows.Forms.ComboBox
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents ContentPacks As System.Windows.Forms.TabPage
+    Friend WithEvents Resources1 As System.Windows.Forms.TabPage
     Friend WithEvents Logger As System.Windows.Forms.TabPage
     Friend WithEvents Settings As System.Windows.Forms.TabPage
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Setting_LauncherDirectory As System.Windows.Forms.TextBox
     Friend WithEvents Setting_SearchLauncherDirectory As System.Windows.Forms.Button
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
-    Public WithEvents Log As System.Windows.Forms.RichTextBox
-    Friend WithEvents ContentPackInfo As System.Windows.Forms.RichTextBox
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents ContentPackVersionInfo As System.Windows.Forms.Label
-    Friend WithEvents ContentPackCheckForUpdateButton As System.Windows.Forms.Button
-    Friend WithEvents ContentPackNewVersionInfo As System.Windows.Forms.Label
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents OpenP3DGame As System.Windows.Forms.Button
+    Public WithEvents Logger_Log As System.Windows.Forms.RichTextBox
+    Friend WithEvents Resources_CheckForUpdate As System.Windows.Forms.Button
+    Friend WithEvents Resources_OpenP3D As System.Windows.Forms.Button
     Friend WithEvents About As System.Windows.Forms.TabPage
     Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
-    Friend WithEvents ContentPackUpdateButton As System.Windows.Forms.Button
-    Friend WithEvents ContentPackRemoveButton As System.Windows.Forms.Button
-    Friend WithEvents RefreshButton As System.Windows.Forms.Button
-    Friend WithEvents GameModes As System.Windows.Forms.TabPage
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents InstalledGameModesName As System.Windows.Forms.ComboBox
-    Friend WithEvents GameModeRefreshButton As System.Windows.Forms.Button
-    Friend WithEvents GameModeInfo As System.Windows.Forms.RichTextBox
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents OpenP3DGame1 As System.Windows.Forms.Button
-    Friend WithEvents GameModeUpdateButton As System.Windows.Forms.Button
-    Friend WithEvents GameModeRemoveButton As System.Windows.Forms.Button
-    Friend WithEvents GameModeCheckForUpdateButton As System.Windows.Forms.Button
-    Friend WithEvents GameModeNewVersionInfo As System.Windows.Forms.Label
-    Friend WithEvents GameModeVersionInfo As System.Windows.Forms.Label
-    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents Resources_Update As System.Windows.Forms.Button
+    Friend WithEvents Resources_Remove As System.Windows.Forms.Button
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Setting_GamefilesDirectory As System.Windows.Forms.TextBox
     Friend WithEvents Setting_SearchGamefilesDirectory As System.Windows.Forms.Button
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Setting_ApplicationCheckForUpdate As System.Windows.Forms.CheckBox
-    Friend WithEvents Setting_CheckContentPacksUpdate As System.Windows.Forms.CheckBox
-    Friend WithEvents Setting_CheckGameModesUpdate As System.Windows.Forms.CheckBox
+    Friend WithEvents Setting_CheckResourcesUpdate As System.Windows.Forms.CheckBox
     Friend WithEvents Setting_ApplicationCheckForUpdateButton As System.Windows.Forms.Button
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents Resources_ContentCategory As System.Windows.Forms.Label
+    Friend WithEvents Resources_Author As System.Windows.Forms.Label
+    Friend WithEvents Resources_CurrentVersion As System.Windows.Forms.Label
+    Friend WithEvents Resources_Description As System.Windows.Forms.Label
+    Friend WithEvents Resources_Installed As System.Windows.Forms.Label
+    Friend WithEvents Resources_Compatible As System.Windows.Forms.Label
+    Friend WithEvents Resources_Dependency As System.Windows.Forms.Label
+    Friend WithEvents Resources_LatestVersion As System.Windows.Forms.Label
+    Friend WithEvents Resources_Supported As System.Windows.Forms.ListBox
+    Friend WithEvents Setting_ResourceDataBase As System.Windows.Forms.Button
 
 End Class

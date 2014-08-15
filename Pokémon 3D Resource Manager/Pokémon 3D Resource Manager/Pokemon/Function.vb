@@ -2,10 +2,10 @@
 
 Public Class Functions
 
-    Public Shared Sub ReturnError(ByVal ex As String)
+    Public Shared Sub ReturnError(ByVal Message As String)
         FileCheck.PlaySystemSound()
-        MsgBox(ex)
-        FileCheck.ShowLog(ex)
+        MsgBox(Message)
+        FileCheck.AddLog(Message)
     End Sub
 
     Public Shared Function GetTextFromLine(ByVal Directory As String, ByVal Line As Integer)
@@ -39,10 +39,4 @@ Public Class Functions
         End If
         Return fullString
     End Function
-
-    Public Shared Sub LogError(ByVal e As String)
-        FileCheck.PlaySystemSound()
-        MsgBox(e)
-        FileCheck.ShowLog(e)
-    End Sub
 End Class

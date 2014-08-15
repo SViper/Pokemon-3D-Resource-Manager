@@ -105,7 +105,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pokemon\Function.vb" />
-    <Compile Include="Pokemon\Settings.vb" />
     <Compile Include="Pokemon\FileCheck.vb">
       <SubType>Form</SubType>
     </Compile>

@@ -2,51 +2,43 @@
 Imports System.Net
 Imports RARNET
 Imports Ionic.Zip
+Imports System.IO
 
 Public Class Downloader
 
-    Private client As WebClient = New WebClient
-    Private DownloadStatus As String
-    Private ContentType As String
-    Private DownloadLocation As String
-    Private DownloadURL As String
-    Private DownloadFileName As String
+    Public client As WebClient = New WebClient
+    Public DownloadStatus As String
     Dim d As Decompressor
+    Dim SW As Stopwatch
+
+    Private Sub Downloader_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Resources_ContentCategory.Text = FileCheck.ResourceCategory
+        Resources_Author.Text = FileCheck.ResourceAuthor
+        Resources_CurrentVersion.Text = FileCheck.ResourceCurrentVersion
+        Resources_LatestVersion.Text = FileCheck.ResourceLatestVersion
+        Resources_Dependency.Text = FileCheck.ResourceDependency
+        Resources_Compatible.Text = FileCheck.ResourceCompatible
+        Resources_Installed.Text = FileCheck.ResourceInstalled
+        Resources_Description.Text = FileCheck.ResourceDescription
+        TextName.Text = "Download the latest version of " + FileCheck.ResourceName + "?"
+        DownloadStatus = "True"
+        OK_Button.Enabled = True
+        Cancel_Button.Enabled = True
+        StatusText.Text = ""
+        ProgressBar1.Value = 0
+    End Sub
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
+        AddHandler client.DownloadProgressChanged, AddressOf client_ProgressChanged
+        AddHandler client.DownloadFileCompleted, AddressOf client_DownloadCompleted
         Try
-            Dim DownloadedContent As String = ""
-            If (Me.ContentType = "ContentPacks") Then
-                DownloadedContent = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Content%20Pack%20Resource%20Files.txt")
-
-            ElseIf (Me.ContentType = "GameModes") Then
-                DownloadedContent = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/GameMode%20Resource%20Files.txt")
-            End If
-            If (DownloadedContent.Contains(ContentName.Text)) Then
-                Me.DownloadURL = Functions.GetSplit(DownloadedContent.Substring(DownloadedContent.IndexOf(ContentName.Text)), 2, "|")
-                Me.DownloadFileName = Functions.GetSplit(DownloadedContent.Substring(DownloadedContent.IndexOf(ContentName.Text)), 3, "|")
-                AddHandler client.DownloadProgressChanged, AddressOf client_ProgressChanged
-                AddHandler client.DownloadFileCompleted, AddressOf client_DownloadCompleted
-                Try
-                    client.DownloadFileAsync(New Uri(Me.DownloadURL), Me.DownloadLocation + Me.DownloadFileName)
-                    OK_Button.Enabled = False
-                    Cancel_Button.Enabled = False
-                    Threading.Thread.Sleep(500)
-                    Cancel_Button.Enabled = True
-                Catch ex As Exception
-                    FileCheck.PlaySystemSound()
-                    MsgBox(ex.Message.ToString)
-                    FileCheck.ShowLog(ex.Message.ToString)
-                End Try
-            Else
-                FileCheck.PlaySystemSound()
-                MsgBox("Could not retrive from server.")
-                FileCheck.ShowLog("Could not retrive from server")
-            End If
+            client.DownloadFileAsync(New Uri(FileCheck.ResourceURL), FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+            SW = Stopwatch.StartNew
+            OK_Button.Enabled = False
+            Cancel_Button.Enabled = True
+            StatusText.Text = "Preparing to start Download..." + vbNewLine + "Please wait for a while. Some download links takes time to load." + vbNewLine + "If it does not start after few minutes, cancel it and try again." + vbNewLine + "If you have tried many times and noting works, report this bug at: http://pokemon3d.net/forum/threads/8234/"
         Catch ex As Exception
-            FileCheck.PlaySystemSound()
-            MsgBox(ex.Message.ToString)
-            FileCheck.ShowLog(ex.Message.ToString)
+            Functions.ReturnError(ex.Message)
         End Try
     End Sub
 
@@ -56,69 +48,59 @@ Public Class Downloader
         Me.Close()
     End Sub
 
-    Public Sub DownloadContentname(ByVal str1 As String, ByVal str2 As String, ByVal str3 As String, ByVal str4 As String, ByVal str5 As String)
-        TextName.Text = "Download the latest " + str1 + " Files for " + str2 + "?"
-        ContentName.Text = str2
-        VersionInfo.Text = str3
-        NewVersionInfo.Text = str4
-        Me.ContentType = str1
-        If (Me.ContentType = "ContentPacks") Then
-            Me.DownloadLocation = str5 + "\Pokemon\ContentPacks\"
-        ElseIf (Me.ContentType = "GameModes") Then
-            Me.DownloadLocation = str5 + "\Pokemon\GameModes\"
-        End If
-    End Sub
-
     Private Sub client_ProgressChanged(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs)
         Dim bytesIn As Double = Double.Parse(e.BytesReceived.ToString())
         Dim totalBytes As Double = Double.Parse(e.TotalBytesToReceive.ToString())
         Dim percentage As Double = bytesIn / totalBytes * 100
-        StatusText.Text = "Downloading: " + Math.Round((bytesIn / 1048576), 2).ToString + " MB / " + Math.Round((totalBytes / 1048576), 2).ToString + " MB ( " + Math.Round(percentage, 2).ToString + " % )"
+        StatusText.Text = "Downloading: " + Math.Round((bytesIn / 1048576), 2).ToString + " MB / " + Math.Round((totalBytes / 1048576), 2).ToString + " MB ( " + Math.Round(percentage, 2).ToString + " % ) " + Math.Round(bytesIn / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
         ProgressBar1.Value = Int32.Parse(Math.Truncate(percentage).ToString())
+        Application.DoEvents()
     End Sub
 
     Private Sub client_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
-        If (Not Me.DownloadStatus = "Cancel") Then
-            Status.Text = "Status: Download Completed."
-            extractfile()
+        If e.Cancelled = False Then
+            If Directory.Exists(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName) Then
+                System.IO.Directory.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName, True)
+            End If
+            Extract()
         End If
     End Sub
 
-    Private Sub extractfile()
-        Me.Cursor = Cursors.WaitCursor
+    Private Sub Extract()
         StatusText.AppendText(vbNewLine + "Extracting Files...")
-        If (Me.DownloadFileName.Contains(".rar") Or Me.DownloadFileName.Contains(".RAR")) Then
+        If (FileCheck.ResourceExt = "rar" Or FileCheck.ResourceExt = "RAR") Then
             Try
-                d = New Decompressor(Me.DownloadLocation + Me.DownloadFileName)
+                d = New Decompressor(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                 For Each r As Decompressor.RAREntry In d.RARFiles
-                    d.UnPack(r.FileName.ToString(), Me.DownloadLocation)
+                    StatusText.Focus()
+                    d.UnPack(r.FileName.ToString(), FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype)
                     StatusText.AppendText(vbNewLine + r.FileName.ToString)
+                    Application.DoEvents()
                 Next
-                System.IO.File.Delete(Me.DownloadLocation + Me.DownloadFileName)
+                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
             Catch ex As Exception
-                Me.Cursor = Cursors.Default
-                Functions.LogError(ex.Message)
+                Functions.ReturnError(ex.Message)
             End Try
-        ElseIf (Me.DownloadFileName.Contains(".zip") Or Me.DownloadFileName.Contains(".ZIP")) Then
+        ElseIf (FileCheck.ResourceExt = "zip" Or FileCheck.ResourceExt = "ZIP") Then
             Try
-                Using zip As ZipFile = ZipFile.Read(DownloadLocation + Me.DownloadFileName)
+                Using zip As ZipFile = ZipFile.Read(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                     Dim e As ZipEntry
                     For Each e In zip
-                        e.Extract(Me.DownloadLocation, ExtractExistingFileAction.OverwriteSilently)
+                        StatusText.Focus()
+                        e.Extract(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype, ExtractExistingFileAction.OverwriteSilently)
                         StatusText.AppendText(vbNewLine + e.FileName.ToString)
+                        Application.DoEvents()
                     Next
                 End Using
-                System.IO.File.Delete(Me.DownloadLocation + Me.DownloadFileName)
+                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
             Catch ex As Exception
-                Me.Cursor = Cursors.Default
-                Functions.LogError(ex.Message)
+                Functions.ReturnError(ex.Message)
             End Try
         Else
-            Functions.LogError("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
+            Functions.ReturnError("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
         End If
-        Me.Cursor = Cursors.Default
         FileCheck.PlaySystemSound()
         MsgBox("Download Completed!")
         Me.Close()
