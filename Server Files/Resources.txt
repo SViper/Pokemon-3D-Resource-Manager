@@ -16,7 +16,7 @@ RetroPack (TexturePack & Music)|Music Pack|||||||||
 RetroPack(texture only)|Texture Pack|||||||||
 Pokémon Fire Red/Leaf Green Music Pack|Music Pack|||||||||
 Enethil's Final Fantasy Music Pack|Music Pack|||||||||
-Anime Cries|Music Pack|||||||||
+Anime Cries|Music Pack|Arnie_Jr, SViper, jianmingyong|V8.8||True|To hear Pokemon Anime voices.|Anime Cries|rar|http://d04.unr.li/dl/1dc8f54fd86a2/anime-cries-v8.8.rar|
 HG/SS Music Pack HD|Music Pack|jianmingyong|v0.49.1||True|Enjoy Heart Gold, Soul Sliver, X and Y Music.|HGSS Music Pack HD|rar|http://d04.unr.li/dl/1fa8d09c9808d/hgss-music-pack-hd-v0.49.1.rar|
 Final Fantasy: Remastered|Music Pack|||||||||
 Mixed Game Music Pack|Music Pack|||||||||
