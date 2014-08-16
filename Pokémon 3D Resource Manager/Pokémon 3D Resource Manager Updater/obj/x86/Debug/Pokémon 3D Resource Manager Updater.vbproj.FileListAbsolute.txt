@@ -1,0 +1,11 @@
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\bin\Debug\Pokémon 3D Resource Manager Updater.exe
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\bin\Debug\Pokémon 3D Resource Manager Updater.pdb
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\bin\Debug\Pokémon 3D Resource Manager Updater.xml
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\obj\x86\Debug\Pokémon 3D Resource Manager Updater.vbproj.GenerateResource.Cache
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\obj\x86\Debug\Pokémon 3D Resource Manager Updater.exe
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\obj\x86\Debug\Pokémon 3D Resource Manager Updater.xml
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\obj\x86\Debug\Pokémon 3D Resource Manager Updater.pdb
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\bin\Debug\Ionic.Zip.dll
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\obj\x86\Debug\P3DUpdater.Updater.resources
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\obj\x86\Debug\P3DUpdater.Resources.resources
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager Updater\obj\x86\Debug\Pokémon 3D Resource Manager Updater.vbprojResolveAssemblyReference.cache

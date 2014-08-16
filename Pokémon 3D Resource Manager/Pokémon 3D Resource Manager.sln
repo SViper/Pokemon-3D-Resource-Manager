@@ -8,6 +8,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Pokémon 3D Resource Manage
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UnRARNET", "unRARNET\UnRARNET.vbproj", "{7B86181F-5232-473D-BAFE-477F0DA1DD52}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Pokémon 3D Resource Manager Updater", "Pokémon 3D Resource Manager Updater\Pokémon 3D Resource Manager Updater.vbproj", "{CCE76927-EBDF-4284-B9E6-2917D7B2890F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,16 @@ Global
 		{7B86181F-5232-473D-BAFE-477F0DA1DD52}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7B86181F-5232-473D-BAFE-477F0DA1DD52}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7B86181F-5232-473D-BAFE-477F0DA1DD52}.Release|x86.ActiveCfg = Release|Any CPU
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Debug|x86.ActiveCfg = Debug|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Debug|x86.Build.0 = Debug|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Release|Any CPU.ActiveCfg = Release|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Release|Mixed Platforms.Build.0 = Release|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Release|x86.ActiveCfg = Release|x86
+		{CCE76927-EBDF-4284-B9E6-2917D7B2890F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
