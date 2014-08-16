@@ -2,7 +2,7 @@
 PS4 Menu Buttons|Texture Pack|Darkfire|1.0||True|PS4 Menu Buttons|Dual Shock Buttons|zip||
 Pokémon Models Pack|Texture Pack|Tornado9797|1.1.1.1||True|Revive the lost 3D models of Pokémon 3D!|Pokémon Models Pack|zip|https://dl.dropboxusercontent.com/s/4m9wy860ka1bg3m/Pok%C3%A9mon%20Models%20Pack.zip|
 Horizon UI Overhaul|Texture Pack|||||||||
-Pokémon 3D Models Pack ( Add-on )|Model Pack|||||||||
+Pokémon 3D Models Pack ( Add-on )|Model Pack|jianmingyong, ShadyGame, Narx221|v0.47.2.60|Pokémon Models Pack|True|Enjoy More Fixed 3D Pokémon Model|Pokémon Models Pack New|rar|http://d04.unr.li/dl/119d0456df492/pokmon-models-pack-new-v0.47.2.60.rar|
 HQ4X Basic|Texture Pack|||||||||
 Green UI|Texture Pack|||||||||
 SafariUI|Texture Pack|||||||||
@@ -17,7 +17,7 @@ RetroPack(texture only)|Texture Pack|||||||||
 Pokémon Fire Red/Leaf Green Music Pack|Music Pack|||||||||
 Enethil's Final Fantasy Music Pack|Music Pack|||||||||
 Anime Cries|Music Pack|||||||||
-HG/SS Music Pack HD|Music Pack|jianmingyong|v0.49.1||True|Enjoy Heart Gold, Soul Sliver, X and Y Music.|HGSS Music Pack HD|rar|http://d04.unr.li/dl/162f8b9db8347/hgss-music-pack-hd-v0.49.1.rar|
+HG/SS Music Pack HD|Music Pack|jianmingyong|v0.49.1||True|Enjoy Heart Gold, Soul Sliver, X and Y Music.|HGSS Music Pack HD|rar|http://d04.unr.li/dl/1fa8d09c9808d/hgss-music-pack-hd-v0.49.1.rar|
 Final Fantasy: Remastered|Music Pack|||||||||
 Mixed Game Music Pack|Music Pack|||||||||
 DBZ Music Pack|Music Pack|||||||||
