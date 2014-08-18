@@ -10,17 +10,25 @@ Public Class Updater
     Public DownloadStatus As String
     Public CurrentBytes As Double
     Public TotalBytes As Double
+    Public ServerVersion As String
+    Public CurrentVersion As String
 
     Private Sub Downloader_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Dim ServerVersion As String = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt")
+        ServerVersion = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt")
         Dim Settingstr5 As String = Functions.GetTextFromLine(P3DUpdater.My.Application.Info.DirectoryPath + "\Settings.dat", 6)
-        Resources_CurrentVersion.Text = Settingstr5.Remove(0, 10)
+        CurrentVersion = Settingstr5.Remove(0, 10)
+        Resources_CurrentVersion.Text = CurrentVersion
         Resources_LatestVersion.Text = ServerVersion
         DownloadStatus = "True"
         OK_Button.Enabled = True
         Cancel_Button.Enabled = True
         StatusText.Text = ""
         ProgressBar1.Value = 0
+        If CurrentVersion = ServerVersion Then
+            Functions.ReturnError("You are running the latest version of this application.")
+            Application.Exit()
+            Exit Sub
+        End If
     End Sub
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click

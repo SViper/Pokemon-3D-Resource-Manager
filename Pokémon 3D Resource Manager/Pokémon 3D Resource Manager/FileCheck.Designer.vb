@@ -52,8 +52,12 @@ Partial Class FileCheck
         Me.Resources_Update = New System.Windows.Forms.Button()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.AllResources = New System.Windows.Forms.TabPage()
-        Me.Resources_Supported = New System.Windows.Forms.ListBox()
+        Me.AllResources_Supported = New System.Windows.Forms.ListBox()
         Me.AllContentPacks = New System.Windows.Forms.TabPage()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Settings = New System.Windows.Forms.TabPage()
@@ -72,10 +76,11 @@ Partial Class FileCheck
         Me.About = New System.Windows.Forms.TabPage()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.AllContentPacks_Supported = New System.Windows.Forms.ListBox()
+        Me.InstalledContentPacks_Supported = New System.Windows.Forms.ListBox()
+        Me.AllGameModes_Supported = New System.Windows.Forms.ListBox()
+        Me.InstalledGameModes_Supported = New System.Windows.Forms.ListBox()
+        Me.ResourceUpdate_Supported = New System.Windows.Forms.ListBox()
         Me.TabControl1.SuspendLayout()
         Me.Resources1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -84,6 +89,11 @@ Partial Class FileCheck
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.AllResources.SuspendLayout()
+        Me.AllContentPacks.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
         Me.Settings.SuspendLayout()
         Me.Logger.SuspendLayout()
         Me.About.SuspendLayout()
@@ -152,7 +162,7 @@ Partial Class FileCheck
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.TableLayoutPanel2, 0, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.TableLayoutPanel1, 0, 0)
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(4, 264)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(4, 260)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 2
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75.0!))
@@ -165,8 +175,8 @@ Partial Class FileCheck
         Me.TableLayoutPanel2.AutoSize = True
         Me.TableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.09146!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.90854!))
         Me.TableLayoutPanel2.Controls.Add(Me.Label4, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Resources_Description, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -181,7 +191,7 @@ Partial Class FileCheck
         '
         Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(65, 7)
+        Me.Label4.Location = New System.Drawing.Point(32, 7)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(63, 13)
         Me.Label4.TabIndex = 0
@@ -192,7 +202,7 @@ Partial Class FileCheck
         Me.Resources_Description.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Description.AutoEllipsis = True
         Me.Resources_Description.AutoSize = True
-        Me.Resources_Description.Location = New System.Drawing.Point(134, 7)
+        Me.Resources_Description.Location = New System.Drawing.Point(101, 7)
         Me.Resources_Description.Name = "Resources_Description"
         Me.Resources_Description.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Description.TabIndex = 32
@@ -203,10 +213,10 @@ Partial Class FileCheck
         Me.TableLayoutPanel1.AutoSize = True
         Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.TableLayoutPanel1.ColumnCount = 4
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Resources_Installed, 3, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.Resources_Compatible, 3, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Resources_Dependency, 3, 0)
@@ -237,7 +247,7 @@ Partial Class FileCheck
         Me.Resources_Installed.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Installed.AutoEllipsis = True
         Me.Resources_Installed.AutoSize = True
-        Me.Resources_Installed.Location = New System.Drawing.Point(461, 51)
+        Me.Resources_Installed.Location = New System.Drawing.Point(418, 51)
         Me.Resources_Installed.Name = "Resources_Installed"
         Me.Resources_Installed.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Installed.TabIndex = 31
@@ -248,7 +258,7 @@ Partial Class FileCheck
         Me.Resources_Compatible.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Compatible.AutoEllipsis = True
         Me.Resources_Compatible.AutoSize = True
-        Me.Resources_Compatible.Location = New System.Drawing.Point(461, 28)
+        Me.Resources_Compatible.Location = New System.Drawing.Point(418, 28)
         Me.Resources_Compatible.Name = "Resources_Compatible"
         Me.Resources_Compatible.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Compatible.TabIndex = 30
@@ -259,7 +269,7 @@ Partial Class FileCheck
         Me.Resources_Dependency.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Dependency.AutoEllipsis = True
         Me.Resources_Dependency.AutoSize = True
-        Me.Resources_Dependency.Location = New System.Drawing.Point(461, 5)
+        Me.Resources_Dependency.Location = New System.Drawing.Point(418, 5)
         Me.Resources_Dependency.Name = "Resources_Dependency"
         Me.Resources_Dependency.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Dependency.TabIndex = 29
@@ -269,7 +279,7 @@ Partial Class FileCheck
         '
         Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(36, 5)
+        Me.Label3.Location = New System.Drawing.Point(3, 5)
         Me.Label3.Margin = New System.Windows.Forms.Padding(3)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(92, 13)
@@ -280,7 +290,7 @@ Partial Class FileCheck
         '
         Me.Label14.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(384, 5)
+        Me.Label14.Location = New System.Drawing.Point(341, 5)
         Me.Label14.Margin = New System.Windows.Forms.Padding(3)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(71, 13)
@@ -291,7 +301,7 @@ Partial Class FileCheck
         '
         Me.Label15.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(393, 28)
+        Me.Label15.Location = New System.Drawing.Point(350, 28)
         Me.Label15.Margin = New System.Windows.Forms.Padding(3)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(62, 13)
@@ -302,7 +312,7 @@ Partial Class FileCheck
         '
         Me.Label5.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(87, 28)
+        Me.Label5.Location = New System.Drawing.Point(54, 28)
         Me.Label5.Margin = New System.Windows.Forms.Padding(3)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(41, 13)
@@ -313,7 +323,7 @@ Partial Class FileCheck
         '
         Me.Label13.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(46, 51)
+        Me.Label13.Location = New System.Drawing.Point(13, 51)
         Me.Label13.Margin = New System.Windows.Forms.Padding(3)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(82, 13)
@@ -324,7 +334,7 @@ Partial Class FileCheck
         '
         Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(406, 51)
+        Me.Label6.Location = New System.Drawing.Point(363, 51)
         Me.Label6.Margin = New System.Windows.Forms.Padding(3)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(49, 13)
@@ -335,7 +345,7 @@ Partial Class FileCheck
         '
         Me.Label12.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(51, 74)
+        Me.Label12.Location = New System.Drawing.Point(18, 74)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(77, 13)
@@ -347,7 +357,7 @@ Partial Class FileCheck
         Me.Resources_ContentCategory.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_ContentCategory.AutoEllipsis = True
         Me.Resources_ContentCategory.AutoSize = True
-        Me.Resources_ContentCategory.Location = New System.Drawing.Point(134, 5)
+        Me.Resources_ContentCategory.Location = New System.Drawing.Point(101, 5)
         Me.Resources_ContentCategory.Name = "Resources_ContentCategory"
         Me.Resources_ContentCategory.Size = New System.Drawing.Size(39, 13)
         Me.Resources_ContentCategory.TabIndex = 25
@@ -358,7 +368,7 @@ Partial Class FileCheck
         Me.Resources_Author.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Author.AutoEllipsis = True
         Me.Resources_Author.AutoSize = True
-        Me.Resources_Author.Location = New System.Drawing.Point(134, 28)
+        Me.Resources_Author.Location = New System.Drawing.Point(101, 28)
         Me.Resources_Author.Name = "Resources_Author"
         Me.Resources_Author.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Author.TabIndex = 26
@@ -369,7 +379,7 @@ Partial Class FileCheck
         Me.Resources_CurrentVersion.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_CurrentVersion.AutoEllipsis = True
         Me.Resources_CurrentVersion.AutoSize = True
-        Me.Resources_CurrentVersion.Location = New System.Drawing.Point(134, 51)
+        Me.Resources_CurrentVersion.Location = New System.Drawing.Point(101, 51)
         Me.Resources_CurrentVersion.Name = "Resources_CurrentVersion"
         Me.Resources_CurrentVersion.Size = New System.Drawing.Size(39, 13)
         Me.Resources_CurrentVersion.TabIndex = 27
@@ -380,7 +390,7 @@ Partial Class FileCheck
         Me.Resources_LatestVersion.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_LatestVersion.AutoEllipsis = True
         Me.Resources_LatestVersion.AutoSize = True
-        Me.Resources_LatestVersion.Location = New System.Drawing.Point(134, 74)
+        Me.Resources_LatestVersion.Location = New System.Drawing.Point(101, 74)
         Me.Resources_LatestVersion.Name = "Resources_LatestVersion"
         Me.Resources_LatestVersion.Size = New System.Drawing.Size(39, 13)
         Me.Resources_LatestVersion.TabIndex = 28
@@ -388,7 +398,7 @@ Partial Class FileCheck
         '
         'Resources_OpenP3D
         '
-        Me.Resources_OpenP3D.Location = New System.Drawing.Point(541, 404)
+        Me.Resources_OpenP3D.Location = New System.Drawing.Point(542, 404)
         Me.Resources_OpenP3D.Name = "Resources_OpenP3D"
         Me.Resources_OpenP3D.Size = New System.Drawing.Size(125, 23)
         Me.Resources_OpenP3D.TabIndex = 12
@@ -397,7 +407,7 @@ Partial Class FileCheck
         '
         'Resources_Remove
         '
-        Me.Resources_Remove.Location = New System.Drawing.Point(133, 404)
+        Me.Resources_Remove.Location = New System.Drawing.Point(138, 404)
         Me.Resources_Remove.Name = "Resources_Remove"
         Me.Resources_Remove.Size = New System.Drawing.Size(125, 23)
         Me.Resources_Remove.TabIndex = 14
@@ -408,14 +418,14 @@ Partial Class FileCheck
         '
         Me.Resources_CheckForUpdate.Location = New System.Drawing.Point(7, 404)
         Me.Resources_CheckForUpdate.Name = "Resources_CheckForUpdate"
-        Me.Resources_CheckForUpdate.Size = New System.Drawing.Size(120, 23)
+        Me.Resources_CheckForUpdate.Size = New System.Drawing.Size(125, 23)
         Me.Resources_CheckForUpdate.TabIndex = 9
         Me.Resources_CheckForUpdate.Text = "Check For update" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.Resources_CheckForUpdate.UseVisualStyleBackColor = True
         '
         'Resources_Update
         '
-        Me.Resources_Update.Location = New System.Drawing.Point(264, 404)
+        Me.Resources_Update.Location = New System.Drawing.Point(269, 404)
         Me.Resources_Update.Name = "Resources_Update"
         Me.Resources_Update.Size = New System.Drawing.Size(125, 23)
         Me.Resources_Update.TabIndex = 13
@@ -434,38 +444,84 @@ Partial Class FileCheck
         Me.TabControl2.Location = New System.Drawing.Point(0, 0)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(670, 262)
+        Me.TabControl2.Size = New System.Drawing.Size(670, 258)
         Me.TabControl2.TabIndex = 21
         '
         'AllResources
         '
-        Me.AllResources.BackColor = System.Drawing.Color.White
-        Me.AllResources.Controls.Add(Me.Resources_Supported)
+        Me.AllResources.BackColor = System.Drawing.Color.Transparent
+        Me.AllResources.Controls.Add(Me.AllResources_Supported)
         Me.AllResources.Location = New System.Drawing.Point(4, 22)
         Me.AllResources.Name = "AllResources"
         Me.AllResources.Padding = New System.Windows.Forms.Padding(3)
-        Me.AllResources.Size = New System.Drawing.Size(662, 236)
+        Me.AllResources.Size = New System.Drawing.Size(662, 232)
         Me.AllResources.TabIndex = 0
         Me.AllResources.Text = "All Resources"
+        Me.AllResources.UseVisualStyleBackColor = True
         '
-        'Resources_Supported
+        'AllResources_Supported
         '
-        Me.Resources_Supported.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Resources_Supported.FormattingEnabled = True
-        Me.Resources_Supported.Location = New System.Drawing.Point(3, 3)
-        Me.Resources_Supported.Name = "Resources_Supported"
-        Me.Resources_Supported.Size = New System.Drawing.Size(656, 230)
-        Me.Resources_Supported.TabIndex = 20
+        Me.AllResources_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AllResources_Supported.FormattingEnabled = True
+        Me.AllResources_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.AllResources_Supported.Name = "AllResources_Supported"
+        Me.AllResources_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.AllResources_Supported.TabIndex = 20
         '
         'AllContentPacks
         '
+        Me.AllContentPacks.Controls.Add(Me.AllContentPacks_Supported)
         Me.AllContentPacks.Location = New System.Drawing.Point(4, 22)
         Me.AllContentPacks.Name = "AllContentPacks"
         Me.AllContentPacks.Padding = New System.Windows.Forms.Padding(3)
-        Me.AllContentPacks.Size = New System.Drawing.Size(662, 236)
+        Me.AllContentPacks.Size = New System.Drawing.Size(662, 232)
         Me.AllContentPacks.TabIndex = 1
         Me.AllContentPacks.Text = "All ContentPacks"
         Me.AllContentPacks.UseVisualStyleBackColor = True
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.InstalledContentPacks_Supported)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(662, 232)
+        Me.TabPage1.TabIndex = 2
+        Me.TabPage1.Text = "Installed ContentPacks"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.AllGameModes_Supported)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(662, 232)
+        Me.TabPage2.TabIndex = 3
+        Me.TabPage2.Text = "All GameModes"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.InstalledGameModes_Supported)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(662, 232)
+        Me.TabPage3.TabIndex = 4
+        Me.TabPage3.Text = "Installed GameModes"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'TabPage4
+        '
+        Me.TabPage4.Controls.Add(Me.ResourceUpdate_Supported)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage4.Size = New System.Drawing.Size(662, 232)
+        Me.TabPage4.TabIndex = 5
+        Me.TabPage4.Text = "Resource Update"
+        Me.TabPage4.UseVisualStyleBackColor = True
         '
         'Panel2
         '
@@ -557,7 +613,7 @@ Partial Class FileCheck
         '
         'Setting_SearchGamefilesDirectory
         '
-        Me.Setting_SearchGamefilesDirectory.Location = New System.Drawing.Point(471, 67)
+        Me.Setting_SearchGamefilesDirectory.Location = New System.Drawing.Point(593, 67)
         Me.Setting_SearchGamefilesDirectory.Name = "Setting_SearchGamefilesDirectory"
         Me.Setting_SearchGamefilesDirectory.Size = New System.Drawing.Size(75, 23)
         Me.Setting_SearchGamefilesDirectory.TabIndex = 5
@@ -569,7 +625,7 @@ Partial Class FileCheck
         Me.Setting_GamefilesDirectory.Location = New System.Drawing.Point(9, 70)
         Me.Setting_GamefilesDirectory.Name = "Setting_GamefilesDirectory"
         Me.Setting_GamefilesDirectory.ReadOnly = True
-        Me.Setting_GamefilesDirectory.Size = New System.Drawing.Size(456, 20)
+        Me.Setting_GamefilesDirectory.Size = New System.Drawing.Size(578, 20)
         Me.Setting_GamefilesDirectory.TabIndex = 4
         '
         'Label10
@@ -584,7 +640,7 @@ Partial Class FileCheck
         '
         'Setting_SearchLauncherDirectory
         '
-        Me.Setting_SearchLauncherDirectory.Location = New System.Drawing.Point(471, 22)
+        Me.Setting_SearchLauncherDirectory.Location = New System.Drawing.Point(593, 22)
         Me.Setting_SearchLauncherDirectory.Name = "Setting_SearchLauncherDirectory"
         Me.Setting_SearchLauncherDirectory.Size = New System.Drawing.Size(75, 23)
         Me.Setting_SearchLauncherDirectory.TabIndex = 2
@@ -596,7 +652,7 @@ Partial Class FileCheck
         Me.Setting_LauncherDirectory.Location = New System.Drawing.Point(9, 25)
         Me.Setting_LauncherDirectory.Name = "Setting_LauncherDirectory"
         Me.Setting_LauncherDirectory.ReadOnly = True
-        Me.Setting_LauncherDirectory.Size = New System.Drawing.Size(456, 20)
+        Me.Setting_LauncherDirectory.Size = New System.Drawing.Size(578, 20)
         Me.Setting_LauncherDirectory.TabIndex = 1
         '
         'Label2
@@ -642,41 +698,50 @@ Partial Class FileCheck
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
         '
-        'TabPage1
+        'AllContentPacks_Supported
         '
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Size = New System.Drawing.Size(662, 236)
-        Me.TabPage1.TabIndex = 2
-        Me.TabPage1.Text = "Installed ContentPacks"
-        Me.TabPage1.UseVisualStyleBackColor = True
+        Me.AllContentPacks_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AllContentPacks_Supported.FormattingEnabled = True
+        Me.AllContentPacks_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.AllContentPacks_Supported.Name = "AllContentPacks_Supported"
+        Me.AllContentPacks_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.AllContentPacks_Supported.TabIndex = 21
         '
-        'TabPage2
+        'InstalledContentPacks_Supported
         '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(662, 236)
-        Me.TabPage2.TabIndex = 3
-        Me.TabPage2.Text = "All GameModes"
-        Me.TabPage2.UseVisualStyleBackColor = True
+        Me.InstalledContentPacks_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.InstalledContentPacks_Supported.FormattingEnabled = True
+        Me.InstalledContentPacks_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.InstalledContentPacks_Supported.Name = "InstalledContentPacks_Supported"
+        Me.InstalledContentPacks_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.InstalledContentPacks_Supported.TabIndex = 22
         '
-        'TabPage3
+        'AllGameModes_Supported
         '
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(662, 236)
-        Me.TabPage3.TabIndex = 4
-        Me.TabPage3.Text = "Installed GameModes"
-        Me.TabPage3.UseVisualStyleBackColor = True
+        Me.AllGameModes_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AllGameModes_Supported.FormattingEnabled = True
+        Me.AllGameModes_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.AllGameModes_Supported.Name = "AllGameModes_Supported"
+        Me.AllGameModes_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.AllGameModes_Supported.TabIndex = 23
         '
-        'TabPage4
+        'InstalledGameModes_Supported
         '
-        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Size = New System.Drawing.Size(662, 236)
-        Me.TabPage4.TabIndex = 5
-        Me.TabPage4.Text = "Resource Update"
-        Me.TabPage4.UseVisualStyleBackColor = True
+        Me.InstalledGameModes_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.InstalledGameModes_Supported.FormattingEnabled = True
+        Me.InstalledGameModes_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.InstalledGameModes_Supported.Name = "InstalledGameModes_Supported"
+        Me.InstalledGameModes_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.InstalledGameModes_Supported.TabIndex = 24
+        '
+        'ResourceUpdate_Supported
+        '
+        Me.ResourceUpdate_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ResourceUpdate_Supported.FormattingEnabled = True
+        Me.ResourceUpdate_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.ResourceUpdate_Supported.Name = "ResourceUpdate_Supported"
+        Me.ResourceUpdate_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.ResourceUpdate_Supported.TabIndex = 25
         '
         'FileCheck
         '
@@ -705,6 +770,11 @@ Partial Class FileCheck
         Me.TableLayoutPanel1.PerformLayout()
         Me.TabControl2.ResumeLayout(False)
         Me.AllResources.ResumeLayout(False)
+        Me.AllContentPacks.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage2.ResumeLayout(False)
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage4.ResumeLayout(False)
         Me.Settings.ResumeLayout(False)
         Me.Settings.PerformLayout()
         Me.Logger.ResumeLayout(False)
@@ -753,17 +823,22 @@ Partial Class FileCheck
     Friend WithEvents Resources_Compatible As System.Windows.Forms.Label
     Friend WithEvents Resources_Dependency As System.Windows.Forms.Label
     Friend WithEvents Resources_LatestVersion As System.Windows.Forms.Label
-    Friend WithEvents Resources_Supported As System.Windows.Forms.ListBox
     Friend WithEvents Setting_ResourceDataBase As System.Windows.Forms.Button
     Friend WithEvents TabControl2 As System.Windows.Forms.TabControl
     Friend WithEvents AllResources As System.Windows.Forms.TabPage
-    Friend WithEvents AllContentPacks As System.Windows.Forms.TabPage
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents Panel3 As System.Windows.Forms.Panel
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
+    Friend WithEvents AllResources_Supported As System.Windows.Forms.ListBox
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents AllContentPacks As System.Windows.Forms.TabPage
+    Friend WithEvents AllContentPacks_Supported As System.Windows.Forms.ListBox
+    Friend WithEvents InstalledContentPacks_Supported As System.Windows.Forms.ListBox
+    Friend WithEvents AllGameModes_Supported As System.Windows.Forms.ListBox
+    Friend WithEvents InstalledGameModes_Supported As System.Windows.Forms.ListBox
+    Friend WithEvents ResourceUpdate_Supported As System.Windows.Forms.ListBox
 
 End Class

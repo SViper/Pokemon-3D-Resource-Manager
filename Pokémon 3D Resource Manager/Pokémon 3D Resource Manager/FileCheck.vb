@@ -9,6 +9,7 @@ Public Class FileCheck
     Public ApplicationVersion As String = Pokémon3D.My.Application.Info.Version.ToString
     Public ApplicationSelfCheckVersion As String = "True"
     Public ResourcesCheckVersion As String = "True"
+
     Public Resourcetype As String
     Public ResourceName As String
     Public ResourceCategory As String
@@ -322,11 +323,11 @@ Public Class FileCheck
         AddLog("Get Supported ContentPacks from Cache.")
         Dim CurrentIndex As Integer = 2
         Try
-            If Not Resources_Supported.Items.Count = 0 Then
-                Resources_Supported.Items.Clear()
+            If Not AllResources_Supported.Items.Count = 0 Then
+                AllResources_Supported.Items.Clear()
             End If
             Do While Not CurrentIndex > File.ReadAllLines(ApplicationDirectory + "\Cache\ContentPacks.txt").Length
-                Resources_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 0, "|"))
+                AllResources_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 0, "|"))
                 CurrentIndex = CurrentIndex + 1
             Loop
         Catch ex As Exception
@@ -335,7 +336,7 @@ Public Class FileCheck
     End Sub
 
     Private Sub GetResourcesDetail()
-        Dim CurrentIndex As Integer = Resources_Supported.SelectedIndex + 2
+        Dim CurrentIndex As Integer = AllResources_Supported.SelectedIndex + 2
         AddLog("Get Resource Detail from Cache")
         ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 0, "|")
         ResourceCategory = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 1, "|")
@@ -384,7 +385,7 @@ Public Class FileCheck
         GetSupportedResources()
     End Sub
 
-    Private Sub Resources_Supported_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles Resources_Supported.SelectedIndexChanged
+    Private Sub AllResources_Supported_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles AllResources_Supported.SelectedIndexChanged
         GetResourcesDetail()
     End Sub
 
