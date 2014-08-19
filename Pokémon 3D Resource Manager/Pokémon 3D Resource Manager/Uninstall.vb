@@ -8,11 +8,11 @@ Public Class Uninstall
     End Sub
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
-        If Directory.Exists(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName) Then
+        If Directory.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName) Then
             Try
-                Directory.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName, True)
+                Directory.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName, True)
             Catch ex As Exception
-                Functions.ReturnError(ex.Message)
+                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             End Try
         End If
         Me.Close()

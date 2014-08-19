@@ -10,7 +10,7 @@ Public Class FileCheck
     Public ApplicationSelfCheckVersion As String = "True"
     Public ResourcesCheckVersion As String = "True"
 
-    Public Resourcetype As String
+    Public ResourceType As String
     Public ResourceName As String
     Public ResourceCategory As String
     Public ResourceAuthor As String
@@ -50,11 +50,19 @@ Public Class FileCheck
 #Region "Init CheckList"
     Private Sub CheckRequiredDLL()
         If Not File.Exists(ApplicationDirectory + "\unrar.dll") Then
-            Functions.ReturnError("Application required file: unrar.dll does not exist in " + ApplicationDirectory + "\unrar.dll")
+            Functions.ReturnMessage("Application required file: unrar.dll does not exist in " + ApplicationDirectory + "\unrar.dll")
             Close()
         End If
         If Not File.Exists(ApplicationDirectory + "\unrar64.dll") Then
-            Functions.ReturnError("Application required file: unrar64.dll does not exist in " + ApplicationDirectory + "\unrar64.dll")
+            Functions.ReturnMessage("Application required file: unrar64.dll does not exist in " + ApplicationDirectory + "\unrar64.dll")
+            Close()
+        End If
+        If Not File.Exists(ApplicationDirectory + "\UnRARNET.dll") Then
+            Functions.ReturnMessage("Application required file: UnRARNET.dll does not exist in " + ApplicationDirectory + "\UnRARNET.dll")
+            Close()
+        End If
+        If Not File.Exists(ApplicationDirectory + "\Ionic.Zip.dll") Then
+            Functions.ReturnMessage("Application required file: Ionic.Zip.dll does not exist in " + ApplicationDirectory + "\Ionic.Zip.dll")
             Close()
         End If
     End Sub
@@ -69,7 +77,11 @@ Public Class FileCheck
             Dim Settingstr4 As String = "Application Check Update = " + ApplicationSelfCheckVersion
             Dim Settingstr5 As String = "ContentPacks Check Update = " + ResourcesCheckVersion
             Dim Settingstr6 As String = "Version = " + ApplicationVersion
-            File.WriteAllText(ApplicationDirectory + "\Settings.dat", Settingstr1 + vbNewLine + Settingstr2 + vbNewLine + Settingstr3 + vbNewLine + Settingstr4 + vbNewLine + Settingstr5 + vbNewLine + Settingstr6)
+            Try
+                File.WriteAllText(ApplicationDirectory + "\Settings.dat", Settingstr1 + vbNewLine + Settingstr2 + vbNewLine + Settingstr3 + vbNewLine + Settingstr4 + vbNewLine + Settingstr5 + vbNewLine + Settingstr6)
+            Catch ex As Exception
+                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+            End Try
             AddLog("Setting File Created at: " + ApplicationDirectory + "\Settings.dat")
             CheckSetting()
         Else
@@ -95,7 +107,7 @@ Public Class FileCheck
             If Directory.Exists(LauncherDirectory) Then
                 Setting_LauncherDirectory.Text = LauncherDirectory
             Else
-                Functions.ReturnError(LauncherDirectory + " Does not exist.")
+                Functions.ReturnMessage(LauncherDirectory + " Does not exist.")
                 AddLog("Return Default Directory")
                 LauncherDirectory = ApplicationDirectory
                 Setting_LauncherDirectory.Text = LauncherDirectory
@@ -104,7 +116,7 @@ Public Class FileCheck
             If Directory.Exists(P3DDirectory) Then
                 Setting_GamefilesDirectory.Text = P3DDirectory
             Else
-                Functions.ReturnError(P3DDirectory + " Does not exist.")
+                Functions.ReturnMessage(P3DDirectory + " Does not exist.")
                 AddLog("Return Default Directory")
                 P3DDirectory = LauncherDirectory + "\Pokemon"
                 Setting_GamefilesDirectory.Text = P3DDirectory
@@ -115,7 +127,7 @@ Public Class FileCheck
             ElseIf ApplicationSelfCheckVersion = "False" Then
                 Setting_ApplicationCheckForUpdate.Checked = False
             Else
-                Functions.ReturnError("Invalid Boolean: " + ApplicationSelfCheckVersion)
+                Functions.ReturnMessage("Invalid Boolean: " + ApplicationSelfCheckVersion)
                 AddLog("Return Default: True")
                 ApplicationSelfCheckVersion = "True"
                 Setting_ApplicationCheckForUpdate.Checked = True
@@ -126,7 +138,7 @@ Public Class FileCheck
             ElseIf ResourcesCheckVersion = "False" Then
                 Setting_CheckResourcesUpdate.Checked = False
             Else
-                Functions.ReturnError("Invalid Boolean: " + ResourcesCheckVersion)
+                Functions.ReturnMessage("Invalid Boolean: " + ResourcesCheckVersion)
                 AddLog("Return Default: True")
                 ResourcesCheckVersion = "True"
                 Setting_CheckResourcesUpdate.Checked = True
@@ -141,7 +153,7 @@ Public Class FileCheck
         If Directory.Exists(LauncherDirectory) Then
             Setting_LauncherDirectory.Text = LauncherDirectory
         Else
-            Functions.ReturnError(LauncherDirectory + " Does not exist.")
+            Functions.ReturnMessage(LauncherDirectory + " Does not exist.")
             AddLog("Return Default Directory")
             LauncherDirectory = ApplicationDirectory
             Setting_LauncherDirectory.Text = LauncherDirectory
@@ -150,7 +162,7 @@ Public Class FileCheck
         If Directory.Exists(P3DDirectory) Then
             Setting_GamefilesDirectory.Text = P3DDirectory
         Else
-            Functions.ReturnError(P3DDirectory + " Does not exist.")
+            Functions.ReturnMessage(P3DDirectory + " Does not exist.")
             AddLog("Return Default Directory")
             P3DDirectory = LauncherDirectory + "\Pokemon"
             Setting_GamefilesDirectory.Text = P3DDirectory
@@ -161,7 +173,7 @@ Public Class FileCheck
         ElseIf ApplicationSelfCheckVersion = "False" Then
             Setting_ApplicationCheckForUpdate.Checked = False
         Else
-            Functions.ReturnError("Invalid Boolean: " + ApplicationSelfCheckVersion)
+            Functions.ReturnMessage("Invalid Boolean: " + ApplicationSelfCheckVersion)
             AddLog("Return Default: True")
             ApplicationSelfCheckVersion = "True"
             Setting_ApplicationCheckForUpdate.Checked = True
@@ -172,7 +184,7 @@ Public Class FileCheck
         ElseIf ResourcesCheckVersion = "False" Then
             Setting_CheckResourcesUpdate.Checked = False
         Else
-            Functions.ReturnError("Invalid Boolean: " + ResourcesCheckVersion)
+            Functions.ReturnMessage("Invalid Boolean: " + ResourcesCheckVersion)
             AddLog("Return Default: True")
             ResourcesCheckVersion = "True"
             Setting_CheckResourcesUpdate.Checked = True
@@ -187,33 +199,42 @@ Public Class FileCheck
         Dim Settingstr4 As String = "Application Check Update = " + ApplicationSelfCheckVersion
         Dim Settingstr5 As String = "Resources Check Update = " + ResourcesCheckVersion
         Dim Settingstr6 As String = "Version = " + ApplicationVersion
-        File.WriteAllText(ApplicationDirectory + "\Settings.dat", Settingstr1 + vbNewLine + Settingstr2 + vbNewLine + Settingstr3 + vbNewLine + Settingstr4 + vbNewLine + Settingstr5 + vbNewLine + Settingstr6)
+        Try
+            File.WriteAllText(ApplicationDirectory + "\Settings.dat", Settingstr1 + vbNewLine + Settingstr2 + vbNewLine + Settingstr3 + vbNewLine + Settingstr4 + vbNewLine + Settingstr5 + vbNewLine + Settingstr6)
+        Catch ex As Exception
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+        End Try
         AddLog("Application Save Settings.")
     End Sub
 
     Private Sub CheckApplicationVersion(ByVal Warning As String)
         Try
             AddLog("Get Application Version:")
-            Dim ServerVersion As String = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt")
+            Dim ServerVersion As String = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt1")
             If Not ServerVersion = Nothing And ServerVersion = ApplicationVersion Then
                 AddLog("Newest Version: " + ServerVersion)
                 AddLog("Current Version: " + ApplicationVersion)
                 If Warning = "False" Then
                     AddLog("You are running the latest version of this application.")
                 Else
-                    Functions.ReturnError("You are running the latest version of this application.")
+                    Functions.ReturnMessage("You are running the latest version of this application.")
                 End If
             ElseIf Not ServerVersion = Nothing And Not ServerVersion = ApplicationVersion Then
                 AddLog("Newest Version: " + ServerVersion)
                 AddLog("Current Version: " + ApplicationVersion)
-                Functions.ReturnError("There is an update to this application.")
+                Functions.ReturnMessage("There is an update to this application.")
+                Try
+                    client.DownloadFile("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Pok%C3%A9mon%203D%20Resource%20Manager%20Updater.exe", ApplicationDirectory + "\Pokémon 3D Resource Manager Updater.exe")
+                Catch ex As Exception
+                    Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+                End Try
                 Process.Start(ApplicationDirectory + "\Pokémon 3D Resource Manager Updater.exe")
-                Application.Exit()
+                Close()
             Else
-            Functions.ReturnError("Application could not check for update. Your internet or the server is not working.")
+                Functions.ReturnMessage("Application could not check for update. Your internet or the server is not working.")
             End If
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
     End Sub
 #End Region
@@ -263,7 +284,7 @@ Public Class FileCheck
         Try
             Process.Start("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/blob/master/Server%20Files/Resources.txt")
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
     End Sub
 #End Region
@@ -284,7 +305,7 @@ Public Class FileCheck
             Shell(LauncherDirectory + "\Pokémon3D.exe", AppWinStyle.NormalFocus)
             Application.Exit()
         Else
-            Functions.ReturnError(LauncherDirectory + "\Pokémon3D.exe does not exist.")
+            Functions.ReturnMessage(LauncherDirectory + "\Pokémon3D.exe does not exist.")
         End If
     End Sub
 
@@ -293,7 +314,7 @@ Public Class FileCheck
             Shell(LauncherDirectory + "\Pokémon3D.exe", AppWinStyle.NormalFocus)
             Application.Exit()
         Else
-            Functions.ReturnError(LauncherDirectory + "\Pokémon3D.exe does not exist.")
+            Functions.ReturnMessage(LauncherDirectory + "\Pokémon3D.exe does not exist.")
         End If
     End Sub
 #End Region
@@ -314,7 +335,7 @@ Public Class FileCheck
             File.WriteAllText(ApplicationDirectory + "\Cache\ContentPacks.txt", DownloadString, System.Text.Encoding.UTF8)
             AddLog("Save all text into the Cache for offline use.")
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
         SupportedResources()
     End Sub
@@ -331,7 +352,7 @@ Public Class FileCheck
                 CurrentIndex = CurrentIndex + 1
             Loop
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
     End Sub
 
@@ -349,16 +370,16 @@ Public Class FileCheck
         ResourceExt = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 8, "|")
         ResourceURL = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 9, "|")
         If Not ResourceCategory = "GameModes" Then
-            Resourcetype = "ContentPacks"
+            ResourceType = "ContentPacks"
         ElseIf ResourceCategory = "GameModes" Then
-            Resourcetype = "GameModes"
+            ResourceType = "GameModes"
         End If
-        If Resourcetype = "ContentPacks" And File.Exists(P3DDirectory + "\" + Resourcetype + "\" + ResourceFolderName + "\info.dat") Then
-            ResourceCurrentVersion = Functions.GetTextFromLine(P3DDirectory + "\" + Resourcetype + "\" + ResourceFolderName + "\info.dat", 1)
+        If ResourceType = "ContentPacks" And File.Exists(P3DDirectory + "\" + ResourceType + "\" + ResourceFolderName + "\info.dat") Then
+            ResourceCurrentVersion = Functions.GetTextFromLine(P3DDirectory + "\" + ResourceType + "\" + ResourceFolderName + "\info.dat", 1)
             ResourceInstalled = "True"
             Resources_Remove.Enabled = True
-        ElseIf Resourcetype = "GameModes" And File.Exists(P3DDirectory + "\" + Resourcetype + "\" + ResourceFolderName + "\GameMode.dat") Then
-            ResourceCurrentVersion = Functions.GetSplit(Functions.GetTextFromLine(P3DDirectory + "\" + Resourcetype + "\" + ResourceFolderName + "\GameMode.dat", 3), 1, "|")
+        ElseIf ResourceType = "GameModes" And File.Exists(P3DDirectory + "\" + ResourceType + "\" + ResourceFolderName + "\GameMode.dat") Then
+            ResourceCurrentVersion = Functions.GetSplit(Functions.GetTextFromLine(P3DDirectory + "\" + ResourceType + "\" + ResourceFolderName + "\GameMode.dat", 3), 1, "|")
             ResourceInstalled = "True"
             Resources_Remove.Enabled = True
         Else
@@ -390,7 +411,7 @@ Public Class FileCheck
     End Sub
 
     Private Sub Resources_Remove_Click(sender As System.Object, e As System.EventArgs) Handles Resources_Remove.Click
-        PlaySystemSound()
+        Functions.PlaySystemSound()
         Uninstall.ShowDialog()
         GetResourcesDetail()
     End Sub
@@ -398,13 +419,6 @@ Public Class FileCheck
     Private Sub Resources_Update_Click(sender As System.Object, e As System.EventArgs) Handles Resources_Update.Click
         Downloader.ShowDialog()
         GetResourcesDetail()
-    End Sub
-#End Region
-
-#Region "Other"
-    Public Sub PlaySystemSound()
-        My.Computer.Audio.PlaySystemSound( _
-            System.Media.SystemSounds.Asterisk)
     End Sub
 #End Region
 

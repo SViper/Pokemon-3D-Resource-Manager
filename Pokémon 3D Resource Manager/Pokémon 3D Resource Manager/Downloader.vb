@@ -35,13 +35,13 @@ Public Class Downloader
         AddHandler client.DownloadProgressChanged, AddressOf client_ProgressChanged
         AddHandler client.DownloadFileCompleted, AddressOf client_DownloadCompleted
         Try
-            client.DownloadFileAsync(New Uri(FileCheck.ResourceURL), FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+            client.DownloadFileAsync(New Uri(FileCheck.ResourceURL), FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
             SW = Stopwatch.StartNew
             OK_Button.Enabled = False
             Cancel_Button.Enabled = True
             StatusText.Text = "Preparing to start Download..." + vbNewLine + "Please wait for a while. Some download links takes time to load." + vbNewLine + "If it does not start after few minutes, cancel it and try again." + vbNewLine + "If you have tried many times and nothing works, report this bug at: http://pokemon3d.net/forum/threads/8234/"
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
     End Sub
 
@@ -50,11 +50,11 @@ Public Class Downloader
         Me.DownloadStatus = "Cancel"
         Try
             Threading.Thread.Sleep(1000)
-            If File.Exists(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt) Then
-                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+            If File.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt) Then
+                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
             End If
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
         Me.Close()
     End Sub
@@ -88,13 +88,13 @@ Public Class Downloader
 
     Private Sub client_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
         If CurrentBytes = TotalBytes Then
-            If Directory.Exists(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName) Then
-                System.IO.Directory.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName, True)
+            If Directory.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName) Then
+                System.IO.Directory.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName, True)
             End If
             Extract()
         Else
-            Functions.ReturnError("Download Failed! Please try again later.")
-            System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+            Functions.ReturnMessage("Download Failed! Please try again later.")
+            System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
             Me.Close()
         End If
     End Sub
@@ -104,38 +104,38 @@ Public Class Downloader
         StatusText.AppendText(vbNewLine + "Extracting Files...")
         If (FileCheck.ResourceExt = "rar" Or FileCheck.ResourceExt = "RAR") Then
             Try
-                d = New Decompressor(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                d = New Decompressor(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                 For Each r As Decompressor.RAREntry In d.RARFiles
                     StatusText.Focus()
-                    d.UnPack(r.FileName.ToString(), FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype)
+                    d.UnPack(r.FileName.ToString(), FileCheck.P3DDirectory + "\" + FileCheck.ResourceType)
                     StatusText.AppendText(vbNewLine + r.FileName.ToString)
                     Application.DoEvents()
                 Next
-                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
             Catch ex As Exception
-                Functions.ReturnError(ex.Message)
+                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             End Try
         ElseIf (FileCheck.ResourceExt = "zip" Or FileCheck.ResourceExt = "ZIP") Then
             Try
-                Using zip As ZipFile = ZipFile.Read(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                Using zip As ZipFile = ZipFile.Read(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                     Dim e As ZipEntry
                     For Each e In zip
                         StatusText.Focus()
-                        e.Extract(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype, ExtractExistingFileAction.OverwriteSilently)
+                        e.Extract(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType, ExtractExistingFileAction.OverwriteSilently)
                         StatusText.AppendText(vbNewLine + e.FileName.ToString)
                         Application.DoEvents()
                     Next
                 End Using
-                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.Resourcetype + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
             Catch ex As Exception
-                Functions.ReturnError(ex.Message)
+                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             End Try
         Else
-            Functions.ReturnError("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
+            Functions.ReturnMessage("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
         End If
-        Functions.ReturnError("Download and Extracted Completed!")
+        Functions.ReturnMessage("Download and Extracted Completed!")
         Me.Close()
     End Sub
 
