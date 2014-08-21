@@ -210,7 +210,7 @@ Public Class FileCheck
     Private Sub CheckApplicationVersion(ByVal Warning As String)
         Try
             AddLog("Get Application Version:")
-            Dim ServerVersion As String = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt1")
+            Dim ServerVersion As String = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt")
             If Not ServerVersion = Nothing And ServerVersion = ApplicationVersion Then
                 AddLog("Newest Version: " + ServerVersion)
                 AddLog("Current Version: " + ApplicationVersion)
@@ -225,6 +225,7 @@ Public Class FileCheck
                 Functions.ReturnMessage("There is an update to this application.")
                 Try
                     client.DownloadFile("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Pok%C3%A9mon%203D%20Resource%20Manager%20Updater.exe", ApplicationDirectory + "\Pokémon 3D Resource Manager Updater.exe")
+                    client.DownloadFile("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Ionic.Zip.dll", ApplicationDirectory + "\Ionic.Zip.dll")
                 Catch ex As Exception
                     Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
                 End Try
@@ -236,6 +237,7 @@ Public Class FileCheck
         Catch ex As Exception
             Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
+
     End Sub
 #End Region
 
@@ -329,10 +331,10 @@ Public Class FileCheck
                 Directory.CreateDirectory(ApplicationDirectory + "\Cache")
                 AddLog("Cache Folder created at: " + ApplicationDirectory + "\Cache")
             End If
-            If File.Exists(ApplicationDirectory + "\Cache\ContentPacks.txt") Then
-                File.Delete(ApplicationDirectory + "\Cache\ContentPacks.txt")
+            If File.Exists(ApplicationDirectory + "\Cache\Resources.txt") Then
+                File.Delete(ApplicationDirectory + "\Cache\Resources.txt")
             End If
-            File.WriteAllText(ApplicationDirectory + "\Cache\ContentPacks.txt", DownloadString, System.Text.Encoding.UTF8)
+            File.WriteAllText(ApplicationDirectory + "\Cache\Resources.txt", DownloadString, System.Text.Encoding.UTF8)
             AddLog("Save all text into the Cache for offline use.")
         Catch ex As Exception
             Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
@@ -342,33 +344,58 @@ Public Class FileCheck
 
     Private Sub SupportedResources()
         AddLog("Get Supported ContentPacks from Cache.")
-        Dim CurrentIndex As Integer = 2
+        Dim CurrentIndex As Integer = 1
+        If Not AllResources_Supported.Items.Count = 0 Then
+            AllResources_Supported.Items.Clear()
+        End If
         Try
-            If Not AllResources_Supported.Items.Count = 0 Then
-                AllResources_Supported.Items.Clear()
-            End If
-            Do While Not CurrentIndex > File.ReadAllLines(ApplicationDirectory + "\Cache\ContentPacks.txt").Length
-                AllResources_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 0, "|"))
-                CurrentIndex = CurrentIndex + 1
+            Do While Not CurrentIndex > File.ReadAllLines(ApplicationDirectory + "\Cache\Resources.txt").Length
+                If Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex).ToString.StartsWith("<!--") Then
+                    CurrentIndex = CurrentIndex + 1
+                Else
+                    AllResources_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    If Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" Then
+                        AllContentPacks_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    End If
+                    If Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" Then
+                        AllGameModes_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    End If
+                    If Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" And File.Exists(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\info.dat") Then
+                        InstalledContentPacks_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    End If
+                    If Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\GameMode.dat") Then
+                        InstalledGameModes_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    End If
+                    If Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" And File.Exists(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\info.dat") And Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 3, "|") = Functions.GetTextFromLine(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\info.dat", 2) Then
+                        ResourceUpdate_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    End If
+                    If Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\GameMode.dat") And Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 3, "|") = Functions.GetTextFromLine(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\GameModes.dat", 3) Then
+                        ResourceUpdate_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    End If
+                    CurrentIndex = CurrentIndex + 1
+                End If
             Loop
         Catch ex As Exception
             Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
     End Sub
 
-    Private Sub GetResourcesDetail()
-        Dim CurrentIndex As Integer = AllResources_Supported.SelectedIndex + 2
+    Private Sub GetResourcesDetail(ByVal Name As String)
+        Dim CurrentIndex As Integer = 1
+        Do While Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|") = Name
+            CurrentIndex = CurrentIndex + 1
+        Loop
         AddLog("Get Resource Detail from Cache")
-        ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 0, "|")
-        ResourceCategory = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 1, "|")
-        ResourceAuthor = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 2, "|")
-        ResourceLatestVersion = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 3, "|")
-        ResourceDependency = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 4, "|")
-        ResourceCompatible = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 5, "|")
-        ResourceDescription = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 6, "|")
-        ResourceFolderName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 7, "|")
-        ResourceExt = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 8, "|")
-        ResourceURL = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ContentPacks.txt", CurrentIndex), 9, "|")
+        ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|")
+        ResourceCategory = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|")
+        ResourceAuthor = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 2, "|")
+        ResourceLatestVersion = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 3, "|")
+        ResourceDependency = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 4, "|")
+        ResourceCompatible = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 5, "|")
+        ResourceDescription = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 6, "|")
+        ResourceFolderName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|")
+        ResourceExt = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 8, "|")
+        ResourceURL = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 9, "|")
         If Not ResourceCategory = "GameModes" Then
             ResourceType = "ContentPacks"
         ElseIf ResourceCategory = "GameModes" Then
@@ -407,18 +434,104 @@ Public Class FileCheck
     End Sub
 
     Private Sub AllResources_Supported_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles AllResources_Supported.SelectedIndexChanged
-        GetResourcesDetail()
+        GetResourcesDetail(AllResources_Supported.SelectedItem.ToString)
+    End Sub
+
+    Private Sub AllContentPacks_Supported_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles AllContentPacks_Supported.SelectedIndexChanged
+        GetResourcesDetail(AllContentPacks_Supported.SelectedItem.ToString)
+    End Sub
+
+    Private Sub InstalledContentPacks_Supported_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles InstalledContentPacks_Supported.SelectedIndexChanged
+        GetResourcesDetail(InstalledContentPacks_Supported.SelectedItem.ToString)
+    End Sub
+
+    Private Sub AllGameModes_Supported_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles AllGameModes_Supported.SelectedIndexChanged
+        GetResourcesDetail(AllGameModes_Supported.SelectedItem.ToString)
+    End Sub
+
+    Private Sub InstalledGameModes_Supported_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles InstalledGameModes_Supported.SelectedIndexChanged
+        GetResourcesDetail(InstalledGameModes_Supported.SelectedItem.ToString)
+    End Sub
+
+    Private Sub ResourceUpdate_Supported_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ResourceUpdate_Supported.SelectedIndexChanged
+        GetResourcesDetail(ResourceUpdate_Supported.SelectedItem.ToString)
+    End Sub
+
+    Private Sub TabControl2_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles TabControl2.SelectedIndexChanged
+        ResourceType = Nothing
+        ResourceName = Nothing
+        ResourceCategory = Nothing
+        ResourceAuthor = Nothing
+        ResourceCurrentVersion = Nothing
+        ResourceLatestVersion = Nothing
+        ResourceDependency = Nothing
+        ResourceCompatible = Nothing
+        ResourceInstalled = Nothing
+        ResourceDescription = Nothing
+        ResourceFolderName = Nothing
+        ResourceURL = Nothing
+        ResourceExt = Nothing
+        Resources_ContentCategory.Text = ResourceCategory
+        Resources_Author.Text = ResourceAuthor
+        Resources_CurrentVersion.Text = ResourceCurrentVersion
+        Resources_LatestVersion.Text = ResourceLatestVersion
+        Resources_Dependency.Text = ResourceDependency
+        Resources_Compatible.Text = ResourceCompatible
+        Resources_Installed.Text = ResourceInstalled
+        Resources_Description.Text = ResourceDescription
+        Resources_Update.Enabled = False
+        Resources_Remove.Enabled = False
     End Sub
 
     Private Sub Resources_Remove_Click(sender As System.Object, e As System.EventArgs) Handles Resources_Remove.Click
         Functions.PlaySystemSound()
         Uninstall.ShowDialog()
-        GetResourcesDetail()
+        ResourceType = Nothing
+        ResourceName = Nothing
+        ResourceCategory = Nothing
+        ResourceAuthor = Nothing
+        ResourceCurrentVersion = Nothing
+        ResourceLatestVersion = Nothing
+        ResourceDependency = Nothing
+        ResourceCompatible = Nothing
+        ResourceInstalled = Nothing
+        ResourceDescription = Nothing
+        ResourceFolderName = Nothing
+        ResourceURL = Nothing
+        ResourceExt = Nothing
+        Resources_ContentCategory.Text = ResourceCategory
+        Resources_Author.Text = ResourceAuthor
+        Resources_CurrentVersion.Text = ResourceCurrentVersion
+        Resources_LatestVersion.Text = ResourceLatestVersion
+        Resources_Dependency.Text = ResourceDependency
+        Resources_Compatible.Text = ResourceCompatible
+        Resources_Installed.Text = ResourceInstalled
+        Resources_Description.Text = ResourceDescription
     End Sub
 
     Private Sub Resources_Update_Click(sender As System.Object, e As System.EventArgs) Handles Resources_Update.Click
         Downloader.ShowDialog()
-        GetResourcesDetail()
+        ResourceType = Nothing
+        ResourceName = Nothing
+        ResourceCategory = Nothing
+        ResourceAuthor = Nothing
+        ResourceCurrentVersion = Nothing
+        ResourceLatestVersion = Nothing
+        ResourceDependency = Nothing
+        ResourceCompatible = Nothing
+        ResourceInstalled = Nothing
+        ResourceDescription = Nothing
+        ResourceFolderName = Nothing
+        ResourceURL = Nothing
+        ResourceExt = Nothing
+        Resources_ContentCategory.Text = ResourceCategory
+        Resources_Author.Text = ResourceAuthor
+        Resources_CurrentVersion.Text = ResourceCurrentVersion
+        Resources_LatestVersion.Text = ResourceLatestVersion
+        Resources_Dependency.Text = ResourceDependency
+        Resources_Compatible.Text = ResourceCompatible
+        Resources_Installed.Text = ResourceInstalled
+        Resources_Description.Text = ResourceDescription
     End Sub
 #End Region
 

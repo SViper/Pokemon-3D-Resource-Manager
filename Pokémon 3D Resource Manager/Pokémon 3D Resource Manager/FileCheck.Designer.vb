@@ -54,10 +54,15 @@ Partial Class FileCheck
         Me.AllResources = New System.Windows.Forms.TabPage()
         Me.AllResources_Supported = New System.Windows.Forms.ListBox()
         Me.AllContentPacks = New System.Windows.Forms.TabPage()
+        Me.AllContentPacks_Supported = New System.Windows.Forms.ListBox()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.InstalledContentPacks_Supported = New System.Windows.Forms.ListBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.AllGameModes_Supported = New System.Windows.Forms.ListBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.InstalledGameModes_Supported = New System.Windows.Forms.ListBox()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.ResourceUpdate_Supported = New System.Windows.Forms.ListBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Settings = New System.Windows.Forms.TabPage()
@@ -76,11 +81,6 @@ Partial Class FileCheck
         Me.About = New System.Windows.Forms.TabPage()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.AllContentPacks_Supported = New System.Windows.Forms.ListBox()
-        Me.InstalledContentPacks_Supported = New System.Windows.Forms.ListBox()
-        Me.AllGameModes_Supported = New System.Windows.Forms.ListBox()
-        Me.InstalledGameModes_Supported = New System.Windows.Forms.ListBox()
-        Me.ResourceUpdate_Supported = New System.Windows.Forms.ListBox()
         Me.TabControl1.SuspendLayout()
         Me.Resources1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -479,6 +479,15 @@ Partial Class FileCheck
         Me.AllContentPacks.Text = "All ContentPacks"
         Me.AllContentPacks.UseVisualStyleBackColor = True
         '
+        'AllContentPacks_Supported
+        '
+        Me.AllContentPacks_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AllContentPacks_Supported.FormattingEnabled = True
+        Me.AllContentPacks_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.AllContentPacks_Supported.Name = "AllContentPacks_Supported"
+        Me.AllContentPacks_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.AllContentPacks_Supported.TabIndex = 21
+        '
         'TabPage1
         '
         Me.TabPage1.Controls.Add(Me.InstalledContentPacks_Supported)
@@ -489,6 +498,15 @@ Partial Class FileCheck
         Me.TabPage1.TabIndex = 2
         Me.TabPage1.Text = "Installed ContentPacks"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'InstalledContentPacks_Supported
+        '
+        Me.InstalledContentPacks_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.InstalledContentPacks_Supported.FormattingEnabled = True
+        Me.InstalledContentPacks_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.InstalledContentPacks_Supported.Name = "InstalledContentPacks_Supported"
+        Me.InstalledContentPacks_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.InstalledContentPacks_Supported.TabIndex = 22
         '
         'TabPage2
         '
@@ -501,6 +519,15 @@ Partial Class FileCheck
         Me.TabPage2.Text = "All GameModes"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'AllGameModes_Supported
+        '
+        Me.AllGameModes_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AllGameModes_Supported.FormattingEnabled = True
+        Me.AllGameModes_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.AllGameModes_Supported.Name = "AllGameModes_Supported"
+        Me.AllGameModes_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.AllGameModes_Supported.TabIndex = 23
+        '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.InstalledGameModes_Supported)
@@ -512,6 +539,15 @@ Partial Class FileCheck
         Me.TabPage3.Text = "Installed GameModes"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'InstalledGameModes_Supported
+        '
+        Me.InstalledGameModes_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.InstalledGameModes_Supported.FormattingEnabled = True
+        Me.InstalledGameModes_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.InstalledGameModes_Supported.Name = "InstalledGameModes_Supported"
+        Me.InstalledGameModes_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.InstalledGameModes_Supported.TabIndex = 24
+        '
         'TabPage4
         '
         Me.TabPage4.Controls.Add(Me.ResourceUpdate_Supported)
@@ -522,6 +558,15 @@ Partial Class FileCheck
         Me.TabPage4.TabIndex = 5
         Me.TabPage4.Text = "Resource Update"
         Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'ResourceUpdate_Supported
+        '
+        Me.ResourceUpdate_Supported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ResourceUpdate_Supported.FormattingEnabled = True
+        Me.ResourceUpdate_Supported.Location = New System.Drawing.Point(3, 3)
+        Me.ResourceUpdate_Supported.Name = "ResourceUpdate_Supported"
+        Me.ResourceUpdate_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.ResourceUpdate_Supported.TabIndex = 25
         '
         'Panel2
         '
@@ -697,51 +742,6 @@ Partial Class FileCheck
         Me.RichTextBox1.Size = New System.Drawing.Size(670, 430)
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
-        '
-        'AllContentPacks_Supported
-        '
-        Me.AllContentPacks_Supported.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AllContentPacks_Supported.FormattingEnabled = True
-        Me.AllContentPacks_Supported.Location = New System.Drawing.Point(3, 3)
-        Me.AllContentPacks_Supported.Name = "AllContentPacks_Supported"
-        Me.AllContentPacks_Supported.Size = New System.Drawing.Size(656, 226)
-        Me.AllContentPacks_Supported.TabIndex = 21
-        '
-        'InstalledContentPacks_Supported
-        '
-        Me.InstalledContentPacks_Supported.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.InstalledContentPacks_Supported.FormattingEnabled = True
-        Me.InstalledContentPacks_Supported.Location = New System.Drawing.Point(3, 3)
-        Me.InstalledContentPacks_Supported.Name = "InstalledContentPacks_Supported"
-        Me.InstalledContentPacks_Supported.Size = New System.Drawing.Size(656, 226)
-        Me.InstalledContentPacks_Supported.TabIndex = 22
-        '
-        'AllGameModes_Supported
-        '
-        Me.AllGameModes_Supported.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AllGameModes_Supported.FormattingEnabled = True
-        Me.AllGameModes_Supported.Location = New System.Drawing.Point(3, 3)
-        Me.AllGameModes_Supported.Name = "AllGameModes_Supported"
-        Me.AllGameModes_Supported.Size = New System.Drawing.Size(656, 226)
-        Me.AllGameModes_Supported.TabIndex = 23
-        '
-        'InstalledGameModes_Supported
-        '
-        Me.InstalledGameModes_Supported.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.InstalledGameModes_Supported.FormattingEnabled = True
-        Me.InstalledGameModes_Supported.Location = New System.Drawing.Point(3, 3)
-        Me.InstalledGameModes_Supported.Name = "InstalledGameModes_Supported"
-        Me.InstalledGameModes_Supported.Size = New System.Drawing.Size(656, 226)
-        Me.InstalledGameModes_Supported.TabIndex = 24
-        '
-        'ResourceUpdate_Supported
-        '
-        Me.ResourceUpdate_Supported.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ResourceUpdate_Supported.FormattingEnabled = True
-        Me.ResourceUpdate_Supported.Location = New System.Drawing.Point(3, 3)
-        Me.ResourceUpdate_Supported.Name = "ResourceUpdate_Supported"
-        Me.ResourceUpdate_Supported.Size = New System.Drawing.Size(656, 226)
-        Me.ResourceUpdate_Supported.TabIndex = 25
         '
         'FileCheck
         '

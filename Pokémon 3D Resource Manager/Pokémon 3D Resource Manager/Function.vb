@@ -47,8 +47,8 @@ Public Class Functions
             Directory.CreateDirectory(FileCheck.ApplicationDirectory + "\CrashLogs")
         End If
         File.WriteAllText(FileCheck.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat", ErrorLog)
-        MsgBox(Message + vbNewLine + "Error Log saved at: " + FileCheck.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat")
-        FileCheck.AddLog(Message + vbNewLine + "Error Log saved at: " + FileCheck.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat")
+        MsgBox(Message + vbNewLine + vbNewLine + "Error Log saved at: " + FileCheck.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat")
+        FileCheck.AddLog(Message + vbNewLine + vbNewLine + "Error Log saved at: " + FileCheck.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat")
     End Sub
 
     Public Shared Sub ReturnMessage(ByVal Message As String)

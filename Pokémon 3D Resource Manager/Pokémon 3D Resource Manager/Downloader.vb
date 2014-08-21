@@ -113,6 +113,7 @@ Public Class Downloader
                 Next
                 System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
+                Functions.ReturnMessage("Download and Extracted Completed!")
             Catch ex As Exception
                 Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             End Try
@@ -129,13 +130,13 @@ Public Class Downloader
                 End Using
                 System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
+                Functions.ReturnMessage("Download and Extracted Completed!")
             Catch ex As Exception
                 Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             End Try
         Else
             Functions.ReturnMessage("The File Extraction class does not support this file." + vbNewLine + "Extract Failed.")
         End If
-        Functions.ReturnMessage("Download and Extracted Completed!")
         Me.Close()
     End Sub
 

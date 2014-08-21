@@ -5,6 +5,8 @@ Imports System.IO
 
 Public Class Updater
 
+    Public ApplicationDirectory As String = P3DUpdater.My.Application.Info.DirectoryPath
+
     Dim SW As Stopwatch
     Public client As WebClient = New WebClient
     Public DownloadStatus As String
@@ -25,9 +27,8 @@ Public Class Updater
         StatusText.Text = ""
         ProgressBar1.Value = 0
         If CurrentVersion = ServerVersion Then
-            Functions.ReturnError("You are running the latest version of this application.")
-            Application.Exit()
-            Exit Sub
+            Functions.ReturnMessage("You are running the latest version of this application.")
+            Close()
         End If
     End Sub
 
@@ -41,7 +42,7 @@ Public Class Updater
             Cancel_Button.Enabled = True
             StatusText.Text = "Preparing to start Download..." + vbNewLine + "Please wait for a while. Some download links takes time to load." + vbNewLine + "If it does not start after few minutes, cancel it and try again." + vbNewLine + "If you have tried many times and noting works, report this bug at: http://pokemon3d.net/forum/threads/8234/"
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
     End Sub
 
@@ -54,10 +55,10 @@ Public Class Updater
                 System.IO.File.Delete(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
             End If
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
         Shell(P3DUpdater.My.Application.Info.DirectoryPath + "\Pokémon 3D Resource Manager.exe", AppWinStyle.NormalFocus)
-        Application.Exit()
+        Close()
     End Sub
 
     Private Sub client_ProgressChanged(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs)
@@ -91,7 +92,7 @@ Public Class Updater
         If CurrentBytes = TotalBytes Then
             Extract()
         Else
-            Functions.ReturnError("Download Failed! Please try again later.")
+            Functions.ReturnMessage("Download Failed! Please try again later.")
             System.IO.File.Delete(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
             Me.Close()
         End If
@@ -112,16 +113,15 @@ Public Class Updater
             End Using
             System.IO.File.Delete(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
             StatusText.AppendText(vbNewLine + "Extracting Completed!")
+            Functions.ReturnMessage("Update Completed!")
         Catch ex As Exception
-            Functions.ReturnError(ex.Message)
-            Functions.ReturnError("Update Failed!")
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+            Functions.ReturnMessage("Update Failed!")
             System.IO.File.Delete(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
-            Application.Exit()
-            Exit Sub
+            Close()
         End Try
-        Functions.ReturnError("Update Completed!")
         Shell(P3DUpdater.My.Application.Info.DirectoryPath + "\Pokémon 3D Resource Manager.exe", AppWinStyle.NormalFocus)
-        Application.Exit()
+        Close()
     End Sub
 
 End Class
