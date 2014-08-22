@@ -26,5 +26,6 @@ Guile's Theme Goes With Everything|Music Pack|||||||||
 Kira songs natural|Music Pack|||||||||
 Kira Songs NES|Music Pack|||||||||
 Final Fantasy V|Music Pack|||||||||
+Emerald texture pack (add-on)|Narx221|GBA Texture Project 0.1||True|Emerald texture pack|Emerald Texture Pack|rar|http://download1079.mediafire.com/61966s572x2g/h2qjyw9x68gv0ic/Emerald+Texture+Pack.rar|
 Pokemon Brown in 3D|GameModes|Leahkim, Miragics|0.8||True|An adaptation of Pokemon Brown|Pokemon Brown|rar|http://download646.mediafire.com/e6do1r1yuojg/1sr444hygfharty/Pokemon+Brown08FIX.rar|
 Lost Silver ( Added Compatibility v0.3x and above )|GameModes|jianmingyong|0.46.3||True|Hurry has fainted!|Lost Silver|rar|http://d04.unr.li/dl/156912a0f9c4b/lost-silver-v0.46.3.rar|
