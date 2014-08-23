@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.P3DUpdater.Updater
+            Me.MainForm = Global.Pokémon3D.Updater
         End Sub
     End Class
 End Namespace

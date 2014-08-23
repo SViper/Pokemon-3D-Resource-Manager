@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.P3DUpdater.My.MySettings
+        Friend ReadOnly Property Settings() As Global.Pokémon3D.My.MySettings
             Get
-                Return Global.P3DUpdater.My.MySettings.Default
+                Return Global.Pokémon3D.My.MySettings.Default
             End Get
         End Property
     End Module

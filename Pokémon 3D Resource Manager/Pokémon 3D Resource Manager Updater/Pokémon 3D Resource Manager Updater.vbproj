@@ -8,8 +8,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CCE76927-EBDF-4284-B9E6-2917D7B2890F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>P3DUpdater.My.MyApplication</StartupObject>
-    <RootNamespace>P3DUpdater</RootNamespace>
+    <StartupObject>Pokémon3D.My.MyApplication</StartupObject>
+    <RootNamespace>Pokémon3D</RootNamespace>
     <AssemblyName>Pokémon 3D Resource Manager Updater</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>

@@ -12,7 +12,7 @@ Public Class Functions
         End If
         Dim ErrorLog As String =
             "[CODE]" + vbNewLine +
-            "Pokémon 3D Resource Manager Crash Log v" + Updater.CurrentVersion + vbNewLine +
+            "Pokémon 3D Resource Manager Crash Log v" + Updater.ApplicationVersion + vbNewLine +
             "--------------------------------------------------" + vbNewLine +
             vbNewLine +
             "System specifications:" + vbNewLine +

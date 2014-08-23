@@ -60,41 +60,60 @@ Public Class Downloader
     End Sub
 
     Private Sub client_ProgressChanged(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs)
-        CurrentBytes = Double.Parse(e.BytesReceived, Globalization.NumberStyles.AllowDecimalPoint)
-        TotalBytes = Double.Parse(e.TotalBytesToReceive, Globalization.NumberStyles.AllowDecimalPoint)
-        Dim percentage As String = Math.Round(CurrentBytes / TotalBytes * 100, 2)
-        Dim CurrentKiloBytes As String = Math.Round(CurrentBytes / 1024, 2)
-        Dim TotalKiloBytes As String = Math.Round(TotalBytes / 1024, 2)
-        Dim CurrentMegaBytes As String = Math.Round(CurrentBytes / 1048576, 2)
-        Dim TotalMegaBytes As String = Math.Round(TotalBytes / 1048576, 2)
-        Dim CurrentGigaBytes As String = Math.Round(CurrentBytes / 1073741824, 2)
-        Dim TotalGigaBytes As String = Math.Round(TotalBytes / 1073741824, 2)
-        If TotalBytes <= 1024 Then
-            StatusText.Text = "Downloading: " + CurrentBytes + " B / " + TotalBytes + " B ( " + percentage + " % ) " +
-            vbNewLine + "Download Speed: " + Math.Round(CurrentBytes / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
-        ElseIf TotalBytes <= 1048576 Then
-            StatusText.Text = "Downloading: " + CurrentKiloBytes + " KB / " + TotalKiloBytes + " KB ( " + percentage + " % ) " +
-            vbNewLine + "Download Speed: " + Math.Round(CurrentBytes / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
-        ElseIf TotalBytes <= 1073741824 Then
-            StatusText.Text = "Downloading: " + CurrentMegaBytes + " MB / " + TotalMegaBytes + " MB ( " + percentage + " % ) " +
-            vbNewLine + "Download Speed: " + Math.Round(CurrentBytes / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
-        ElseIf TotalBytes <= 1099511627776 Then
-            StatusText.Text = "Downloading: " + CurrentGigaBytes + " GB / " + TotalGigaBytes + " GB ( " + percentage + " % ) " +
-            vbNewLine + "Download Speed: " + Math.Round(CurrentBytes / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
-        End If
-        ProgressBar1.Value = percentage
-        Application.DoEvents()
+        Try
+            CurrentBytes = Double.Parse(e.BytesReceived)
+            TotalBytes = Double.Parse(e.TotalBytesToReceive)
+            Dim percentage As String = Math.Round(CurrentBytes / TotalBytes * 100, 2)
+            Dim CurrentKiloBytes As String = Math.Round(CurrentBytes / 1024, 2)
+            Dim TotalKiloBytes As String = Math.Round(TotalBytes / 1024, 2)
+            Dim CurrentMegaBytes As String = Math.Round(CurrentBytes / 1048576, 2)
+            Dim TotalMegaBytes As String = Math.Round(TotalBytes / 1048576, 2)
+            Dim CurrentGigaBytes As String = Math.Round(CurrentBytes / 1073741824, 2)
+            Dim TotalGigaBytes As String = Math.Round(TotalBytes / 1073741824, 2)
+            If TotalBytes <= 1024 Then
+                StatusText.Text = "Downloading: " + CurrentBytes.ToString + " B / " + TotalBytes.ToString + " B ( " + percentage + " % ) " +
+                vbNewLine + "Download Speed: " + Math.Round(CurrentBytes / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
+            ElseIf TotalBytes <= 1048576 Then
+                StatusText.Text = "Downloading: " + CurrentKiloBytes + " KB / " + TotalKiloBytes + " KB ( " + percentage + " % ) " +
+                vbNewLine + "Download Speed: " + Math.Round(CurrentBytes / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
+            ElseIf TotalBytes <= 1073741824 Then
+                StatusText.Text = "Downloading: " + CurrentMegaBytes + " MB / " + TotalMegaBytes + " MB ( " + percentage + " % ) " +
+                vbNewLine + "Download Speed: " + Math.Round(CurrentBytes / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
+            ElseIf TotalBytes <= 1099511627776 Then
+                StatusText.Text = "Downloading: " + CurrentGigaBytes + " GB / " + TotalGigaBytes + " GB ( " + percentage + " % ) " +
+                vbNewLine + "Download Speed: " + Math.Round(CurrentBytes / SW.ElapsedMilliseconds, 2).ToString + " KB/Sec"
+            End If
+            ProgressBar1.Value = percentage
+            Application.DoEvents()
+        Catch ex As Exception
+            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+            Application.Exit()
+            Exit Sub
+        End Try
     End Sub
 
     Private Sub client_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
         If CurrentBytes = TotalBytes Then
-            If Directory.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName) Then
-                System.IO.Directory.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName, True)
-            End If
-            Extract()
-        Else
+            Try
+                If Directory.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName) Then
+                    System.IO.Directory.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName, True)
+                End If
+            Catch ex As Exception
+                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+            Finally
+                Extract()
+            End Try
+        ElseIf Not DownloadStatus = "Cancel" Then
             Functions.ReturnMessage("Download Failed! Please try again later.")
-            System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+            Try
+                If File.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt) Then
+                    System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                End If
+            Catch ex As Exception
+                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+            End Try
+            Me.Close()
+        Else
             Me.Close()
         End If
     End Sub
@@ -117,7 +136,7 @@ Public Class Downloader
             Catch ex As Exception
                 Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             End Try
-        ElseIf (FileCheck.ResourceExt = "zip" Or FileCheck.ResourceExt = "ZIP") Then
+        ElseIf (FileCheck.ResourceExt = "zip" Or FileCheck.ResourceExt = "ZIP") And ZipFile.IsZipFile(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt) = True Then
             Try
                 Using zip As ZipFile = ZipFile.Read(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
                     Dim e As ZipEntry

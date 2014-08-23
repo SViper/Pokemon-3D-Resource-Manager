@@ -23,6 +23,7 @@ Public Class FileCheck
     Public ResourceFolderName As String
     Public ResourceURL As String
     Public ResourceExt As String
+    Public ResourceDownloadOption As String
 
     Private Sub FileCheck_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         CheckRequiredDLL()
@@ -52,18 +53,22 @@ Public Class FileCheck
         If Not File.Exists(ApplicationDirectory + "\unrar.dll") Then
             Functions.ReturnMessage("Application required file: unrar.dll does not exist in " + ApplicationDirectory + "\unrar.dll")
             Close()
+            Exit Sub
         End If
         If Not File.Exists(ApplicationDirectory + "\unrar64.dll") Then
             Functions.ReturnMessage("Application required file: unrar64.dll does not exist in " + ApplicationDirectory + "\unrar64.dll")
             Close()
+            Exit Sub
         End If
         If Not File.Exists(ApplicationDirectory + "\UnRARNET.dll") Then
             Functions.ReturnMessage("Application required file: UnRARNET.dll does not exist in " + ApplicationDirectory + "\UnRARNET.dll")
             Close()
+            Exit Sub
         End If
         If Not File.Exists(ApplicationDirectory + "\Ionic.Zip.dll") Then
             Functions.ReturnMessage("Application required file: Ionic.Zip.dll does not exist in " + ApplicationDirectory + "\Ionic.Zip.dll")
             Close()
+            Exit Sub
         End If
     End Sub
 
@@ -237,7 +242,6 @@ Public Class FileCheck
         Catch ex As Exception
             Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
-
     End Sub
 #End Region
 
@@ -507,6 +511,7 @@ Public Class FileCheck
         Resources_Compatible.Text = ResourceCompatible
         Resources_Installed.Text = ResourceInstalled
         Resources_Description.Text = ResourceDescription
+        SupportedResources()
     End Sub
 
     Private Sub Resources_Update_Click(sender As System.Object, e As System.EventArgs) Handles Resources_Update.Click
@@ -532,6 +537,7 @@ Public Class FileCheck
         Resources_Compatible.Text = ResourceCompatible
         Resources_Installed.Text = ResourceInstalled
         Resources_Description.Text = ResourceDescription
+        SupportedResources()
     End Sub
 #End Region
 

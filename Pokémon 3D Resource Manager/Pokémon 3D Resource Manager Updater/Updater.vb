@@ -5,30 +5,59 @@ Imports System.IO
 
 Public Class Updater
 
-    Public ApplicationDirectory As String = P3DUpdater.My.Application.Info.DirectoryPath
+    Private client As WebClient = New WebClient()
+    Public ApplicationDirectory As String = Pokémon3D.My.Application.Info.DirectoryPath
+    Public ApplicationVersion As String = Pokémon3D.My.Application.Info.Version.ToString
 
-    Dim SW As Stopwatch
-    Public client As WebClient = New WebClient
+    Public ResourceType As String
+    Public ResourceName As String
+    Public ResourceCategory As String
+    Public ResourceAuthor As String
+    Public ResourceCurrentVersion As String
+    Public ResourceLatestVersion As String
+    Public ResourceDependency As String
+    Public ResourceCompatible As String
+    Public ResourceInstalled As String
+    Public ResourceDescription As String
+    Public ResourceFolderName As String
+    Public ResourceURL As String
+    Public ResourceExt As String
+    Public ResourceDownloadOption As String
+
+    Public SW As Stopwatch
     Public DownloadStatus As String
     Public CurrentBytes As Double
     Public TotalBytes As Double
     Public ServerVersion As String
-    Public CurrentVersion As String
 
     Private Sub Downloader_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        ServerVersion = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt")
-        Dim Settingstr5 As String = Functions.GetTextFromLine(P3DUpdater.My.Application.Info.DirectoryPath + "\Settings.dat", 6)
-        CurrentVersion = Settingstr5.Remove(0, 10)
-        Resources_CurrentVersion.Text = CurrentVersion
-        Resources_LatestVersion.Text = ServerVersion
-        DownloadStatus = "True"
-        OK_Button.Enabled = True
-        Cancel_Button.Enabled = True
-        StatusText.Text = ""
-        ProgressBar1.Value = 0
-        If CurrentVersion = ServerVersion Then
-            Functions.ReturnMessage("You are running the latest version of this application.")
+        If Not File.Exists(Pokémon3D.My.Application.Info.DirectoryPath + "\Settings.dat") Then
+            Functions.ReturnMessage("Please run Pokémon 3D Resource Manager.exe")
             Close()
+        Else
+            Try
+                ServerVersion = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt")
+                If Not ServerVersion = Nothing And ServerVersion = ApplicationVersion Then
+                    Functions.ReturnMessage("You are running the latest version of this application.")
+                    Close()
+                ElseIf Not ServerVersion = Nothing And Not ServerVersion = ApplicationVersion Then
+                    Try
+                        Resources_CurrentVersion.Text = ApplicationVersion
+                        Resources_LatestVersion.Text = ServerVersion
+                        DownloadStatus = "True"
+                        OK_Button.Enabled = True
+                        Cancel_Button.Enabled = True
+                        StatusText.Text = ""
+                        ProgressBar1.Value = 0
+                    Catch ex As Exception
+                        Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+                    End Try
+                Else
+                    Functions.ReturnMessage("Application could not check for update. Your internet or the server is not working.")
+                End If
+            Catch ex As Exception
+                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+            End Try
         End If
     End Sub
 
@@ -36,7 +65,7 @@ Public Class Updater
         AddHandler client.DownloadProgressChanged, AddressOf client_ProgressChanged
         AddHandler client.DownloadFileCompleted, AddressOf client_DownloadCompleted
         Try
-            client.DownloadFileAsync(New Uri("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Pok%C3%A9mon%203D%20Resource%20Manager.zip"), P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
+            client.DownloadFileAsync(New Uri("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Pok%C3%A9mon%203D%20Resource%20Manager.zip"), Pokémon3D.My.Application.Info.DirectoryPath + "\Update.zip")
             SW = Stopwatch.StartNew
             OK_Button.Enabled = False
             Cancel_Button.Enabled = True
@@ -51,13 +80,13 @@ Public Class Updater
         Me.DownloadStatus = "Cancel"
         Try
             Threading.Thread.Sleep(1000)
-            If File.Exists(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip") Then
-                System.IO.File.Delete(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
+            If File.Exists(Pokémon3D.My.Application.Info.DirectoryPath + "\Update.zip") Then
+                System.IO.File.Delete(Pokémon3D.My.Application.Info.DirectoryPath + "\Update.zip")
             End If
         Catch ex As Exception
             Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
-        Shell(P3DUpdater.My.Application.Info.DirectoryPath + "\Pokémon 3D Resource Manager.exe", AppWinStyle.NormalFocus)
+        Shell(Pokémon3D.My.Application.Info.DirectoryPath + "\Pokémon 3D Resource Manager.exe", AppWinStyle.NormalFocus)
         Close()
     End Sub
 
@@ -93,7 +122,7 @@ Public Class Updater
             Extract()
         Else
             Functions.ReturnMessage("Download Failed! Please try again later.")
-            System.IO.File.Delete(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
+            System.IO.File.Delete(Pokémon3D.My.Application.Info.DirectoryPath + "\Update.zip")
             Me.Close()
         End If
     End Sub
@@ -102,25 +131,25 @@ Public Class Updater
         Cancel_Button.Enabled = False
         StatusText.AppendText(vbNewLine + "Extracting Files...")
         Try
-            Using zip As ZipFile = ZipFile.Read(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
+            Using zip As ZipFile = ZipFile.Read(Pokémon3D.My.Application.Info.DirectoryPath + "\Update.zip")
                 Dim e As ZipEntry
                 For Each e In zip
                     StatusText.Focus()
-                    e.Extract(P3DUpdater.My.Application.Info.DirectoryPath, ExtractExistingFileAction.OverwriteSilently)
+                    e.Extract(Pokémon3D.My.Application.Info.DirectoryPath, ExtractExistingFileAction.OverwriteSilently)
                     StatusText.AppendText(vbNewLine + e.FileName.ToString)
                     Application.DoEvents()
                 Next
             End Using
-            System.IO.File.Delete(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
+            System.IO.File.Delete(Pokémon3D.My.Application.Info.DirectoryPath + "\Update.zip")
             StatusText.AppendText(vbNewLine + "Extracting Completed!")
             Functions.ReturnMessage("Update Completed!")
         Catch ex As Exception
             Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             Functions.ReturnMessage("Update Failed!")
-            System.IO.File.Delete(P3DUpdater.My.Application.Info.DirectoryPath + "\Update.zip")
+            System.IO.File.Delete(Pokémon3D.My.Application.Info.DirectoryPath + "\Update.zip")
             Close()
         End Try
-        Shell(P3DUpdater.My.Application.Info.DirectoryPath + "\Pokémon 3D Resource Manager.exe", AppWinStyle.NormalFocus)
+        Shell(Pokémon3D.My.Application.Info.DirectoryPath + "\Pokémon 3D Resource Manager.exe", AppWinStyle.NormalFocus)
         Close()
     End Sub
 
