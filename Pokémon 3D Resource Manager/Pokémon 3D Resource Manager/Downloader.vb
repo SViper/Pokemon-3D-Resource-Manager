@@ -6,24 +6,26 @@ Imports System.IO
 
 Public Class Downloader
 
-    Dim d As Decompressor
-    Dim SW As Stopwatch
+    Public d As Decompressor
+    Public SW As Stopwatch
     Public client As WebClient = New WebClient
+
     Public DownloadStatus As String
     Public CurrentBytes As Double
     Public TotalBytes As Double
+    Public FileLocation As String
 
 
     Private Sub Downloader_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Resources_ContentCategory.Text = FileCheck.ResourceCategory
-        Resources_Author.Text = FileCheck.ResourceAuthor
-        Resources_CurrentVersion.Text = FileCheck.ResourceCurrentVersion
-        Resources_LatestVersion.Text = FileCheck.ResourceLatestVersion
-        Resources_Dependency.Text = FileCheck.ResourceDependency
-        Resources_Compatible.Text = FileCheck.ResourceCompatible
-        Resources_Installed.Text = FileCheck.ResourceInstalled
-        Resources_Description.Text = FileCheck.ResourceDescription
-        TextName.Text = "Download the latest version of " + FileCheck.ResourceName + "?"
+        Resources_ContentCategory.Text = Main.ResourceCategory
+        Resources_Author.Text = Main.ResourceAuthor
+        Resources_CurrentVersion.Text = Main.ResourceCurrentVersion
+        Resources_LatestVersion.Text = Main.ResourceLatestVersion
+        Resources_Dependency.Text = Main.ResourceDependency
+        Resources_Compatible.Text = Main.ResourceCompatible
+        Resources_Installed.Text = Main.ResourceInstalled
+        Resources_Description.Text = Main.ResourceDescription
+        TextName.Text = "Download the latest version of " + Main.ResourceName + "?"
         DownloadStatus = "True"
         OK_Button.Enabled = True
         Cancel_Button.Enabled = True
@@ -35,7 +37,10 @@ Public Class Downloader
         AddHandler client.DownloadProgressChanged, AddressOf client_ProgressChanged
         AddHandler client.DownloadFileCompleted, AddressOf client_DownloadCompleted
         Try
-            client.DownloadFileAsync(New Uri(FileCheck.ResourceURL), FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+            If Not Directory.Exists(Main.ApplicationDirectory + "\Cache\DownloadData") Then
+                Directory.CreateDirectory(Main.ApplicationDirectory + "\Cache\DownloadData")
+            End If
+            client.DownloadFileAsync(New Uri(Main.ResourceURL), Main.ApplicationDirectory + "\Cache\DownloadData" + "\" + Main.ResourceName + "." + Main.ResourceExtention)
             SW = Stopwatch.StartNew
             OK_Button.Enabled = False
             Cancel_Button.Enabled = True
@@ -50,8 +55,8 @@ Public Class Downloader
         Me.DownloadStatus = "Cancel"
         Try
             Threading.Thread.Sleep(1000)
-            If File.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt) Then
-                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+            If File.Exists(Main.ApplicationDirectory + "\Cache\DownloadData" + "\" + Main.ResourceName + "." + Main.ResourceExtention) Then
+                File.Delete(Main.ApplicationDirectory + "\Cache\DownloadData" + "\" + Main.ResourceName + "." + Main.ResourceExtention)
             End If
         Catch ex As Exception
             Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
@@ -95,19 +100,29 @@ Public Class Downloader
     Private Sub client_DownloadCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
         If CurrentBytes = TotalBytes Then
             Try
-                If Directory.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName) Then
-                    System.IO.Directory.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName, True)
+                If Directory.Exists(Main.P3DDirectory + "\" + Main.ResourceType + "\" + Main.ResourceName) Then
+                    System.IO.Directory.Delete(Main.P3DDirectory + "\" + Main.ResourceType + "\" + Main.ResourceName, True)
+                End If
+                If Main.DownloadLocation = Nothing Then
+                    StatusText.AppendText(vbNewLine + "Download Complete." + vbNewLine + "Moving files to " + Main.P3DDirectory + "\" + Main.ResourceType + "\" + Main.ResourceName + "." + Main.ResourceExtention)
+                    File.Move(Main.ApplicationDirectory + "\Cache\DownloadData" + "\" + Main.ResourceName + "." + Main.ResourceExtention, Main.P3DDirectory + "\" + Main.ResourceType + "\" + Main.ResourceName + "." + Main.ResourceExtention)
+                    FileLocation = Main.P3DDirectory + "\" + Main.ResourceType
+                ElseIf Not Main.DownloadLocation = Nothing Then
+                    StatusText.AppendText(vbNewLine + "Download Complete." + vbNewLine + "Moving files to " + Main.P3DDirectory + "\" + Main.DownloadLocation)
+                    File.Move(Main.ApplicationDirectory + "\Cache\DownloadData" + "\" + Main.ResourceName + "." + Main.ResourceExtention, Main.P3DDirectory + "\" + Main.DownloadLocation)
+                    FileLocation = Main.P3DDirectory + "\" + Main.DownloadLocation.Remove(Main.DownloadLocation.Length - Main.ResourceExtention.Length - 1 - Main.ResourceName.Length)
                 End If
             Catch ex As Exception
                 Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
-            Finally
-                Extract()
+                Application.Exit()
+                Exit Sub
             End Try
+            Extract()
         ElseIf Not DownloadStatus = "Cancel" Then
             Functions.ReturnMessage("Download Failed! Please try again later.")
             Try
-                If File.Exists(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt) Then
-                    System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                If File.Exists(Main.ApplicationDirectory + "\Cache\DownloadData" + "\" + Main.ResourceName + "." + Main.ResourceExtention) Then
+                    System.IO.File.Delete(Main.ApplicationDirectory + "\Cache\DownloadData" + "\" + Main.ResourceName + "." + Main.ResourceExtention)
                 End If
             Catch ex As Exception
                 Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
@@ -121,35 +136,95 @@ Public Class Downloader
     Private Sub Extract()
         Cancel_Button.Enabled = False
         StatusText.AppendText(vbNewLine + "Extracting Files...")
-        If (FileCheck.ResourceExt = "rar" Or FileCheck.ResourceExt = "RAR") Then
+        If Main.ResourceExtention = "rar" Then
             Try
-                d = New Decompressor(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
-                For Each r As Decompressor.RAREntry In d.RARFiles
-                    StatusText.Focus()
-                    d.UnPack(r.FileName.ToString(), FileCheck.P3DDirectory + "\" + FileCheck.ResourceType)
-                    StatusText.AppendText(vbNewLine + r.FileName.ToString)
-                    Application.DoEvents()
-                Next
-                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                d = New Decompressor(FileLocation + "\" + Main.ResourceName + "." + Main.ResourceExtention)
+                If Main.DownloadLocation = Nothing Then
+                    For Each r As Decompressor.RAREntry In d.RARFiles
+                        StatusText.Focus()
+                        d.UnPack(r.FileName.ToString(), FileLocation)
+                        StatusText.AppendText(vbNewLine + r.FileName.ToString)
+                        Application.DoEvents()
+                    Next
+                ElseIf Not Main.DownloadLocation = Nothing Then
+                    For Each r As Decompressor.RAREntry In d.RARFiles
+                        StatusText.Focus()
+                        d.UnPack(r.FileName.ToString(), FileLocation)
+                        StatusText.AppendText(vbNewLine + r.FileName.ToString)
+                        Application.DoEvents()
+                    Next
+                End If
+                File.Delete(FileLocation + "\" + Main.ResourceName + "." + Main.ResourceExtention)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
-                Functions.ReturnMessage("Download and Extracted Completed!")
+                If Main.DeleteFiles = Nothing Then
+                    Functions.ReturnMessage("Download and Extracted Completed!")
+                ElseIf Not Main.DeleteFiles = Nothing Then
+                    Dim CurrentIndex As Integer = 0
+                    Do While Not Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ",") = Nothing
+                        If File.Exists(Main.P3DDirectory + "\" + Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ",")) Then
+                            Try
+                                File.Delete(Main.P3DDirectory + "\" + Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ","))
+                            Catch ex As Exception
+                                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+                            End Try
+                        End If
+                        If Directory.Exists(Main.P3DDirectory + "\" + Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ",")) Then
+                            Try
+                                Directory.Delete(Main.P3DDirectory + "\" + Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ","))
+                            Catch ex As Exception
+                                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+                            End Try
+                        End If
+                        CurrentIndex = CurrentIndex + 1
+                    Loop
+                End If
             Catch ex As Exception
                 Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             End Try
-        ElseIf (FileCheck.ResourceExt = "zip" Or FileCheck.ResourceExt = "ZIP") And ZipFile.IsZipFile(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt) = True Then
+        ElseIf (Main.ResourceExtention = "zip") And ZipFile.IsZipFile(Main.P3DDirectory + "\" + Main.ResourceType + "\" + Main.ResourceName + "." + Main.ResourceExtention) = True Then
             Try
-                Using zip As ZipFile = ZipFile.Read(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                Using zip As ZipFile = ZipFile.Read(FileLocation + "\" + Main.ResourceName + "." + Main.ResourceExtention)
                     Dim e As ZipEntry
-                    For Each e In zip
-                        StatusText.Focus()
-                        e.Extract(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType, ExtractExistingFileAction.OverwriteSilently)
-                        StatusText.AppendText(vbNewLine + e.FileName.ToString)
-                        Application.DoEvents()
-                    Next
+                    If Main.DownloadLocation = Nothing Then
+                        For Each e In zip
+                            StatusText.Focus()
+                            e.Extract(FileLocation, ExtractExistingFileAction.OverwriteSilently)
+                            StatusText.AppendText(vbNewLine + e.FileName.ToString)
+                            Application.DoEvents()
+                        Next
+                    ElseIf Not Main.DownloadLocation = Nothing Then
+                        For Each e In zip
+                            StatusText.Focus()
+                            e.Extract(FileLocation, ExtractExistingFileAction.OverwriteSilently)
+                            StatusText.AppendText(vbNewLine + e.FileName.ToString)
+                            Application.DoEvents()
+                        Next
+                    End If
                 End Using
-                System.IO.File.Delete(FileCheck.P3DDirectory + "\" + FileCheck.ResourceType + "\" + FileCheck.ResourceFolderName + "." + FileCheck.ResourceExt)
+                File.Delete(FileLocation + "\" + Main.ResourceName + "." + Main.ResourceExtention)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
-                Functions.ReturnMessage("Download and Extracted Completed!")
+                If Main.DeleteFiles = Nothing Then
+                    Functions.ReturnMessage("Download and Extracted Completed!")
+                ElseIf Not Main.DeleteFiles = Nothing Then
+                    Dim CurrentIndex As Integer = 0
+                    Do While Not Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ",") = Nothing
+                        If File.Exists(Main.P3DDirectory + "\" + Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ",")) Then
+                            Try
+                                File.Delete(Main.P3DDirectory + "\" + Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ","))
+                            Catch ex As Exception
+                                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+                            End Try
+                        End If
+                        If Directory.Exists(Main.P3DDirectory + "\" + Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ",")) Then
+                            Try
+                                Directory.Delete(Main.P3DDirectory + "\" + Functions.GetSplit(Main.DeleteFiles, CurrentIndex, ","))
+                            Catch ex As Exception
+                                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+                            End Try
+                        End If
+                        CurrentIndex = CurrentIndex + 1
+                    Loop
+                End If
             Catch ex As Exception
                 Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
             End Try

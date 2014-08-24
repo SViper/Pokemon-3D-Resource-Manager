@@ -1,29 +1,42 @@
 ﻿Imports System.Net
 Imports System.IO
 
-Public Class FileCheck
-    Private client As WebClient = New WebClient()
+Public Class Main
+    '<!-- Main -->
+    Public client As WebClient = New WebClient()
     Public ApplicationDirectory As String = Pokémon3D.My.Application.Info.DirectoryPath
-    Public LauncherDirectory As String = Pokémon3D.My.Application.Info.DirectoryPath
-    Public P3DDirectory As String = ApplicationDirectory + "\Pokemon"
     Public ApplicationVersion As String = Pokémon3D.My.Application.Info.Version.ToString
+    Public ApplicationLatestVersion As String
+
+    '<!-- Main Setting -->
+    Public LauncherDirectory As String = Pokémon3D.My.Application.Info.DirectoryPath
+    Public P3DDirectory As String = LauncherDirectory + "\Pokemon"
     Public ApplicationSelfCheckVersion As String = "True"
     Public ResourcesCheckVersion As String = "True"
 
-    Public ResourceType As String
+    '<!-- Resource Details -->
+    Public ResourceList As String
+
+    '<!-- Resource Details -->
     Public ResourceName As String
+    Public ResourceType As String
     Public ResourceCategory As String
     Public ResourceAuthor As String
     Public ResourceCurrentVersion As String
     Public ResourceLatestVersion As String
     Public ResourceDependency As String
     Public ResourceCompatible As String
-    Public ResourceInstalled As String
     Public ResourceDescription As String
-    Public ResourceFolderName As String
     Public ResourceURL As String
-    Public ResourceExt As String
-    Public ResourceDownloadOption As String
+    Public ResourceExtention As String
+
+    Public ResourceInstalled As String
+
+    '<!-- Resource Additional Options -->
+    Public DownloadLocation As String
+    Public UninstallLocation As String
+    Public DeleteFiles As String
+    Public CustomOption As String
 
     Private Sub FileCheck_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         CheckRequiredDLL()
@@ -213,35 +226,34 @@ Public Class FileCheck
     End Sub
 
     Private Sub CheckApplicationVersion(ByVal Warning As String)
+        AddLog("Get Application Version:")
         Try
-            AddLog("Get Application Version:")
-            Dim ServerVersion As String = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Application%20Version.txt")
-            If Not ServerVersion = Nothing And ServerVersion = ApplicationVersion Then
-                AddLog("Newest Version: " + ServerVersion)
-                AddLog("Current Version: " + ApplicationVersion)
-                If Warning = "False" Then
-                    AddLog("You are running the latest version of this application.")
-                Else
-                    Functions.ReturnMessage("You are running the latest version of this application.")
-                End If
-            ElseIf Not ServerVersion = Nothing And Not ServerVersion = ApplicationVersion Then
-                AddLog("Newest Version: " + ServerVersion)
-                AddLog("Current Version: " + ApplicationVersion)
-                Functions.ReturnMessage("There is an update to this application.")
-                Try
-                    client.DownloadFile("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Pok%C3%A9mon%203D%20Resource%20Manager%20Updater.exe", ApplicationDirectory + "\Pokémon 3D Resource Manager Updater.exe")
-                    client.DownloadFile("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Ionic.Zip.dll", ApplicationDirectory + "\Ionic.Zip.dll")
-                Catch ex As Exception
-                    Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
-                End Try
-                Process.Start(ApplicationDirectory + "\Pokémon 3D Resource Manager Updater.exe")
-                Close()
-            Else
-                Functions.ReturnMessage("Application could not check for update. Your internet or the server is not working.")
-            End If
+            ApplicationLatestVersion = client.DownloadString("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Updater/Application%20Version.txt")
         Catch ex As Exception
             Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
+        If Not ApplicationLatestVersion = Nothing And ApplicationLatestVersion = ApplicationVersion Then
+            AddLog("Newest Version: " + ApplicationLatestVersion)
+            AddLog("Current Version: " + ApplicationVersion)
+            If Warning = "False" Then
+                AddLog("You are running the latest version of this application.")
+            Else
+                Functions.ReturnMessage("You are running the latest version of this application.")
+            End If
+        ElseIf Not ApplicationLatestVersion = Nothing And Not ApplicationLatestVersion = ApplicationVersion Then
+            AddLog("Newest Version: " + ApplicationLatestVersion)
+            AddLog("Current Version: " + ApplicationVersion)
+            Functions.ReturnMessage("There is an update to this application.")
+            Try
+                client.DownloadFile("https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/raw/master/Server%20Files/Updater/Pok%C3%A9mon%203D%20Resource%20Manager%20Updater.exe", ApplicationDirectory + "\Pokémon 3D Resource Manager Updater.exe")
+                Functions.Run(ApplicationDirectory + "\Pokémon 3D Resource Manager Updater.exe", Nothing, True)
+            Catch ex As Exception
+                Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+            End Try
+            Close()
+        Else
+            Functions.ReturnMessage("Application could not check for update. Your internet or the server is not working.")
+        End If
     End Sub
 #End Region
 
@@ -272,7 +284,7 @@ Public Class FileCheck
         SaveSetting()
     End Sub
 
-    Private Sub Setting_CheckContentPacksUpdate_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles Setting_CheckResourcesUpdate.Click
+    Private Sub Setting_CheckResourcesUpdate_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles Setting_CheckResourcesUpdate.Click
         If Setting_CheckResourcesUpdate.Checked = True Then
             ResourcesCheckVersion = "True"
         ElseIf Setting_CheckResourcesUpdate.Checked = False Then
@@ -307,9 +319,8 @@ Public Class FileCheck
 
 #Region "Open P3D Game"
     Private Sub Resources_OpenP3D_Click(sender As System.Object, e As System.EventArgs) Handles Resources_OpenP3D.Click
-        If (System.IO.File.Exists(LauncherDirectory + "\Pokémon3D.exe")) Then
-            Shell(LauncherDirectory + "\Pokémon3D.exe", AppWinStyle.NormalFocus)
-            Application.Exit()
+        If System.IO.File.Exists(LauncherDirectory + "\Pokémon3D.exe") Then
+            Functions.Run(LauncherDirectory + "\Pokémon3D.exe", Nothing, True)
         Else
             Functions.ReturnMessage(LauncherDirectory + "\Pokémon3D.exe does not exist.")
         End If
@@ -327,54 +338,47 @@ Public Class FileCheck
 
 #Region "Resources Init"
     Private Sub GetSupportedResources()
-        Try
-            AddLog("Download String From Server")
-            Dim DownloadString As String = client.DownloadString("https://raw.githubusercontent.com/jianmingyong/Pokemon-3D-Resource-Manager/master/Server%20Files/Resources.txt")
-            AddLog("Checking for Cache Folder")
-            If Not Directory.Exists(ApplicationDirectory + "\Cache") Then
-                Directory.CreateDirectory(ApplicationDirectory + "\Cache")
-                AddLog("Cache Folder created at: " + ApplicationDirectory + "\Cache")
-            End If
-            If File.Exists(ApplicationDirectory + "\Cache\Resources.txt") Then
-                File.Delete(ApplicationDirectory + "\Cache\Resources.txt")
-            End If
-            File.WriteAllText(ApplicationDirectory + "\Cache\Resources.txt", DownloadString, System.Text.Encoding.UTF8)
-            AddLog("Save all text into the Cache for offline use.")
-        Catch ex As Exception
-            Functions.ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
-        End Try
+        CheckForUpdate.ShowDialog()
         SupportedResources()
     End Sub
 
     Private Sub SupportedResources()
-        AddLog("Get Supported ContentPacks from Cache.")
+        AddLog("Get Supported Resources from Cache.")
         Dim CurrentIndex As Integer = 1
         If Not AllResources_Supported.Items.Count = 0 Then
             AllResources_Supported.Items.Clear()
         End If
         Try
-            Do While Not CurrentIndex > File.ReadAllLines(ApplicationDirectory + "\Cache\Resources.txt").Length
-                If Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex).ToString.StartsWith("<!--") Then
+            Do While Not CurrentIndex > File.ReadAllLines(ApplicationDirectory + "\Cache\ResourcesList.dat").Length
+                If Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex).ToString.StartsWith("<!--") Then
                     CurrentIndex = CurrentIndex + 1
                 Else
-                    AllResources_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
-                    If Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" Then
-                        AllContentPacks_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|")
+                    ResourceType = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 3), 1, "|")
+                    If ResourceType = "ContentPacks" Then
+                        ResourceCurrentVersion = Functions.GetTextFromLine(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\info.dat", 1)
+                    ElseIf ResourceType = "GameModes" Then
+                        ResourceCurrentVersion = Functions.GetSplit(Functions.GetTextFromLine(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\GameMode.dat", 3), 1, "|")
                     End If
-                    If Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" Then
-                        AllGameModes_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    ResourceLatestVersion = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 6), 1, "|")
+                    AllResources_Supported.Items.Add(ResourceName)
+                    If ResourceType = "ContentPacks" Then
+                        AllContentPacks_Supported.Items.Add(ResourceName)
                     End If
-                    If Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" And File.Exists(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\info.dat") Then
-                        InstalledContentPacks_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    If ResourceType = "GameModes" Then
+                        AllGameModes_Supported.Items.Add(ResourceName)
                     End If
-                    If Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\GameMode.dat") Then
-                        InstalledGameModes_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    If ResourceType = "ContentPacks" And File.Exists(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\info.dat") Then
+                        InstalledContentPacks_Supported.Items.Add(ResourceName)
                     End If
-                    If Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" And File.Exists(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\info.dat") And Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 3, "|") = Functions.GetTextFromLine(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\info.dat", 2) Then
-                        ResourceUpdate_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    If ResourceType = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\GameMode.dat") Then
+                        InstalledGameModes_Supported.Items.Add(ResourceName)
                     End If
-                    If Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|") = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\GameMode.dat") And Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 3, "|") = Functions.GetTextFromLine(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|") + "\GameModes.dat", 3) Then
-                        ResourceUpdate_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|"))
+                    If ResourceType = "ContentPacks" And File.Exists(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\info.dat") And Not ResourceCurrentVersion = ResourceLatestVersion Then
+                        ResourceUpdate_Supported.Items.Add(ResourceName)
+                    End If
+                    If ResourceType = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\GameMode.dat") And Not ResourceCurrentVersion = ResourceLatestVersion Then
+                        ResourceUpdate_Supported.Items.Add(ResourceName)
                     End If
                     CurrentIndex = CurrentIndex + 1
                 End If
@@ -385,32 +389,27 @@ Public Class FileCheck
     End Sub
 
     Private Sub GetResourcesDetail(ByVal Name As String)
-        Dim CurrentIndex As Integer = 1
-        Do While Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|") = Name
-            CurrentIndex = CurrentIndex + 1
-        Loop
         AddLog("Get Resource Detail from Cache")
-        ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 0, "|")
-        ResourceCategory = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 1, "|")
-        ResourceAuthor = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 2, "|")
-        ResourceLatestVersion = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 3, "|")
-        ResourceDependency = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 4, "|")
-        ResourceCompatible = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 5, "|")
-        ResourceDescription = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 6, "|")
-        ResourceFolderName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 7, "|")
-        ResourceExt = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 8, "|")
-        ResourceURL = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources.txt", CurrentIndex), 9, "|")
-        If Not ResourceCategory = "GameModes" Then
-            ResourceType = "ContentPacks"
-        ElseIf ResourceCategory = "GameModes" Then
-            ResourceType = "GameModes"
-        End If
-        If ResourceType = "ContentPacks" And File.Exists(P3DDirectory + "\" + ResourceType + "\" + ResourceFolderName + "\info.dat") Then
-            ResourceCurrentVersion = Functions.GetTextFromLine(P3DDirectory + "\" + ResourceType + "\" + ResourceFolderName + "\info.dat", 1)
+        ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 2), 1, "|")
+        ResourceType = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 3), 1, "|")
+        ResourceCategory = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 4), 1, "|")
+        ResourceAuthor = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 5), 1, "|")
+        ResourceLatestVersion = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 6), 1, "|")
+        ResourceDependency = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 7), 1, "|")
+        ResourceCompatible = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 8), 1, "|")
+        ResourceDescription = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 9), 1, "|")
+        ResourceURL = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 10), 1, "|")
+        ResourceExtention = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 11), 1, "|")
+        DownloadLocation = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 13), 1, "|")
+        UninstallLocation = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 14), 1, "|")
+        DeleteFiles = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 15), 1, "|")
+        CustomOption = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 16), 1, "|")
+        If ResourceType = "ContentPacks" And File.Exists(P3DDirectory + "\ContentPacks\" + ResourceName + "\info.dat") Then
+            ResourceCurrentVersion = Functions.GetTextFromLine(P3DDirectory + "\ContentPacks\" + ResourceName + "\info.dat", 1)
             ResourceInstalled = "True"
             Resources_Remove.Enabled = True
-        ElseIf ResourceType = "GameModes" And File.Exists(P3DDirectory + "\" + ResourceType + "\" + ResourceFolderName + "\GameMode.dat") Then
-            ResourceCurrentVersion = Functions.GetSplit(Functions.GetTextFromLine(P3DDirectory + "\" + ResourceType + "\" + ResourceFolderName + "\GameMode.dat", 3), 1, "|")
+        ElseIf ResourceType = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + ResourceName + "\GameMode.dat") Then
+            ResourceCurrentVersion = Functions.GetSplit(Functions.GetTextFromLine(P3DDirectory + "\GameModes\" + ResourceName + "\GameMode.dat", 3), 1, "|")
             ResourceInstalled = "True"
             Resources_Remove.Enabled = True
         Else
@@ -422,6 +421,11 @@ Public Class FileCheck
             Resources_Update.Enabled = False
         Else
             Resources_Update.Enabled = True
+        End If
+        If ResourceCompatible = File.ReadAllText(LauncherDirectory + "\ID.dat") Then
+            ResourceCompatible = "True"
+        Else
+            ResourceCompatible = "Limited or False"
         End If
         Resources_ContentCategory.Text = ResourceCategory
         Resources_Author.Text = ResourceAuthor
@@ -462,19 +466,22 @@ Public Class FileCheck
     End Sub
 
     Private Sub TabControl2_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles TabControl2.SelectedIndexChanged
-        ResourceType = Nothing
         ResourceName = Nothing
+        ResourceType = Nothing
         ResourceCategory = Nothing
         ResourceAuthor = Nothing
         ResourceCurrentVersion = Nothing
         ResourceLatestVersion = Nothing
         ResourceDependency = Nothing
         ResourceCompatible = Nothing
-        ResourceInstalled = Nothing
         ResourceDescription = Nothing
-        ResourceFolderName = Nothing
         ResourceURL = Nothing
-        ResourceExt = Nothing
+        ResourceExtention = Nothing
+        ResourceInstalled = Nothing
+        DownloadLocation = Nothing
+        UninstallLocation = Nothing
+        DeleteFiles = Nothing
+        CustomOption = Nothing
         Resources_ContentCategory.Text = ResourceCategory
         Resources_Author.Text = ResourceAuthor
         Resources_CurrentVersion.Text = ResourceCurrentVersion
@@ -490,19 +497,22 @@ Public Class FileCheck
     Private Sub Resources_Remove_Click(sender As System.Object, e As System.EventArgs) Handles Resources_Remove.Click
         Functions.PlaySystemSound()
         Uninstall.ShowDialog()
-        ResourceType = Nothing
         ResourceName = Nothing
+        ResourceType = Nothing
         ResourceCategory = Nothing
         ResourceAuthor = Nothing
         ResourceCurrentVersion = Nothing
         ResourceLatestVersion = Nothing
         ResourceDependency = Nothing
         ResourceCompatible = Nothing
-        ResourceInstalled = Nothing
         ResourceDescription = Nothing
-        ResourceFolderName = Nothing
         ResourceURL = Nothing
-        ResourceExt = Nothing
+        ResourceExtention = Nothing
+        ResourceInstalled = Nothing
+        DownloadLocation = Nothing
+        UninstallLocation = Nothing
+        DeleteFiles = Nothing
+        CustomOption = Nothing
         Resources_ContentCategory.Text = ResourceCategory
         Resources_Author.Text = ResourceAuthor
         Resources_CurrentVersion.Text = ResourceCurrentVersion
@@ -511,24 +521,29 @@ Public Class FileCheck
         Resources_Compatible.Text = ResourceCompatible
         Resources_Installed.Text = ResourceInstalled
         Resources_Description.Text = ResourceDescription
+        Resources_Update.Enabled = False
+        Resources_Remove.Enabled = False
         SupportedResources()
     End Sub
 
     Private Sub Resources_Update_Click(sender As System.Object, e As System.EventArgs) Handles Resources_Update.Click
         Downloader.ShowDialog()
-        ResourceType = Nothing
         ResourceName = Nothing
+        ResourceType = Nothing
         ResourceCategory = Nothing
         ResourceAuthor = Nothing
         ResourceCurrentVersion = Nothing
         ResourceLatestVersion = Nothing
         ResourceDependency = Nothing
         ResourceCompatible = Nothing
-        ResourceInstalled = Nothing
         ResourceDescription = Nothing
-        ResourceFolderName = Nothing
         ResourceURL = Nothing
-        ResourceExt = Nothing
+        ResourceExtention = Nothing
+        ResourceInstalled = Nothing
+        DownloadLocation = Nothing
+        UninstallLocation = Nothing
+        DeleteFiles = Nothing
+        CustomOption = Nothing
         Resources_ContentCategory.Text = ResourceCategory
         Resources_Author.Text = ResourceAuthor
         Resources_CurrentVersion.Text = ResourceCurrentVersion
@@ -537,7 +552,8 @@ Public Class FileCheck
         Resources_Compatible.Text = ResourceCompatible
         Resources_Installed.Text = ResourceInstalled
         Resources_Description.Text = ResourceDescription
-        SupportedResources()
+        Resources_Update.Enabled = False
+        Resources_Remove.Enabled = False
     End Sub
 #End Region
 

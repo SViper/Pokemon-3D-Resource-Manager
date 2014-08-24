@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FileCheck
+Partial Class Main
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class FileCheck
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FileCheck))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.Logger_Log = New System.Windows.Forms.RichTextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Resources1 = New System.Windows.Forms.TabPage()
@@ -167,7 +167,7 @@ Partial Class FileCheck
         Me.TableLayoutPanel3.RowCount = 2
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(662, 131)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(662, 138)
         Me.TableLayoutPanel3.TabIndex = 22
         '
         'TableLayoutPanel2
@@ -180,18 +180,18 @@ Partial Class FileCheck
         Me.TableLayoutPanel2.Controls.Add(Me.Label4, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Resources_Description, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 101)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 106)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(656, 27)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(656, 29)
         Me.TableLayoutPanel2.TabIndex = 19
         '
         'Label4
         '
         Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(32, 7)
+        Me.Label4.Location = New System.Drawing.Point(32, 8)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(63, 13)
         Me.Label4.TabIndex = 0
@@ -202,7 +202,7 @@ Partial Class FileCheck
         Me.Resources_Description.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Description.AutoEllipsis = True
         Me.Resources_Description.AutoSize = True
-        Me.Resources_Description.Location = New System.Drawing.Point(101, 7)
+        Me.Resources_Description.Location = New System.Drawing.Point(101, 8)
         Me.Resources_Description.Name = "Resources_Description"
         Me.Resources_Description.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Description.TabIndex = 32
@@ -239,7 +239,7 @@ Partial Class FileCheck
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(656, 92)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(656, 97)
         Me.TableLayoutPanel1.TabIndex = 18
         '
         'Resources_Installed
@@ -247,7 +247,7 @@ Partial Class FileCheck
         Me.Resources_Installed.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Installed.AutoEllipsis = True
         Me.Resources_Installed.AutoSize = True
-        Me.Resources_Installed.Location = New System.Drawing.Point(418, 51)
+        Me.Resources_Installed.Location = New System.Drawing.Point(418, 53)
         Me.Resources_Installed.Name = "Resources_Installed"
         Me.Resources_Installed.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Installed.TabIndex = 31
@@ -258,7 +258,7 @@ Partial Class FileCheck
         Me.Resources_Compatible.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Compatible.AutoEllipsis = True
         Me.Resources_Compatible.AutoSize = True
-        Me.Resources_Compatible.Location = New System.Drawing.Point(418, 28)
+        Me.Resources_Compatible.Location = New System.Drawing.Point(418, 29)
         Me.Resources_Compatible.Name = "Resources_Compatible"
         Me.Resources_Compatible.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Compatible.TabIndex = 30
@@ -301,7 +301,7 @@ Partial Class FileCheck
         '
         Me.Label15.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(350, 28)
+        Me.Label15.Location = New System.Drawing.Point(350, 29)
         Me.Label15.Margin = New System.Windows.Forms.Padding(3)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(62, 13)
@@ -312,7 +312,7 @@ Partial Class FileCheck
         '
         Me.Label5.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(54, 28)
+        Me.Label5.Location = New System.Drawing.Point(54, 29)
         Me.Label5.Margin = New System.Windows.Forms.Padding(3)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(41, 13)
@@ -323,7 +323,7 @@ Partial Class FileCheck
         '
         Me.Label13.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(13, 51)
+        Me.Label13.Location = New System.Drawing.Point(13, 53)
         Me.Label13.Margin = New System.Windows.Forms.Padding(3)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(82, 13)
@@ -334,7 +334,7 @@ Partial Class FileCheck
         '
         Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(363, 51)
+        Me.Label6.Location = New System.Drawing.Point(363, 53)
         Me.Label6.Margin = New System.Windows.Forms.Padding(3)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(49, 13)
@@ -345,7 +345,7 @@ Partial Class FileCheck
         '
         Me.Label12.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(18, 74)
+        Me.Label12.Location = New System.Drawing.Point(18, 78)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(77, 13)
@@ -368,7 +368,7 @@ Partial Class FileCheck
         Me.Resources_Author.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_Author.AutoEllipsis = True
         Me.Resources_Author.AutoSize = True
-        Me.Resources_Author.Location = New System.Drawing.Point(101, 28)
+        Me.Resources_Author.Location = New System.Drawing.Point(101, 29)
         Me.Resources_Author.Name = "Resources_Author"
         Me.Resources_Author.Size = New System.Drawing.Size(39, 13)
         Me.Resources_Author.TabIndex = 26
@@ -379,7 +379,7 @@ Partial Class FileCheck
         Me.Resources_CurrentVersion.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_CurrentVersion.AutoEllipsis = True
         Me.Resources_CurrentVersion.AutoSize = True
-        Me.Resources_CurrentVersion.Location = New System.Drawing.Point(101, 51)
+        Me.Resources_CurrentVersion.Location = New System.Drawing.Point(101, 53)
         Me.Resources_CurrentVersion.Name = "Resources_CurrentVersion"
         Me.Resources_CurrentVersion.Size = New System.Drawing.Size(39, 13)
         Me.Resources_CurrentVersion.TabIndex = 27
@@ -390,7 +390,7 @@ Partial Class FileCheck
         Me.Resources_LatestVersion.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Resources_LatestVersion.AutoEllipsis = True
         Me.Resources_LatestVersion.AutoSize = True
-        Me.Resources_LatestVersion.Location = New System.Drawing.Point(101, 74)
+        Me.Resources_LatestVersion.Location = New System.Drawing.Point(101, 78)
         Me.Resources_LatestVersion.Name = "Resources_LatestVersion"
         Me.Resources_LatestVersion.Size = New System.Drawing.Size(39, 13)
         Me.Resources_LatestVersion.TabIndex = 28
@@ -466,6 +466,7 @@ Partial Class FileCheck
         Me.AllResources_Supported.Location = New System.Drawing.Point(3, 3)
         Me.AllResources_Supported.Name = "AllResources_Supported"
         Me.AllResources_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.AllResources_Supported.Sorted = True
         Me.AllResources_Supported.TabIndex = 20
         '
         'AllContentPacks
@@ -486,6 +487,7 @@ Partial Class FileCheck
         Me.AllContentPacks_Supported.Location = New System.Drawing.Point(3, 3)
         Me.AllContentPacks_Supported.Name = "AllContentPacks_Supported"
         Me.AllContentPacks_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.AllContentPacks_Supported.Sorted = True
         Me.AllContentPacks_Supported.TabIndex = 21
         '
         'TabPage1
@@ -506,6 +508,7 @@ Partial Class FileCheck
         Me.InstalledContentPacks_Supported.Location = New System.Drawing.Point(3, 3)
         Me.InstalledContentPacks_Supported.Name = "InstalledContentPacks_Supported"
         Me.InstalledContentPacks_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.InstalledContentPacks_Supported.Sorted = True
         Me.InstalledContentPacks_Supported.TabIndex = 22
         '
         'TabPage2
@@ -526,6 +529,7 @@ Partial Class FileCheck
         Me.AllGameModes_Supported.Location = New System.Drawing.Point(3, 3)
         Me.AllGameModes_Supported.Name = "AllGameModes_Supported"
         Me.AllGameModes_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.AllGameModes_Supported.Sorted = True
         Me.AllGameModes_Supported.TabIndex = 23
         '
         'TabPage3
@@ -546,6 +550,7 @@ Partial Class FileCheck
         Me.InstalledGameModes_Supported.Location = New System.Drawing.Point(3, 3)
         Me.InstalledGameModes_Supported.Name = "InstalledGameModes_Supported"
         Me.InstalledGameModes_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.InstalledGameModes_Supported.Sorted = True
         Me.InstalledGameModes_Supported.TabIndex = 24
         '
         'TabPage4
@@ -566,6 +571,7 @@ Partial Class FileCheck
         Me.ResourceUpdate_Supported.Location = New System.Drawing.Point(3, 3)
         Me.ResourceUpdate_Supported.Name = "ResourceUpdate_Supported"
         Me.ResourceUpdate_Supported.Size = New System.Drawing.Size(656, 226)
+        Me.ResourceUpdate_Supported.Sorted = True
         Me.ResourceUpdate_Supported.TabIndex = 25
         '
         'Panel2
@@ -743,7 +749,7 @@ Partial Class FileCheck
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.Text = resources.GetString("RichTextBox1.Text")
         '
-        'FileCheck
+        'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -754,7 +760,7 @@ Partial Class FileCheck
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(700, 500)
         Me.MinimumSize = New System.Drawing.Size(700, 500)
-        Me.Name = "FileCheck"
+        Me.Name = "Main"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pokémon 3D Resource Manager"

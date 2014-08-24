@@ -12,7 +12,7 @@ Public Class Functions
         End If
         Dim ErrorLog As String =
             "[CODE]" + vbNewLine +
-            "Pokémon 3D Resource Manager Crash Log v" + FileCheck.ApplicationVersion + vbNewLine +
+            "Pokémon 3D Resource Manager Crash Log v" + Main.ApplicationVersion + vbNewLine +
             "--------------------------------------------------" + vbNewLine +
             vbNewLine +
             "System specifications:" + vbNewLine +
@@ -43,18 +43,18 @@ Public Class Functions
             "Go to: http://pokemon3d.net/forum/threads/8234/ to report this crash there." + vbNewLine +
             "Alternatively, if you have a GitHub account, you may report this crash at https://github.com/jianmingyong/Pokemon-3D-Resource-Manager/issues/new/" + vbNewLine +
             "[/CODE]"
-        If Not Directory.Exists(FileCheck.ApplicationDirectory + "\CrashLogs") Then
-            Directory.CreateDirectory(FileCheck.ApplicationDirectory + "\CrashLogs")
+        If Not Directory.Exists(Main.ApplicationDirectory + "\CrashLogs") Then
+            Directory.CreateDirectory(Main.ApplicationDirectory + "\CrashLogs")
         End If
-        File.WriteAllText(FileCheck.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat", ErrorLog)
-        MsgBox(Message + vbNewLine + vbNewLine + "Error Log saved at: " + FileCheck.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat")
-        FileCheck.AddLog(Message + vbNewLine + vbNewLine + "Error Log saved at: " + FileCheck.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat")
+        File.WriteAllText(Main.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat", ErrorLog)
+        MsgBox(Message + vbNewLine + vbNewLine + "Error Log saved at: " + Main.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat")
+        Main.AddLog(Message + vbNewLine + vbNewLine + "Error Log saved at: " + Main.ApplicationDirectory + "\CrashLogs\Crash_" + (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds.ToString + ".dat")
     End Sub
 
     Public Shared Sub ReturnMessage(ByVal Message As String)
         PlaySystemSound()
-        MsgBox(Message)
-        FileCheck.AddLog(Message)
+        MsgBox(Message, MsgBoxStyle.Information)
+        Main.AddLog(Message)
     End Sub
 
     Public Shared Function GetTextFromLine(ByVal Directory As String, ByVal Line As Integer)
@@ -92,5 +92,20 @@ Public Class Functions
     Public Shared Sub PlaySystemSound()
         My.Computer.Audio.PlaySystemSound( _
             System.Media.SystemSounds.Asterisk)
+    End Sub
+
+    Public Shared Sub Run(ByVal File As String, Optional ByVal Argument As String = Nothing, Optional ByVal Close As Boolean = False)
+        Try
+            If Argument = Nothing Then
+                Process.Start(File)
+            Else
+                Process.Start(File, Argument)
+            End If
+            If Close = True Then
+                Application.Exit()
+            End If
+        Catch ex As Exception
+            ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
+        End Try
     End Sub
 End Class
