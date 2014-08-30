@@ -139,21 +139,12 @@ Public Class Downloader
         If Main.ResourceExtention = "rar" Then
             Try
                 d = New Decompressor(FileLocation + "\" + Main.ResourceName + "." + Main.ResourceExtention)
-                If Main.DownloadLocation = Nothing Then
                     For Each r As Decompressor.RAREntry In d.RARFiles
                         StatusText.Focus()
                         d.UnPack(r.FileName.ToString(), FileLocation)
                         StatusText.AppendText(vbNewLine + r.FileName.ToString)
                         Application.DoEvents()
                     Next
-                ElseIf Not Main.DownloadLocation = Nothing Then
-                    For Each r As Decompressor.RAREntry In d.RARFiles
-                        StatusText.Focus()
-                        d.UnPack(r.FileName.ToString(), FileLocation)
-                        StatusText.AppendText(vbNewLine + r.FileName.ToString)
-                        Application.DoEvents()
-                    Next
-                End If
                 File.Delete(FileLocation + "\" + Main.ResourceName + "." + Main.ResourceExtention)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")
                 If Main.DeleteFiles = Nothing Then
@@ -185,21 +176,12 @@ Public Class Downloader
             Try
                 Using zip As ZipFile = ZipFile.Read(FileLocation + "\" + Main.ResourceName + "." + Main.ResourceExtention)
                     Dim e As ZipEntry
-                    If Main.DownloadLocation = Nothing Then
                         For Each e In zip
                             StatusText.Focus()
                             e.Extract(FileLocation, ExtractExistingFileAction.OverwriteSilently)
                             StatusText.AppendText(vbNewLine + e.FileName.ToString)
                             Application.DoEvents()
                         Next
-                    ElseIf Not Main.DownloadLocation = Nothing Then
-                        For Each e In zip
-                            StatusText.Focus()
-                            e.Extract(FileLocation, ExtractExistingFileAction.OverwriteSilently)
-                            StatusText.AppendText(vbNewLine + e.FileName.ToString)
-                            Application.DoEvents()
-                        Next
-                    End If
                 End Using
                 File.Delete(FileLocation + "\" + Main.ResourceName + "." + Main.ResourceExtention)
                 StatusText.AppendText(vbNewLine + "Extracting Completed!")

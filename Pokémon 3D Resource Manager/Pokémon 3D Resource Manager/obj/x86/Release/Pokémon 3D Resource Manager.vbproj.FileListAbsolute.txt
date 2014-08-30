@@ -1,13 +1,12 @@
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Release\Pokémon 3D Resource Manager.exe
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Release\Pokémon 3D Resource Manager.xml
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Release\Ionic.Zip.dll
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Release\UnRARNET.xml
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon 3D Resource Manager.vbprojResolveAssemblyReference.cache
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon3D.Resources.resources
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon3D.Downloader.resources
+C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon3D.Main.resources
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon3D.Uninstall.resources
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon 3D Resource Manager.vbproj.GenerateResource.Cache
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon 3D Resource Manager.exe
 C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon 3D Resource Manager.xml
-C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\bin\Release\UnRARNET.xml
-C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon3D.Main.resources
-C:\Users\Xiong\Documents\Visual Studio 2010\Projects\Pokémon 3D Resource Manager\Pokémon 3D Resource Manager\obj\x86\Release\Pokémon3D.CheckForUpdate.resources
