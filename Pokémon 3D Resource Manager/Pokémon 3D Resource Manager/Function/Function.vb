@@ -108,4 +108,13 @@ Public Class Functions
             ReturnError(ex.Message, ex.HelpLink, ex.StackTrace)
         End Try
     End Sub
+
+    Public Shared Function GetFileNameByURL(ByVal Url As String)
+        Dim str1 = Url.Remove(0, 96)
+        str1 = str1.Remove(str1.Length.ToString - 4)
+        str1 = str1.Replace("%C3%A9", "é")
+        str1 = str1.Replace("%20", " ")
+        Return str1
+    End Function
+
 End Class

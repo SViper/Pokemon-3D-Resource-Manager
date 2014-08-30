@@ -42,6 +42,7 @@ Public Class Main
     Public CurrentP3DVersion As String
     Public LatestP3DVersion As String
 
+
     Private Sub FileCheck_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         CheckRequiredDLL()
         GetSetting()
@@ -345,7 +346,7 @@ Public Class Main
             AddLog("Cache Folder created at: " + ApplicationDirectory + "\Cache\Resources")
             Do While Not CurrentResource > TotalResource
                 Dim DownloadURL As String = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentResource + 1), 1, "|")
-                ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentResource + 1), 0, "|")
+                ResourceName = Functions.GetFileNameByURL(DownloadURL)
                 AddLog("Downloading " + ResourceName)
                 Dim DownloadString As String = client.DownloadString(DownloadURL)
                 File.WriteAllText(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", DownloadString, System.Text.Encoding.UTF8)
@@ -374,7 +375,7 @@ Public Class Main
                 If Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex).ToString.StartsWith("<!--") Then
                     CurrentIndex = CurrentIndex + 1
                 Else
-                    ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|")
+                    ResourceName = Functions.GetFileNameByURL(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 1, "|"))
                     ResourceType = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 3), 1, "|")
                     If ResourceType = "ContentPacks" Then
                         ResourceCurrentVersion = Functions.GetTextFromLine(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\info.dat", 1)
@@ -382,24 +383,24 @@ Public Class Main
                         ResourceCurrentVersion = Functions.GetSplit(Functions.GetTextFromLine(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\GameMode.dat", 3), 1, "|")
                     End If
                     ResourceLatestVersion = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 6), 1, "|")
-                    AllResources_Supported.Items.Add(ResourceName)
+                    AllResources_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|"))
                     If ResourceType = "ContentPacks" Then
-                        AllContentPacks_Supported.Items.Add(ResourceName)
+                        AllContentPacks_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|"))
                     End If
                     If ResourceType = "GameModes" Then
-                        AllGameModes_Supported.Items.Add(ResourceName)
+                        AllGameModes_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|"))
                     End If
                     If ResourceType = "ContentPacks" And File.Exists(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\info.dat") Then
-                        InstalledContentPacks_Supported.Items.Add(ResourceName)
+                        InstalledContentPacks_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|"))
                     End If
                     If ResourceType = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\GameMode.dat") Then
-                        InstalledGameModes_Supported.Items.Add(ResourceName)
+                        InstalledGameModes_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|"))
                     End If
                     If ResourceType = "ContentPacks" And File.Exists(P3DDirectory + "\ContentPacks\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\info.dat") And Not ResourceCurrentVersion = ResourceLatestVersion Then
-                        ResourceUpdate_Supported.Items.Add(ResourceName)
+                        ResourceUpdate_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|"))
                     End If
                     If ResourceType = "GameModes" And File.Exists(P3DDirectory + "\GameModes\" + Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + ResourceName + ".dat", 2), 1, "|") + "\GameMode.dat") And Not ResourceCurrentVersion = ResourceLatestVersion Then
-                        ResourceUpdate_Supported.Items.Add(ResourceName)
+                        ResourceUpdate_Supported.Items.Add(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|"))
                     End If
                     CurrentIndex = CurrentIndex + 1
                 End If
@@ -412,6 +413,11 @@ Public Class Main
     Private Sub GetResourcesDetail(ByVal Name As String)
         Try
             AddLog("Get Resource Detail from Cache")
+            Dim CurrentIndex As Integer = 2
+            Do While Not Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 0, "|") = Name
+                CurrentIndex = CurrentIndex + 1
+            Loop
+            Name = Functions.GetFileNameByURL(Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\ResourcesList.dat", CurrentIndex), 1, "|"))
             ResourceName = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 2), 1, "|")
             ResourceType = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 3), 1, "|")
             ResourceCategory = Functions.GetSplit(Functions.GetTextFromLine(ApplicationDirectory + "\Cache\Resources\" + Name + ".dat", 4), 1, "|")
